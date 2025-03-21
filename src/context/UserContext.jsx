@@ -79,8 +79,9 @@ export default function UserProvider({ children }) {
    */
   const handleLogin = async (userInfo) => {
     const response = await login(userInfo);
+    console.log(response);
 
-    if (!response.error) {
+    if (response && !response.error) {
       setUser({
         ...user,
         firstName: response.data.firstName,
@@ -90,8 +91,6 @@ export default function UserProvider({ children }) {
         id: response.data.id,
         gender: response.data.gender,
         phone: response.data.phone,
-        // rolesAll: response.data.roles,
-        // roles: response.data?.roles?.map((role) => ROLES[role.roleId]),
       });
     } else setUser(null);
   };
