@@ -1,0 +1,3 @@
+const PAGINATION_LIMIT = 10;
+
+export { PAGINATION_LIMIT };
