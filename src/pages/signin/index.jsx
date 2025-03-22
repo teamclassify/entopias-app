@@ -2,7 +2,7 @@ import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
-import DefaultLayout from "@/components/layouts/DefaultLayout";
+import SignLayout from "@/components/layouts/SignLayout";
 import useUser from "@/hooks/useUser";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -31,20 +31,22 @@ function SignIn() {
   };
 
   return (
-    <DefaultLayout>
-      <h1>Iniciar Sesion</h1>
-
-      <form onSubmit={handleSignUp} className="grid w-full items-center gap-4">
-        <div className="flex flex-row space-x-5 space-y-1.5 gap-5 items-center">
-          <Label htmlFor="email">Correo</Label>
+    <SignLayout>
+      <form onSubmit={handleSignUp} className="max-w-sm mx-4 grid gap-4">
+        <div>
+          <Label htmlFor="email" className="mb-2 font-bold">
+            Correo electronico
+          </Label>
           <Input
             id="email"
-            placeholder="Ejemplo@correo.com"
+            placeholder="ejemplo@correo.com"
             autoComplete="email"
           />
         </div>
-        <div className="flex flex-row gap-3 items-center justify-space-between">
-          <Label htmlFor="passwd">Contraseña</Label>
+        <div>
+          <Label htmlFor="passwd" className="mb-2 font-bold">
+            Contraseña
+          </Label>
           <Input
             id="passwd"
             placeholder="********"
@@ -70,20 +72,11 @@ function SignIn() {
             <Button variant="link">¿Olvidaste tu contraseña?</Button>
           </Link>
         </div>
-        <div className="flex justify-between">
-          <Button className="px-12" type="submit">
-            Ingresar
-          </Button>
-          <div className="flex gap-2">
-            <Button
-              variant="Link"
-              onClick={loginWithGoogle}
-              className="text-lg p-2"
-            >
-              <FcGoogle className="text-2xl" />
-            </Button>
-          </div>
-        </div>
+
+        <Button className="px-12 w-full cursor-pointer" type="submit">
+          Ingresar
+        </Button>
+
         <div className="flex justify-start items-center">
           <label
             htmlFor="newuser"
@@ -97,8 +90,17 @@ function SignIn() {
             </Button>
           </Link>
         </div>
+
+        <Button
+          variant="secondary"
+          onClick={loginWithGoogle}
+          className="p-2 w-full cursor-pointer"
+        >
+          Ingresar con Google
+          <FcGoogle className="text-2xl" />
+        </Button>
       </form>
-    </DefaultLayout>
+    </SignLayout>
   );
 }
 

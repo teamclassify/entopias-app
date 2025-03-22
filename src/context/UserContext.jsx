@@ -84,8 +84,7 @@ export default function UserProvider({ children }) {
     if (response && !response.error) {
       setUser({
         ...user,
-        firstName: response.data.firstName,
-        lastName: response.data.lastName,
+        name: response.data.name,
         photo: response.data.photo,
         email: response.data.email,
         id: response.data.id,
@@ -101,7 +100,7 @@ export default function UserProvider({ children }) {
         const userInfo = {
           email: user.email,
           id: user.uid,
-          firstName:
+          name:
             user.displayName && user.displayName?.length > 0
               ? user.displayName
               : formatEmail(user.email || ""),
@@ -133,7 +132,7 @@ export default function UserProvider({ children }) {
     const fetchUser = async () => {
       if (accessToken && user) {
         await handleLogin({
-          firstName: user.firstName,
+          name: user.name,
           email: user.email,
           photo: user.photo,
           id: user.id,
