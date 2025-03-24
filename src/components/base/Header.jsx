@@ -15,6 +15,9 @@ import {
 function Header() {
   const { user, logout } = useUser();
 
+  const userIsAdminOrSales =
+    user?.roles.includes("admin") || user?.roles.includes("sales");
+
   return (
     <header>
       {user ? (
@@ -33,6 +36,12 @@ function Header() {
               <Link href="/perfil/inicio">
                 <DropdownMenuItem>Perfil</DropdownMenuItem>
               </Link>
+
+              {userIsAdminOrSales && (
+                <Link href="/admin">
+                  <DropdownMenuItem>Administración</DropdownMenuItem>
+                </Link>
+              )}
 
               <Link href="/perfil/pedidos">
                 <DropdownMenuItem>Pedidos</DropdownMenuItem>
