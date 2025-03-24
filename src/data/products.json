@@ -2,11 +2,11 @@
   {
     "id": 1,
     "name": "Café Premium",
-    "description": "Café 100% colombiano",
+    "description": "\"Un café de origen colombiano con aroma y sabores intensos.\"",
     "price": "$25.000",
     "sabor": "Chocolate",
     "tostado": "Medio",
-    "presentacion": "Bolsa de 500g",
+    "presentacion": "500g",
     "cantidad": 50,
     "imagen": "cafe.png"
 
@@ -14,11 +14,11 @@
   {
     "id": 2,
     "name": "Café Especial",
-    "description": "Mezcla de granos selectos",
+    "description": "\"Rica mezcla de granos selectos para el día a día\"",
     "price": "$30.000",
     "sabor": "Vainilla",
     "tostado": "Oscuro",
-    "presentacion": "Bolsa de 1kg",
+    "presentacion": "150g",
     "cantidad": 30,
     "imagen": "cafe.png"
   }
