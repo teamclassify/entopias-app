@@ -5,6 +5,7 @@ import HomePage from "./pages/home";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import AdminPage from "./pages/admin";
+import ProductsCreatePage from "./pages/products/create";
 
 function App() {
   return (
@@ -17,6 +18,12 @@ function App() {
         <Route component={SignUpPage} path="/registrarse" />
 
         <Route component={AdminPage} path="/admin" />
+
+        <Route component={ProductsCreatePage} path="/admin/productos/agregar" />
+
+        <Route>
+          <h1>404 Not Found</h1>
+        </Route>
       </Switch>
     </>
   );
