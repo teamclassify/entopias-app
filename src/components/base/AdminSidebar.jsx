@@ -46,17 +46,17 @@ const items = [
   },
   {
     title: "Produtos",
-    url: "/admin/produtos",
+    url: "/admin/productos",
     icon: Package,
     subitems: [
       {
         title: "Ver Produtos",
-        url: "/admin/produtos",
+        url: "/admin/productos",
         icon: List,
       },
       {
         title: "Agregar Producto",
-        url: "/admin/produtos/agregar",
+        url: "/admin/productos/agregar",
         icon: FilePlus,
       },
     ],
