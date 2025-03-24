@@ -7,7 +7,9 @@
     "sabor": "Chocolate",
     "tostado": "Medio",
     "presentacion": "Bolsa de 500g",
-    "cantidad": 50
+    "cantidad": 50,
+    "imagen": "cafe.png"
+
   },
   {
     "id": 2,
@@ -17,6 +19,7 @@
     "sabor": "Vainilla",
     "tostado": "Oscuro",
     "presentacion": "Bolsa de 1kg",
-    "cantidad": 30
+    "cantidad": 30,
+    "imagen": "cafe.png"
   }
 ]
