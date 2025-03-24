@@ -1,105 +1,149 @@
-import { Link, useLocation } from "wouter";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
+import { Link, useLocation } from "wouter";
+import { z } from "zod";
 
 import SignLayout from "@/components/layouts/SignLayout";
 import useUser from "@/hooks/useUser";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+
+const formSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
 
 function SignIn() {
   const [, setLocation] = useLocation();
   const { loginWithGoogle, loginWithEmail } = useUser();
   const [showPassword, setShowPassword] = useState(false);
 
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    const email = e.target[0].value;
-    const password = e.target[1].value;
-
+  async function onSubmit({ email, password }) {
     const res = await loginWithEmail(email, password);
 
     if (res.status === 200) {
       setLocation("/");
+    } else {
+      toast.error("Credenciales incorrectas");
     }
+  }
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
     <SignLayout>
-      <form onSubmit={handleSignUp} className="max-w-sm mx-4 grid gap-4">
-        <div>
-          <Label htmlFor="email" className="mb-2 font-bold">
-            Correo electronico
-          </Label>
-          <Input
-            id="email"
-            placeholder="ejemplo@correo.com"
-            autoComplete="email"
-          />
-        </div>
-        <div>
-          <Label htmlFor="passwd" className="mb-2 font-bold">
-            Contraseña
-          </Label>
-          <Input
-            id="passwd"
-            placeholder="********"
-            type={showPassword ? "text" : "password"}
-            autoComplete="current-password"
-          />
-        </div>
-        <div className="flex justify-between">
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="showpasswd"
-              checked={showPassword}
-              onCheckedChange={toggleShowPassword}
-            />
-            <label
-              htmlFor="showpasswd"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Mostrar Contraseña
-            </label>
-          </div>
-          <Link to="/recuperar">
-            <Button variant="link">¿Olvidaste tu contraseña?</Button>
-          </Link>
-        </div>
-
-        <Button className="px-12 w-full cursor-pointer" type="submit">
-          Ingresar
-        </Button>
-
-        <div className="flex justify-start items-center">
-          <label
-            htmlFor="newuser"
-            className="text-sm font-medium leading-none text-gray-400 mr-1"
-          >
-            ¿Eres nuevo?
-          </label>
-          <Link to="/registrarse">
-            <Button variant="link" className="p-0">
-              Crea tu cuenta
-            </Button>
-          </Link>
-        </div>
-
-        <Button
-          variant="secondary"
-          onClick={loginWithGoogle}
-          className="p-2 w-full cursor-pointer"
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="max-w-sm mx-4 grid gap-4"
         >
-          Ingresar con Google
-          <FcGoogle className="text-2xl" />
-        </Button>
-      </form>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  Correo electronico
+                  <span className="text-red-500">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder="ejemplo@correo.com" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  Contraseña
+                  <span className="text-red-500">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="********"
+                    type={showPassword ? "text" : "password"}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="flex justify-between">
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="showpasswd"
+                checked={showPassword}
+                onCheckedChange={toggleShowPassword}
+              />
+              <label
+                htmlFor="showpasswd"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Mostrar Contraseña
+              </label>
+            </div>
+            <Link to="/recuperar">
+              <Button variant="link">¿Olvidaste tu contraseña?</Button>
+            </Link>
+          </div>
+
+          <Button className="px-12 w-full cursor-pointer" type="submit">
+            Ingresar
+          </Button>
+
+          <div className="flex justify-start items-center">
+            <label
+              htmlFor="newuser"
+              className="text-sm font-medium leading-none text-gray-400 mr-1"
+            >
+              ¿Eres nuevo?
+            </label>
+            <Link to="/registrarse">
+              <Button variant="link" className="p-0">
+                Crea tu cuenta
+              </Button>
+            </Link>
+          </div>
+
+          <Button
+            variant="secondary"
+            onClick={loginWithGoogle}
+            className="p-2 w-full cursor-pointer"
+          >
+            Ingresar con Google
+            <FcGoogle className="text-2xl" />
+          </Button>
+        </form>
+      </Form>
     </SignLayout>
   );
 }
