@@ -1,6 +1,5 @@
 import { createContext, useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
-import { toast } from "sonner";
 
 import { auth } from "../config/firebase";
 import { login } from "../services/api/Auth";
@@ -20,10 +19,13 @@ export default function UserProvider({ children }) {
   const [accessToken, setAccessToken] = useState();
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const registerWithEmail = async (email, password) => {
+  const registerWithEmail = async (email, password, name) => {
+    setName(name);
+
     return signUpWithEmailAndPassword(email, password).then((res) => {
       return res;
     });
@@ -64,6 +66,7 @@ export default function UserProvider({ children }) {
           setLocation("/");
           setLoading(false);
           setToken(null);
+          setName("");
           setAccessToken(undefined);
           setLoggedIn(undefined);
 
@@ -132,15 +135,15 @@ export default function UserProvider({ children }) {
     };
   }, []);
 
-  useEffect(() => {
-    if (error) toast(error);
-  }, [error]);
+  // useEffect(() => {
+  //   if (error) toast(error);
+  // }, [error]);
 
   useEffect(() => {
     const fetchUser = async () => {
       if (accessToken && user) {
         await handleLogin({
-          name: user.name,
+          name: name || user.name,
           email: user.email,
           photo: user.photo,
           id: user.id,
