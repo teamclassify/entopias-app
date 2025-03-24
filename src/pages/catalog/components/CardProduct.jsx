@@ -3,7 +3,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 function CardProduct() {
   return (
-    <Link href={"/"}>
+    <Link href={"/producto/1"}>
       <div className="card">
         <AspectRatio ratio={9 / 16}>
           <img

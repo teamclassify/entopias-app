@@ -3,7 +3,6 @@ import CardProduct from "./components/CardProduct";
 import Filters from "./components/Filters";
 import PaginationComponent from "./components/Pagination";
 
-
 function Index() {
   return (
     <DefaultLayout>
@@ -13,6 +12,10 @@ function Index() {
             <Filters />
           </aside>
           <main className="w-full md:w-3/4">
+            <div>
+              <p className="font-bold pb-3">Mostrando 8-12 de 15 resultados</p>
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {[...Array(8)].map((_, i) => (
                 <CardProduct key={i} />
@@ -20,7 +23,7 @@ function Index() {
             </div>
           </main>
         </div>
-        <PaginationComponent/>
+        <PaginationComponent />
       </div>
     </DefaultLayout>
   );
