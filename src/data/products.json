@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Café Premium",
+    "description": "Café 100% colombiano",
+    "price": "$25.000",
+    "sabor": "Chocolate",
+    "tostado": "Medio",
+    "presentacion": "Bolsa de 500g",
+    "cantidad": 50
+  },
+  {
+    "id": 2,
+    "name": "Café Especial",
+    "description": "Mezcla de granos selectos",
+    "price": "$30.000",
+    "sabor": "Vainilla",
+    "tostado": "Oscuro",
+    "presentacion": "Bolsa de 1kg",
+    "cantidad": 30
+  }
+]
