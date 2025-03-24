@@ -1,6 +1,8 @@
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import CardProduct from "./components/CardProduct";
 import Filters from "./components/Filters";
+import PaginationComponent from "./components/Pagination";
+
 
 function Index() {
   return (
@@ -18,6 +20,7 @@ function Index() {
             </div>
           </main>
         </div>
+        <PaginationComponent/>
       </div>
     </DefaultLayout>
   );

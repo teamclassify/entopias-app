@@ -7,9 +7,9 @@ function CardProduct() {
       <div className="card">
         <AspectRatio ratio={9 / 16}>
           <img
-            src="/public/entopias_cafe.png"
+            src="/entopias_cafe.png"
             className="card-img-top object-cover h-full w-full rounded-md"
-            alt={""}
+            alt={"imagen de café entopias"}
           />
         </AspectRatio>
 
