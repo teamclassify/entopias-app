@@ -5,18 +5,20 @@ import Filter from "./components/Filter";
 function Index() {
   return (
     <DefaultLayout>
-      <div className="flex flex-col md:flex-row lg:flex-row gap-6 p-4">
-        <div className="lg:w-[300px] lg:sticky lg:top-4 lg:self-start">
-          <Filter />
-        </div>
-        <div className="flex-1">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {[...Array(8)].map((_, i) => (
-              <CardProduct key={i} />
-            ))}
-          </div>
-        </div>
+     <div className="w-full max-w-screen-lg mx-auto">
+  <div className="flex flex-col md:flex-row gap-8 pt-4">
+    <aside className="w-full md:w-1/4">
+      <Filter />
+    </aside>
+    <main className="w-full md:w-3/4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {[...Array(8)].map((_, i) => (
+          <CardProduct key={i} />
+        ))}
       </div>
+    </main>
+  </div>
+</div>
     </DefaultLayout>
   );
 }
