@@ -1,0 +1,148 @@
+import {
+  FilePlus,
+  Home,
+  List,
+  Package,
+  UserRound,
+  UserRoundPen,
+} from "lucide-react";
+
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+} from "@/components/ui/sidebar";
+import { Link, useLocation } from "wouter";
+import { useEffect, useState } from "react";
+
+const items = [
+  {
+    title: "Dashboard",
+    url: "/admin",
+    icon: Home,
+    subitems: [],
+  },
+  {
+    title: "Clientes",
+    url: "/admin/clientes",
+    icon: UserRound,
+    subitems: [
+      {
+        title: "Ver Clientes",
+        url: "/admin/clientes",
+        icon: List,
+      },
+    ],
+  },
+  {
+    title: "Produtos",
+    url: "/admin/productos",
+    icon: Package,
+    subitems: [
+      {
+        title: "Ver Produtos",
+        url: "/admin/productos",
+        icon: List,
+      },
+      {
+        title: "Agregar Producto",
+        url: "/admin/productos/agregar",
+        icon: FilePlus,
+      },
+    ],
+  },
+  {
+    title: "Vendedores",
+    url: "/admin/vendedores",
+    icon: UserRoundPen,
+    subitems: [
+      {
+        title: "Ver Vendedores",
+        url: "/admin/vendedores",
+        icon: List,
+      },
+      {
+        title: "Agregar Vendedor",
+        url: "/admin/vendedores/agregar",
+        icon: FilePlus,
+      },
+    ],
+  },
+];
+
+function AdminSidebar() {
+  const [activePage, setActivePage] = useState("Dashboard");
+  const [location] = useLocation();
+
+  useEffect(() => {
+    const path = location.split("/")[2];
+
+    if (path) {
+      const item = items.find((item) => item.title.toLowerCase() === path);
+      if (item) {
+        setActivePage(item.title);
+      }
+    }
+  }, [location]);
+
+  return (
+    <Sidebar className="border-none">
+      <SidebarHeader className="bg-secondary h-16">
+        <img
+          src="/logo.png"
+          alt="Logo Entopias Cafe"
+          className="w-full max-w-[120px] mx-auto"
+        />
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {items.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={item.title === activePage}
+                  >
+                    <Link href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+
+                  {item.subitems.length > 0 && (
+                    <SidebarMenuSub>
+                      {item.subitems.map((subitem) => (
+                        <SidebarMenuSubItem key={subitem.title}>
+                          <SidebarMenuSubButton asChild>
+                            <Link href={subitem.url}>
+                              <subitem.icon />
+                              <span>{subitem.title}</span>
+                            </Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  )}
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter />
+    </Sidebar>
+  );
+}
+
+export default AdminSidebar;

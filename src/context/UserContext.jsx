@@ -91,13 +91,13 @@ export default function UserProvider({ children }) {
         id: response.data.id,
         gender: response.data.gender,
         phone: response.data.phone,
+        roles: response.data.roles?.map(({ role }) => role.name),
       });
 
       setError(null);
     } else {
       console.log(response);
       setUser(null);
-      // setError("AUTH ERROR: " + response.error);
     }
   };
 
@@ -118,12 +118,9 @@ export default function UserProvider({ children }) {
 
         const token = await user.getIdToken(true);
 
-        console.log(userInfo);
-
         setAccessToken(token);
         setUser(userInfo);
         setLoggedIn(true);
-        // setLoading(false);
       } else {
         setLoading(false);
         setLoggedIn(false);
@@ -147,8 +144,7 @@ export default function UserProvider({ children }) {
           email: user.email,
           photo: user.photo,
           id: user.id,
-          // rolesAll: user?.roles || [],
-          // roles: user.roles?.map((role) => ROLES[role.roleId]),
+          roles: [],
         });
 
         setToken(accessToken);
