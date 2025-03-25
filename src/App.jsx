@@ -3,6 +3,7 @@ import { Route, Switch } from "wouter";
 
 import AdminPage from "./pages/admin";
 import HomePage from "./pages/home";
+import NotFoundPage from "./pages/not-found";
 import ProductsCreatePage from "./pages/products/create";
 import RecoveryPasswordPage from "./pages/recovery-password";
 import RecoveryPasswordCompletedPage from "./pages/recovery-password/completed";
@@ -31,9 +32,7 @@ function App() {
         <Route component={ProductCatalog} path="/catalogo-productos" />
 
 
-        <Route>
-          <h1>404 Not Found</h1>
-        </Route>
+        <Route component={NotFoundPage} />
       </Switch>
     </>
   );
