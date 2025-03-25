@@ -1,6 +1,6 @@
 import AdminLayout from "../../../components/layouts/AdminLayout";
 import { columns } from "../../../components/tables/Columns";
-import { data } from "../../../mocks/clients";
+import { data } from "../../../mocks/clients.json";
 import DataTable from "../../../components/tables/DataTable";
 
 function ClientManagment() {
