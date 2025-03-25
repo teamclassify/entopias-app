@@ -8,6 +8,7 @@ import RecoveryPasswordPage from "./pages/recovery-password";
 import RecoveryPasswordCompletedPage from "./pages/recovery-password/completed";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
+import ProductCatalog from "./pages/catalog"
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
         <Route component={AdminPage} path="/admin" />
 
         <Route component={ProductsCreatePage} path="/admin/productos/agregar" />
+        <Route component={ProductCatalog} path="/catalogo-productos" />
+
 
         <Route>
           <h1>404 Not Found</h1>
