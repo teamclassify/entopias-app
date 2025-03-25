@@ -25,4 +25,25 @@ async function uploadFile(bucket, file, name) {
   return data;
 }
 
-export { supabase, uploadFile };
+/*
+ * Deletes a file from the specified bucket.
+ * @param {string} bucket - The name of the bucket.
+ * @param {string} name - The name of the file.
+ * @returns {Promise} - The result of the deletion.
+ */
+async function deleteFile(bucket, name) {
+  const { data, error } = await supabase.storage
+    .from(bucket)
+    .remove([`public/${name}`]);
+
+  if (error) {
+    console.error("Error deleting file: ", error);
+    return error;
+  }
+
+  console.log("File deleted: ", data);
+
+  return data;
+}
+
+export { supabase, uploadFile, deleteFile };
