@@ -1,27 +1,28 @@
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import {
-  Form as FormUI,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
+  Form as FormUI,
 } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import UploadImage from "../../../components/base/UploadImage";
+import UploadImage from "@/components/base/UploadImage";
 
 const formSchema = z.object({
   name: z.string().min(3).max(255),
   price: z.number().min(0),
   stock: z.number().min(0),
   description: z.string().min(3),
-  images: z.array(z.string()),
+  images: z.array(z.string()).max(3),
 });
 
 /*
@@ -32,29 +33,30 @@ const formSchema = z.object({
     - onSubmit: function
     - onCancel: function
 */
-function Form({ product, onSubmit, onCancel }) {
+function Form({ product, onSubmit }) {
+  const [images, setImages] = useState(product?.images || []);
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: product?.name || "",
-      price: product?.price || "",
-      stock: product?.stock || "",
+      price: product?.name || 0,
+      stock: product?.stock || 0,
       description: product?.description || "",
       images: product?.images || [],
     },
   });
 
-  function onSubmitHandle(values) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-
-    console.log(values);
-    onSubmit(values);
-  }
+  const handleSubmit = (data) => {
+    onSubmit({
+      ...data,
+      images,
+    });
+  };
 
   return (
     <FormUI {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
         <div className="lg:flex gap-8">
           <div className="w-full grid gap-4 h-full">
             <FormField
@@ -81,7 +83,13 @@ function Form({ product, onSubmit, onCancel }) {
                 <FormItem>
                   <FormLabel>Precio</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input
+                      type="number"
+                      {...field}
+                      onChange={(value) => {
+                        form.setValue("price", parseFloat(value.target.value));
+                      }}
+                    />
                   </FormControl>
                   <FormDescription>El precio del producto.</FormDescription>
                   <FormMessage />
@@ -130,7 +138,7 @@ function Form({ product, onSubmit, onCancel }) {
             <FormLabel className="mb-2">
               Imagenes <span className="text-gray-500">(opcional)</span>
             </FormLabel>
-            <UploadImage form={form} />
+            <UploadImage setImages={setImages} />
           </div>
         </div>
       </form>
