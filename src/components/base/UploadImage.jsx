@@ -27,7 +27,10 @@ function UploadImage({ setImages }) {
 
           const response = await uploadFile("products", file, file.name);
 
-          console.log(response);
+          if (response?.statusCode === "409") {
+            toast.error("La imagen ya existe, por favor cambie el nombre");
+            return;
+          }
 
           if (!response.fullPath) {
             error("Upload failed");
@@ -44,7 +47,18 @@ function UploadImage({ setImages }) {
       // delete files
       onremovefile={async (_, file) => {
         const response = await deleteFile("products", file.file.name);
-        console.log(response);
+
+        if (response?.length < 0) {
+          toast.error("Error al eliminar la imagen, intenta de nuevo");
+          return;
+        }
+
+        setImages((prev) =>
+          prev.filter(
+            (image) =>
+              image !== `${STORAGE_URL}/products/public/${file.file.name}`
+          )
+        );
       }}
       maxFiles={3}
       name="files" /* sets the file input name, it's filepond by default */
