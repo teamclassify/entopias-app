@@ -10,6 +10,7 @@ import RecoveryPasswordCompletedPage from "./pages/recovery-password/completed";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import ProductCatalog from "./pages/catalog"
+import ClientManagment from "./pages/admin/client-management"
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
 
         <Route component={ProductsCreatePage} path="/admin/productos/agregar" />
         <Route component={ProductCatalog} path="/catalogo-productos" />
+        <Route component={ClientManagment} path="/admin/clientes"></Route>
 
 
         <Route component={NotFoundPage} />
