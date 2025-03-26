@@ -2,15 +2,16 @@ import { Toaster } from "@/components/ui/sonner";
 import { Route, Switch } from "wouter";
 
 import AdminPage from "./pages/admin";
+import ClientManagment from "./pages/admin/client-management";
+import ProductCatalog from "./pages/catalog";
 import HomePage from "./pages/home";
 import NotFoundPage from "./pages/not-found";
 import ProductsCreatePage from "./pages/products/create";
+import ProductsEditPage from "./pages/products/edit";
 import RecoveryPasswordPage from "./pages/recovery-password";
 import RecoveryPasswordCompletedPage from "./pages/recovery-password/completed";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
-import ProductCatalog from "./pages/catalog"
-import ClientManagment from "./pages/admin/client-management"
 
 function App() {
   return (
@@ -27,12 +28,12 @@ function App() {
           path="/recuperar-enviado"
         />
 
+        <Route component={ProductCatalog} path="/tienda" />
+
         <Route component={AdminPage} path="/admin" />
-
+        <Route component={ProductsEditPage} path="/admin/productos/:id" />
         <Route component={ProductsCreatePage} path="/admin/productos/agregar" />
-        <Route component={ProductCatalog} path="/catalogo-productos" />
-        <Route component={ClientManagment} path="/admin/clientes"></Route>
-
+        <Route component={ClientManagment} path="/admin/clientes" />
 
         <Route component={NotFoundPage} />
       </Switch>
