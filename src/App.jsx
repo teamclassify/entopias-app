@@ -31,8 +31,8 @@ function App() {
         <Route component={ProductCatalog} path="/tienda" />
 
         <Route component={AdminPage} path="/admin" />
-        <Route component={ProductsEditPage} path="/admin/productos/:id" />
         <Route component={ProductsCreatePage} path="/admin/productos/agregar" />
+        <Route component={ProductsEditPage} path="/admin/productos/:id" />
         <Route component={ClientManagment} path="/admin/clientes" />
 
         <Route component={NotFoundPage} />
