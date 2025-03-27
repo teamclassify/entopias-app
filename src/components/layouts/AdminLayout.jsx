@@ -5,7 +5,7 @@ import useUser from "../../hooks/useUser";
 import NotAuthPage from "../../pages/not-auth";
 import AdminHeader from "../base/AminHeader";
 
-function DefaultLayout({ children }) {
+function DefaultLayout({ children, className = "" }) {
   const { user } = useUser();
 
   if (!user) {
@@ -23,7 +23,7 @@ function DefaultLayout({ children }) {
         <div className="w-full">
           <AdminHeader />
 
-          <main className="p-4">{children}</main>
+          <main className={`p-4 ${className}`}>{children}</main>
         </div>
       </SidebarProvider>
     </>
