@@ -11,46 +11,38 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import UploadImage from "@/components/base/UploadImage";
-
 const formSchema = z.object({
   name: z.string().min(3).max(255),
-  price: z.number().min(0),
-  stock: z.number().min(0),
-  description: z.string().min(3),
-  images: z.array(z.string()).max(3),
+  email: z.string().email(),
+  password: z.string().min(6),
+  phone: z.string().min(10).optional(),
 });
 
 /*
-  Component Form for adding or editing a product
+  Component Form for adding a sales account
 
   Props:
     - product?: object
     - onSubmit: function
     - onCancel: function
 */
-function Form({ product, onSubmit }) {
-  const [images, setImages] = useState(product?.images || []);
-
+function Form({ onSubmit }) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: product?.name || "",
-      price: product?.name || 0,
-      stock: product?.stock || 0,
-      description: product?.description || "",
-      images: product?.images || [],
+      name: "",
+      email: "",
+      password: "",
+      phone: "",
     },
   });
 
   const handleSubmit = (data) => {
     onSubmit({
       ...data,
-      images,
     });
   };
 
@@ -69,7 +61,7 @@ function Form({ product, onSubmit }) {
                     <Input {...field} />
                   </FormControl>
                   <FormDescription>
-                    El nombre del producto debe tener al menos 3 caracteres.
+                    El nombre de la persona de la cuenta.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -78,68 +70,56 @@ function Form({ product, onSubmit }) {
 
             <FormField
               control={form.control}
-              name="price"
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Precio</FormLabel>
+                  <FormLabel>Correo electrónico</FormLabel>
                   <FormControl>
-                    <Input
-                      type="number"
-                      {...field}
-                      onChange={(value) => {
-                        form.setValue("price", parseFloat(value.target.value));
-                      }}
-                    />
-                  </FormControl>
-                  <FormDescription>El precio del producto.</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="stock"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Stock</FormLabel>
-                  <FormControl>
-                    <Input type="number" disabled {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Descripción</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} rows={4} />
+                    <Input type="email" {...field} />
                   </FormControl>
                   <FormDescription>
-                    La descripción del producto debe tener al menos 3
-                    caracteres.
+                    El correo electrónico de la cuenta.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button type="submit">
-              {product ? "Actualizar producto" : "Agregar producto"}
-            </Button>
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Contraseña</FormLabel>
+                  <FormControl>
+                    <Input type="password" {...field} />
+                  </FormControl>
+                  <FormDescription>La contraseña de la cuenta.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Teléfono <span className="text-gray-400">(opcional)</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button type="submit">Crear cuenta</Button>
           </div>
 
-          <div className="w-full">
-            <FormLabel className="mb-2">
-              Imagenes <span className="text-gray-500">(opcional)</span>
-            </FormLabel>
-            <UploadImage setImages={setImages} />
-          </div>
+          {/* <div className="w-full"></div> */}
         </div>
       </form>
     </FormUI>

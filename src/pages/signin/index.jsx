@@ -97,7 +97,7 @@ function SignIn() {
             )}
           />
 
-          <div className="flex justify-between">
+          <div className="flex justify-between gap-2">
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="showpasswd"
@@ -106,13 +106,13 @@ function SignIn() {
               />
               <label
                 htmlFor="showpasswd"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                className="text-xs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 Mostrar Contraseña
               </label>
             </div>
-            <Link to="/recuperar">
-              <Button variant="link">¿Olvidaste tu contraseña?</Button>
+            <Link to="/recuperar" className="text-xs">
+              ¿Olvidaste tu contraseña?
             </Link>
           </div>
 

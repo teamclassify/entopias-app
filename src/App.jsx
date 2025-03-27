@@ -2,10 +2,15 @@ import { Toaster } from "@/components/ui/sonner";
 import { Route, Switch } from "wouter";
 
 import AdminPage from "./pages/admin";
+import ClientManagment from "./pages/admin/client-management";
+import ProductCatalog from "./pages/catalog";
 import HomePage from "./pages/home";
+import NotFoundPage from "./pages/not-found";
 import ProductsCreatePage from "./pages/products/create";
+import ProductsEditPage from "./pages/products/edit";
 import RecoveryPasswordPage from "./pages/recovery-password";
 import RecoveryPasswordCompletedPage from "./pages/recovery-password/completed";
+import CreateSalesPage from "./pages/sales/create";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import ProductDetail from "./pages/products/detail";
@@ -25,15 +30,17 @@ function App() {
           path="/recuperar-enviado"
         />
 
-        <Route component={AdminPage} path="/admin" />
+        <Route component={ProductCatalog} path="/tienda" />
 
+        <Route component={AdminPage} path="/admin" />
         <Route component={ProductsCreatePage} path="/admin/productos/agregar" />
+        <Route component={ProductsEditPage} path="/admin/productos/:id" />
+        <Route component={ClientManagment} path="/admin/clientes" />
+        <Route component={CreateSalesPage} path="/admin/vendedores/agregar" />
 
         <Route component={ProductDetail} path="/producto/:id" />
 
-        <Route>
-          <h1>404 Not Found</h1>
-        </Route>
+        <Route component={NotFoundPage} />
       </Switch>
     </>
   );

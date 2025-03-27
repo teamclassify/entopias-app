@@ -1,20 +1,17 @@
-import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { MenuIcon, XIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link } from "wouter";
 
 import useUser from "@/hooks/useUser";
 import AvatarUser from "./AvatarUser";
-import { MenuIcon, XIcon } from "lucide-react";
-import { DialogTitle } from "@radix-ui/react-dialog";
 
 function Menu({ user, logout, userIsAdminOrSales }) {
   return (
@@ -64,10 +61,15 @@ function Menu({ user, logout, userIsAdminOrSales }) {
 }
 
 function Header() {
-  const { user, logout } = useUser();
+  const { user, loading, logout } = useUser();
+  const [userIsAdminOrSales, setUserIsAdminOrSales] = useState(false);
 
-  const userIsAdminOrSales =
-    user?.roles.includes("admin") || user?.roles.includes("sales");
+  useEffect(() => {
+    if (!loading)
+      setUserIsAdminOrSales(
+        user?.roles?.includes("admin") || user?.roles?.includes("sales")
+      );
+  }, [user, loading]);
 
   return (
     <header className="bg-primary text-primary-foreground px-4 h-16 flex justify-between items-center">
