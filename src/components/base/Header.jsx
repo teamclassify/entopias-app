@@ -73,8 +73,8 @@ function Header() {
 
   return (
     <header className="bg-primary text-primary-foreground px-4 h-16 flex justify-between items-center">
-      <nav className="hidden md:block">
-        <ul className="flex gap-4 font-bold">
+      <nav className="hidden md:block w-[220px]">
+        <ul className="flex gap-4 font-medium">
           <li>
             <Link href="/">Inicio</Link>
           </li>
@@ -98,7 +98,7 @@ function Header() {
         />
       ) : (
         <div>
-          <div className="font-bold hidden md:flex gap-4">
+          <div className="font-medium hidden md:flex gap-4 w-[220px] justify-end">
             <Link href="/registrarse">Crea tu cuenta</Link>
             <Link href="/iniciar-sesion">Ingresa</Link>
           </div>

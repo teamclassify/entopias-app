@@ -10,7 +10,8 @@ function DefaultLayout({ children, className = "" }) {
         <div className={`${className}`}>{children}</div>
       </main>
 
-      <Footer />
+      <Footer className="w-[90%] max-w-screen-lg mx-auto" />
+
     </>
   );
 }
