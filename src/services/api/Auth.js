@@ -33,6 +33,28 @@ async function login(user) {
   }
 }
 
+async function register({ name, email, password, phone }) {
+  try {
+    const res = await axios({
+      url: `${URL}/auth/register`,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        name,
+        email,
+        password,
+        phone,
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    return handleAxiosError(error);
+  }
+}
+
 async function getUserById(id) {
   try {
     const token = await getToken();
@@ -52,4 +74,4 @@ async function getUserById(id) {
   }
 }
 
-export { getToken, getUserById, login };
+export { getToken, getUserById, login, register };
