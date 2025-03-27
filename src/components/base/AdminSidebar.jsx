@@ -24,8 +24,9 @@ import {
 } from "@/components/ui/sidebar";
 import { Link, useLocation } from "wouter";
 import { useEffect, useState } from "react";
+import useUser from "../../hooks/useUser";
 
-const items = [
+const itemsADMIN = [
   {
     title: "Dashboard",
     url: "/admin",
@@ -80,9 +81,45 @@ const items = [
   },
 ];
 
+const itemsSALES = [
+  {
+    title: "Dashboard",
+    url: "/admin",
+    icon: Home,
+    subitems: [],
+  },
+  {
+    title: "Clientes",
+    url: "/admin/clientes",
+    icon: UserRound,
+    subitems: [
+      {
+        title: "Ver Clientes",
+        url: "/admin/clientes",
+        icon: List,
+      },
+    ],
+  },
+  {
+    title: "Produtos",
+    url: "/admin/productos",
+    icon: Package,
+    subitems: [
+      {
+        title: "Ver Produtos",
+        url: "/admin/productos",
+        icon: List,
+      },
+    ],
+  },
+];
+
 function AdminSidebar() {
   const [activePage, setActivePage] = useState("Dashboard");
   const [location] = useLocation();
+  const { user } = useUser();
+
+  const items = user?.roles.includes("admin") ? itemsADMIN : itemsSALES;
 
   useEffect(() => {
     const path = location.split("/")[2];
@@ -93,6 +130,7 @@ function AdminSidebar() {
         setActivePage(item.title);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   return (

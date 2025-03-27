@@ -12,7 +12,11 @@ function DefaultLayout({ children, className = "" }) {
     return <NotAuthPage />;
   }
 
-  if (user.roles && !user.roles.includes("admin")) {
+  if (
+    user.roles &&
+    !user.roles.includes("admin") &&
+    !user.roles.includes("sales")
+  ) {
     return <NotAuthPage />;
   }
 
