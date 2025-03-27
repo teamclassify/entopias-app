@@ -33,7 +33,8 @@ function HomePage() {
     <DefaultLayout>
       <div className="h-[650px] w-screen relative left-1/2 -translate-x-1/2 bg-cover bg-center -mt-8 flex justify-center items-center mb-30"
         style={{ backgroundImage: `url("/imagen-cafe-fondo.jpg")` }}>
-        <div className="text-white w-[80%]">
+          <div className="absolute inset-0 bg-[#b76e4944]"></div>
+        <div className="text-white w-[80%] relative">
           <div className="flex flex-row justify-between w-full h-[80%]">
             <div className="w-[50%]">
               <img className="h-[600px] w-auto" src="/cafes-inicio.png" alt="" />
