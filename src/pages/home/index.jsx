@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import ProductsService from "@/services/api/Products";
 import CardProduct from "../catalog/components/CardProduct";
+import ImageBackground from "./components/ImageBackground";
+import HeroSection from "./components/HeroSection";
 
 function HomePage() {
   useEffect(() => {
@@ -32,40 +34,9 @@ function HomePage() {
 
   return (
     <DefaultLayout>
-      <div className="w-screen relative left-1/2 -translate-x-1/2 bg-cover bg-center -mt-8 flex justify-center items-center mb-30">
-        <div className="absolute inset-0 h-[90svh]">
-          <img
-            className="h-[90svh] w-full object-cover"
-            src="/imagen-cafe-fondo.jpg"
-          />
-          <div className="absolute inset-0 bg-[#b76e49] opacity-[.27]"></div>
-        </div>
-        <div className="text-white w-[80%] relative">
-          <div className="flex flex-row justify-between w-full h-[80%]">
-            <div className="w-[50%]">
-              <img
-                className="h-[600px] w-auto"
-                src="/cafes-inicio.png"
-                alt=""
-              />
-            </div>
-            <div className="flex flex-col h-[500px] w-[50%] justify-center items-start">
-              <div>
-                <div>
-                  <h1 className="text-5xl font-bold">
-                    Un café premium para momento únicos
-                  </h1>
-                </div>
-                <hr className="my-7 " />
-                <div>
-                  <h3 className="text-2xl w-[80%] font-medium">
-                    Saborea experiencias inolvidables con cada taza
-                  </h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="flex justify-center items-center">
+        <ImageBackground />
+        <HeroSection />
       </div>
       <div className="w-full flex flex-row mb-30">
         <div className="w-[40%] h-[260px] bg-[#ECECEC] flex justify-center p-3">
