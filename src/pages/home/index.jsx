@@ -5,6 +5,7 @@ import ProductsService from "@/services/api/Products";
 import CardProduct from "../catalog/components/CardProduct";
 import ImageBackground from "./components/ImageBackground";
 import HeroSection from "./components/HeroSection";
+import LogoInfo from "./components/LogoInfo";
 
 function HomePage() {
   useEffect(() => {
@@ -38,31 +39,8 @@ function HomePage() {
         <ImageBackground />
         <HeroSection />
       </div>
-      <div className="w-full flex flex-row mb-30">
-        <div className="w-[40%] h-[260px] bg-[#ECECEC] flex justify-center p-3">
-          <img className="h-full w-auto" src="/logo-completo.png" alt="" />
-        </div>
-        <div className="flex flex-col w-[60%] items-start pl-16">
-          <div>
-            <h2 className="text-2xl font-bold mb-2">Sobre Nosotros</h2>
-          </div>
-          <div>
-            <p className="text-[16px] mb-4">
-              En Entopias Café, vivimos la pasión por el buen café.
-              Seleccionamos granos de alta calidad directamente de productores,
-              asegurando autenticidad y sabor en cada taza. Nos enfocamos en
-              resaltar las mejores características de cada cosecha a través de
-              un proceso cuidadoso que garantiza frescura y excelencia.
-            </p>
-            <p className="text-[16px]">
-              Más que una marca, somos una comunidad que celebra la tradición
-              cafetera, conectando a los amantes del café con experiencias
-              únicas y auténticas.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="w-full flex flex-col mb-20 items-center">
+      <div className="flex flex-col">
+        <LogoInfo />
         <h2 className="text-2xl font-bold mb-2">Nuestros Productos</h2>
         <div className="w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
