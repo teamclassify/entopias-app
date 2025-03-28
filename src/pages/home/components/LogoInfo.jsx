@@ -1,6 +1,6 @@
 function LogoInfo() {
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-around gap-4 mb-30 mt-30">
+    <div className="flex flex-col sm:flex-row items-center justify-around gap-4 mb-30 mt-40">
       <img
         className="w-[60%] sm:w-[30%]"
         src="/logo-completo.png"
