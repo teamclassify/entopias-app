@@ -85,7 +85,7 @@ function HomePage() {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-10 p-6 border-t border-gray-300 mb-40">
+      <div className="grid grid-cols-3 gap-10 p-6 mb-40">
         {features.map((feature, index) => (
           <div className="flex flex-row items-center">
             <div key={index} className="flex flex-col items-center text-center">
