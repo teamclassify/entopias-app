@@ -4,9 +4,10 @@ import { Slider } from "@/components/ui/slider.tsx";
 function PriceFilter() {
   return (
     <div className="bg-[#F2E4DC] p-3">
-      <div className="flex items-center justify-center pb-4">
-        <h1 className="font-bold">Filtrar por precio</h1>
+      <div className="flex items-center justify-center ">
+        <h1 className="font-bold text-xl">Filtrar por precio</h1>
       </div>
+      <hr className="border-1 border-[#B76E49] mb-4"/>
       <Slider
         defaultValue={[33]}
         min={20}
