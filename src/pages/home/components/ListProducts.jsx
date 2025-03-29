@@ -7,7 +7,7 @@ function ListProducts() {
       <div className="w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {[...Array(4)].map((_, i) => (
-            <CardProduct key={i} />
+            <CardProduct key={i}/>
           ))}
         </div>
       </div>
