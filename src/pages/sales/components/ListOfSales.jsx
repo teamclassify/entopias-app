@@ -7,12 +7,12 @@ import { Loading } from "../../../components/ui/loading";
 import UsersService from "../../../services/api/Users";
 import Pagination from "../../catalog/components/Pagination";
 
-function ListOfClients() {
+function ListOfSales() {
   const [page, setPage] = useState(1);
 
   const { isPending, isError, data } = useQuery({
-    queryKey: ["users", page],
-    queryFn: () => UsersService.getAll({ page, role: "user" }),
+    queryKey: ["sales", page],
+    queryFn: () => UsersService.getAll({ page, role: "sales" }),
   });
 
   if (isPending) {
@@ -43,4 +43,4 @@ function ListOfClients() {
   );
 }
 
-export default ListOfClients;
+export default ListOfSales;
