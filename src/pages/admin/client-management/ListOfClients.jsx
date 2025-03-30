@@ -12,7 +12,7 @@ function ListOfClients() {
 
   const { isPending, isError, data } = useQuery({
     queryKey: ["users", page],
-    queryFn: () => UsersService.getAll({ page }),
+    queryFn: () => UsersService.getAll({ page, role: "user" }),
   });
 
   if (isPending) {
