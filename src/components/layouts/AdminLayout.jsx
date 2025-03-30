@@ -9,7 +9,7 @@ function DefaultLayout({ children, className = "" }) {
   const { user } = useUser();
 
   if (!user) {
-    return <NotAuthPage />;
+    return <NotAuthPage />; 
   }
 
   if (
@@ -26,8 +26,7 @@ function DefaultLayout({ children, className = "" }) {
         <AdminSidebar />
         <div className="w-full">
           <AdminHeader />
-
-          <main className={`p-4 ${className}`}>{children}</main>
+          <main className={`p-10 ${className}`}>{children}</main>
         </div>
       </SidebarProvider>
     </>
