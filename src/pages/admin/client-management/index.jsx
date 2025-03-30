@@ -1,10 +1,7 @@
-import AdminLayout from "../../../components/layouts/AdminLayout";
-import { columns } from "../../../components/tables/Columns";
-import { data } from "../../../mocks/clients.json";
-import DataTable from "../../../components/tables/DataTable";
-import PaginationComponent from "../../catalog/components/Pagination";
-import { Input } from "@/components/ui/input.tsx";
 import { Button } from "@/components/ui/button.tsx";
+import { Input } from "@/components/ui/input.tsx";
+import AdminLayout from "../../../components/layouts/AdminLayout";
+import ListOfClients from "./ListOfClients";
 
 function ClientManagment() {
   return (
@@ -15,10 +12,8 @@ function ClientManagment() {
           <Input placeholder="Buscar" />
           <Button variant="outline">Buscar</Button>
         </section>
-        <div className="pt-3">
-          <DataTable columns={columns} data={data || []} />
-        </div>
-        <PaginationComponent />
+
+        <ListOfClients />
       </main>
     </AdminLayout>
   );
