@@ -21,13 +21,8 @@ function CreateSalesPage() {
 
   return (
     <AdminLayout>
-      <AdminBreadcrumb currentPage="Crear Venta" />
-
-      <div>
-        <div className="w-full max-w-screen-sm">
-          <Form onSubmit={handleSubmit} />
-        </div>
-      </div>
+      <AdminBreadcrumb currentPage="Crear Asistente" />
+      <Form onSubmit={handleSubmit} />
     </AdminLayout>
   );
 }
