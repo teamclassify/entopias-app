@@ -11,6 +11,7 @@ import ProductsEditPage from "./pages/products/edit";
 import RecoveryPasswordPage from "./pages/recovery-password";
 import RecoveryPasswordCompletedPage from "./pages/recovery-password/completed";
 import CreateSalesPage from "./pages/sales/create";
+import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import ProductDetail from "./pages/products/detail";
@@ -36,7 +37,8 @@ function App() {
         <Route component={ProductsCreatePage} path="/admin/productos/agregar" />
         <Route component={ProductsEditPage} path="/admin/productos/:id" />
         <Route component={ClientManagment} path="/admin/clientes" />
-        <Route component={CreateSalesPage} path="/admin/vendedores/agregar" />
+        <Route component={ListSalesPage} path="/admin/asistentes" />
+        <Route component={CreateSalesPage} path="/admin/asistentes/agregar" />
 
         <Route component={ProductDetail} path="/producto/:id" />
 
