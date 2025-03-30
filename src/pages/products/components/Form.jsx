@@ -99,7 +99,13 @@ function Form({ product, onSubmit }) {
                     <FormItem>
                       <FormLabel>Altura</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input
+                          type="number"
+                          {...field}
+                          onChange={(value) => {
+                            form.setValue("altura", parseFloat(value.target.value));
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

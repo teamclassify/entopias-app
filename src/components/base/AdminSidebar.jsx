@@ -63,17 +63,17 @@ const itemsADMIN = [
     ],
   },
   {
-    title: "Vendedores",
+    title: "Asistentes",
     url: "/admin/vendedores",
     icon: UserRoundPen,
     subitems: [
       {
-        title: "Ver Vendedores",
+        title: "Ver Asistentes",
         url: "/admin/vendedores",
         icon: List,
       },
       {
-        title: "Agregar Vendedor",
+        title: "Agregar Asistente",
         url: "/admin/vendedores/agregar",
         icon: FilePlus,
       },
