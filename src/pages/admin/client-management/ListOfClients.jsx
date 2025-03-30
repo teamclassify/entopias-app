@@ -1,15 +1,18 @@
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { columns } from "../../../components/tables/Columns";
 import DataTable from "../../../components/tables/DataTable";
-import PaginationComponent from "../../catalog/components/Pagination";
-import UsersService from "../../../services/api/Users";
-import { Loading } from "../../../components/ui/loading";
 import { Error } from "../../../components/ui/error";
-import { useQuery } from "@tanstack/react-query";
+import { Loading } from "../../../components/ui/loading";
+import UsersService from "../../../services/api/Users";
+import Pagination from "../../catalog/components/Pagination";
 
 function ListOfClients() {
+  const [page, setPage] = useState(1);
+
   const { isPending, isError, data } = useQuery({
-    queryKey: ["users"],
-    queryFn: UsersService.getAll,
+    queryKey: ["users", page],
+    queryFn: () => UsersService.getAll({ page }),
   });
 
   if (isPending) {
@@ -23,9 +26,19 @@ function ListOfClients() {
   return (
     <div>
       <div className="pt-3">
-        <DataTable columns={columns} data={data.data || []} />
+        <DataTable columns={columns} data={data.data.users || []} />
       </div>
-      <PaginationComponent />
+
+      <div className="mt-4">
+        <Pagination
+          currentPage={page}
+          totalItems={data.data.count || 0}
+          itemsPerPage={10}
+          onPageChange={(page) => {
+            setPage(page);
+          }}
+        />
+      </div>
     </div>
   );
 }
