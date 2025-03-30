@@ -42,7 +42,7 @@ function Footer() {
                 <FaInstagramSquare className="mr-2 text-3xl text-[#F03634] hover:text-[#F70DDC] transition-colors duration-200" />
               </a>
             </div>
-          </div>
+          </div> 
           <div className="flex">
             <img className="h-36 w-auto" src="/logo-completo.png" alt="" />
           </div>

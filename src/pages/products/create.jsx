@@ -10,7 +10,6 @@ function ProductsCreatePage() {
   return (
     <AdminLayout>
       <h1 className="mb-4 text-lg font-bold">Crear producto</h1>
-
       <Form onSubmit={handleOnSubmit} />
     </AdminLayout>
   );
