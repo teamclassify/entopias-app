@@ -72,7 +72,7 @@ function Header() {
   }, [user, loading]);
 
   return (
-    <header className="bg-primary text-primary-foreground px-4 h-16 flex justify-between items-center">
+    <header className="relative z-10 bg-primary text-primary-foreground px-4 h-16 flex justify-between items-center">
       <nav className="hidden md:block w-[220px]">
         <ul className="flex gap-4 font-medium">
           <li>
