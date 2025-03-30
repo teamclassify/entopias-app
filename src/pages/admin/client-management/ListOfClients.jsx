@@ -19,8 +19,8 @@ function ListOfClients() {
     return <Loading />;
   }
 
-  if (isError) {
-    return <Error message={isError.message} />;
+  if (isError || data?.error) {
+    return <Error message={data?.msg} />;
   }
 
   return (
