@@ -1,11 +1,11 @@
 function ImageBackground() {
   return (
-    <div className="absolute inset-0 h-[calc(100svh-4rem)] mt-[4rem]">
+    <div className="inset-0">
       <img
-        className="h-[calc(100svh-4rem)] w-full object-cover"
+        className="absolute top-0 left-0 h-full w-full object-cover"
         src="/imagen-cafe-fondo.jpg"
       />
-      <div className="absolute inset-0 bg-[#b76e49] opacity-[.27]"></div>
+      <div className="absolute inset-0 bg-[#b76e49] opacity-[.37]"></div>
     </div>
   );
 }

@@ -17,7 +17,7 @@ function HomePage() {
 
   return (
     <DefaultLayout>
-      <div className="flex justify-center items-center pb-40">
+      <div className="w-full h-[calc(100vh-4rem)] flex items-center">
         <ImageBackground />
         <HeroSection />
       </div>
