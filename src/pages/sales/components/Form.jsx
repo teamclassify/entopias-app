@@ -50,7 +50,7 @@ function Form({ onSubmit }) {
     <FormUI {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
         <div className="bg-[#ECECEC] p-10">
-          <div className="lg:flex gap-8">
+          <div className="">
             <div className="w-full grid gap-4 h-full">
               <FormField
                 control={form.control}
@@ -117,6 +117,7 @@ function Form({ onSubmit }) {
                   )}
                 />
 
+                {/*
                 <FormField
                   control={form.control}
                   name="edad"
@@ -136,45 +137,10 @@ function Form({ onSubmit }) {
                     </FormItem>
                   )}
                 />
+                */}
               </div>
 
               <Button className="mt-4" type="submit">Crear cuenta</Button>
-            </div>
-
-            <div className="w-full grid gap-4 h-full">
-              <FormField
-                control={form.control}
-                name="pais"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Pais</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      El país de la persona de la cuenta.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="ciudad"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Ciudad</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      La ciudad de la persona de la cuenta.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             </div>
 
             {/* <div className="w-full"></div> */}
