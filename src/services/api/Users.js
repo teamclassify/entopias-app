@@ -2,7 +2,7 @@ import axios from "axios";
 import { URL, handleAxiosError } from ".";
 import { getToken } from "./Auth";
 
-async function getAll() {
+async function getAll({ page = 0 }) {
   const token = await getToken();
 
   if (!token) throw new Error("Token not found");
@@ -14,6 +14,9 @@ async function getAll() {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+      },
+      params: {
+        page,
       },
     });
 
