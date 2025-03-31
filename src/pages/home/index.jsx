@@ -6,6 +6,8 @@ import ListProducts from "./components/ListProducts";
 import LogoInfo from "./components/LogoInfo";
 import Message from "./components/Message";
 
+//import productsData from "../../data/products.json"
+
 function HomePage() {
   // useEffect(() => {
   //   ProductsService.getAll().then((data) => {
