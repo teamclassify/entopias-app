@@ -46,12 +46,12 @@ const itemsADMIN = [
     ],
   },
   {
-    title: "Produtos",
+    title: "Productos",
     url: "/admin/productos",
     icon: Package,
     subitems: [
       {
-        title: "Ver Produtos",
+        title: "Ver Productos",
         url: "/admin/productos",
         icon: List,
       },
