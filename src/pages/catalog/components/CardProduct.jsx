@@ -11,7 +11,7 @@ function CardProduct() {
         <AspectRatio ratio={3 / 4}>
           <div className="bg-[#ECECEC] h-full w-full flex justify-center items-center">
             <img
-              src="/cafe.png"
+              src="/cafe.webp"
               className="card-img-top object-cover h-[95%]"
               alt={"imagen de café entopias"}
             />

@@ -44,7 +44,7 @@ function Footer() {
             </div>
           </div> 
           <div className="flex">
-            <img className="h-36 w-auto" src="/logo-completo.png" alt="" />
+            <img className="h-36 w-auto" src="/logo-completo.webp" alt="logo de entopias cafe" />
           </div>
         </div>
         <hr className="mb-2 mt-7 border-[#B76E49] border-1" />
