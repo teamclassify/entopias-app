@@ -7,7 +7,7 @@ function HeroSection() {
     <div className="flex flex-col items-center md:flex-row justify-between relative z-10 gap-9 text-white">
       <img
         className="w-[80%] sm:w-[50%]"
-        src="/cafes-inicio.png"
+        src="/cafes-inicio.webp"
         alt="imagenes de dos cafés entopias"
       />
 
