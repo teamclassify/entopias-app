@@ -21,7 +21,7 @@ function HeroSection() {
             <h3>Saborea experiencias inolvidables con cada taza</h3>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-4">
             <Button asChild size="lg">
               <Link href="/tienda">
                 <span className="text-white">Ver productos</span>
