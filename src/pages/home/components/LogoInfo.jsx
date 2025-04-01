@@ -3,7 +3,7 @@ function LogoInfo() {
     <div className="flex flex-col md:flex-row items-center justify-around gap-4 mb-30 w-full pt-5">
       <img
         className="w-[60%] sm:w-[30%]"
-        src="/logo-completo.png"
+        src="/logo-completo.webp"
         alt="logo de la empresa entopias cafe"
       />
       <div className="flex flex-col items-center sm:items-baseline sm:w-[60%] w-full">

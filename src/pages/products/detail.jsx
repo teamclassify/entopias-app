@@ -1,7 +1,6 @@
 import { useRoute } from "wouter";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import productsData from "@/data/products.json";
-import cafeImage from "@/assets/cafe.png";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -43,7 +42,7 @@ function ProductDetail() {
       <div className="flex flex-row gap-10 p-10 flex-wrap max-w-6xl mx-auto justify-center">
         <div className="w-[30%] flex items-center justify-center min-w-[250px] bg-[#F4F4F4] overflow-hidden">
           <img
-            src={cafeImage}
+            src={"/cafe.webp"}
             alt={product.name}
             className="max-w-[300px] w-full h-auto transition-transform duration-300 hover:scale-110"
           />

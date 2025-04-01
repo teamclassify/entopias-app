@@ -8,7 +8,7 @@
     "tostado": "Medio",
     "presentacion": "500g",
     "cantidad": 50,
-    "imagen": "cafe.png"
+    "imagen": "cafe.webp"
 
   },
   {
@@ -20,6 +20,6 @@
     "tostado": "Oscuro",
     "presentacion": "150g",
     "cantidad": 30,
-    "imagen": "cafe.png"
+    "imagen": "cafe.webp"
   }
 ]

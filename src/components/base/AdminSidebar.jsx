@@ -137,7 +137,7 @@ function AdminSidebar() {
     <Sidebar className="border-none">
       <SidebarHeader className="bg-secondary h-16">
         <img
-          src="/logo.png"
+          src="/logo.webp"
           alt="Logo Entopias Cafe"
           className="w-full max-w-[120px] mx-auto"
         />
