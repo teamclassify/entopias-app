@@ -26,8 +26,30 @@ async function getAll({ page = 1 }) {
   }
 }
 
+async function getById(id) {
+  // const token = await getToken();
+
+  // if (!token) throw new Error("Token not found");
+
+  try {
+    const res = await axios({
+      url: `${URL}/products/${id}`,
+      method: "GET",
+      headers: {
+        // Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    return handleAxiosError(error);
+  }
+}
+
 const ProductsService = {
   getAll,
+  getById,
 };
 
 export default ProductsService;
