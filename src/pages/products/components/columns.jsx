@@ -11,7 +11,7 @@ export const columns = [
 
       return (
         <Button asChild variant="link">
-          <Link to={`/admin/producto/${id}`}>{row.getValue("name")}</Link>
+          <Link to={`/admin/productos/${id}`}>{row.getValue("name")}</Link>
         </Button>
       );
     },
