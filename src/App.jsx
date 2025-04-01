@@ -7,14 +7,15 @@ import ProductCatalog from "./pages/catalog";
 import HomePage from "./pages/home";
 import NotFoundPage from "./pages/not-found";
 import ProductsCreatePage from "./pages/products/create";
+import ProductDetail from "./pages/products/detail";
 import ProductsEditPage from "./pages/products/edit";
+import ProductsListPage from "./pages/products/list";
 import RecoveryPasswordPage from "./pages/recovery-password";
 import RecoveryPasswordCompletedPage from "./pages/recovery-password/completed";
 import CreateSalesPage from "./pages/sales/create";
 import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
-import ProductDetail from "./pages/products/detail";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route component={ProductCatalog} path="/tienda" />
 
         <Route component={AdminPage} path="/admin" />
+        <Route component={ProductsListPage} path="/admin/productos" />
         <Route component={ProductsCreatePage} path="/admin/productos/agregar" />
         <Route component={ProductsEditPage} path="/admin/productos/:id" />
         <Route component={ClientManagment} path="/admin/clientes" />
