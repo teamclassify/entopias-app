@@ -60,10 +60,33 @@ async function update(id, data) {
   }
 }
 
+async function create(data) {
+  const token = await getToken();
+
+  if (!token) throw new Error("Token not found");
+
+  try {
+    const res = await axios({
+      url: `${URL}/products`,
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      data,
+    });
+
+    return res.data;
+  } catch (error) {
+    return handleAxiosError(error);
+  }
+}
+
 const ProductsService = {
   getAll,
   getById,
   update,
+  create,
 };
 
 export default ProductsService;
