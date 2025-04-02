@@ -9,7 +9,6 @@ import {
   Form as FormUI,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -95,7 +94,9 @@ function Form({ onSubmit }) {
                     <FormControl>
                       <Input type="password" {...field} />
                     </FormControl>
-                    <FormDescription>La contraseña de la cuenta.</FormDescription>
+                    <FormDescription>
+                      La contraseña de la cuenta.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -107,7 +108,8 @@ function Form({ onSubmit }) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        Teléfono <span className="text-gray-400">(opcional)</span>
+                        Teléfono{" "}
+                        <span className="text-gray-400">(opcional)</span>
                       </FormLabel>
                       <FormControl>
                         <Input {...field} />
@@ -140,13 +142,14 @@ function Form({ onSubmit }) {
                 */}
               </div>
 
-              <Button className="mt-4" type="submit">Crear cuenta</Button>
+              <Button className="mt-4" type="submit">
+                Crear cuenta
+              </Button>
             </div>
 
             {/* <div className="w-full"></div> */}
           </div>
         </div>
-
       </form>
     </FormUI>
   );

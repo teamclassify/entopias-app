@@ -1,5 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { useParams } from "wouter";
 
 import AdminLayout from "@/components/layouts/AdminLayout";
@@ -7,18 +8,36 @@ import ProductsService from "../../services/api/Products";
 import Form from "./components/Form";
 
 function ProductsEditPage() {
+  const queryClient = useQueryClient();
   const params = useParams();
   const { id } = params;
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["products", id],
+    queryKey: ["products-page", id],
     queryFn: () => ProductsService.getById(id),
     enabled: !!id,
   });
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data) => {
+      return ProductsService.update(data.id, data.data);
+    },
+    onSuccess: (data) => {
+      if (data.data.error) {
+        toast.error("Error al editar el producto");
+      } else {
+        toast.success("Producto editado correctamente");
+        queryClient.invalidateQueries(["products", 1, ""]);
+        // queryClient.invalidateQueries(["products-page", id]);
+      }
+    },
+  });
+
   const handleOnSubmit = (values) => {
-    console.log("Submit", values);
-    console.log(values);
+    mutate({
+      id,
+      data: values,
+    });
   };
 
   if (isLoading) {
@@ -58,7 +77,11 @@ function ProductsEditPage() {
     <AdminLayout>
       <h1 className="mb-4 text-lg font-bold">Editar producto #{id}</h1>
 
-      <Form onSubmit={handleOnSubmit} product={data?.data} />
+      <Form
+        onSubmit={handleOnSubmit}
+        product={data?.data}
+        isPending={isPending}
+      />
     </AdminLayout>
   );
 }

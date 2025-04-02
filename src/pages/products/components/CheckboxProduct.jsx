@@ -2,13 +2,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import UsersService from "../../../services/api/Users";
+import ProductsService from "../../../services/api/Products";
 
 function CheckboxProduct({ productId, initialStatus }) {
   const [status, setStatus] = useState(initialStatus);
 
   const { mutate } = useMutation({
     mutationFn: (data) => {
-      return UsersService.updateRole(data);
+      return ProductsService.update(data.id, data.data);
     },
     onSuccess: (data) => {
       console.log(data);
@@ -19,7 +20,7 @@ function CheckboxProduct({ productId, initialStatus }) {
   const handleChange = (checked) => {
     mutate({
       id: productId,
-      status: checked,
+      data: { status: checked },
     });
   };
 
