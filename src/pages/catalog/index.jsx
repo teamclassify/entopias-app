@@ -16,6 +16,7 @@ function Index() {
     queryKey: ["products", page],
     queryFn: () => ProductsService.getAll({ page }),
   });
+  console.log(data)
 
   if (isError || data?.error) {
     return <Error message={data?.msg} />;
