@@ -2,7 +2,7 @@ import axios from "axios";
 import { URL, handleAxiosError } from ".";
 import { getToken } from "./Auth";
 
-async function getAll({ page = 1 }) {
+async function getAll({ page = 1, search }) {
   try {
     const res = await axios({
       url: `${URL}/products`,
@@ -12,6 +12,7 @@ async function getAll({ page = 1 }) {
       },
       params: {
         page,
+        search,
       },
     });
 
