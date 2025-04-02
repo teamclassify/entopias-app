@@ -45,7 +45,7 @@ function Index() {
         </div>
         <Pagination
           currentPage={page}
-          totalItems={data.data.count || 0}
+          totalItems={data.count || 0}
           itemsPerPage={10}
           onPageChange={(page) => {
             setPage(page);
