@@ -2,12 +2,11 @@ import DefaultLayout from "@/components/layouts/DefaultLayout";
 import CardProduct from "./components/CardProduct";
 import Filters from "./components/Filters";
 import ProductsService from "../../services/api/Products";
-//import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Pagination from "./components/Pagination";
 import { Loading } from "@/components/ui/loading";
-//import {data} from "@/mocks/data.json"
+import { Error } from "@/components/ui/error";
 
 function Index() {
   const [page, setPage] = useState(1);
@@ -16,10 +15,11 @@ function Index() {
     queryKey: ["products", page],
     queryFn: () => ProductsService.getAll({ page }),
   });
-  console.log(data)
+
+  console.log(data);
 
   if (isError || data?.error) {
-    return <Error message={data?.msg} />;
+    return <Error message={data?.msg || "An unexpected error occurred"} />;
   }
 
   return (
@@ -31,26 +31,28 @@ function Index() {
           </aside>
           <main className="w-full md:w-3/4">
             <div>
-              <p className="font-bold pb-3">Mostrando 8-12 de 15 resultados</p>
+              <p className="font-bold pb-3">
+                Mostrando {(page - 1) * 10 + 1} - {Math.min(page * 10, data?.count || 0)} de {data?.count || 0} resultados
+              </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
               {isLoading ? (
                 <Loading />
-              ) : (
+              ) : data?.products?.length > 0 ? (
                 data.products.map((infoProduct, i) => (
                   <CardProduct key={i} infoProduct={infoProduct} />
                 ))
+              ) : (
+                <p>No products found</p>
               )}
             </div>
           </main>
         </div>
         <Pagination
           currentPage={page}
-          totalItems={data.count || 0}
+          totalItems={data?.count || 0}
           itemsPerPage={10}
-          onPageChange={(page) => {
-            setPage(page);
-          }}
+          onPageChange={setPage}
         />
       </div>
     </DefaultLayout>
