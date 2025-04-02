@@ -40,7 +40,7 @@ export const columns = [
     accessorKey: "status",
     header: "Estado",
     cell: ({ row }) => {
-      const id = row.getValue("id");
+      const id = row.original.id;
       const status = row.getValue("status");
 
       return <CheckboxProduct productId={id} initialStatus={status} />;
