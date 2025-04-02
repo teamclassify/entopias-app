@@ -26,7 +26,7 @@ function ListOfProducts() {
   return (
     <div>
       <div className="pt-3">
-        <DataTable columns={columns} data={data.data || []} />
+        <DataTable columns={columns} data={data.data?.products || []} />
       </div>
 
       <div className="mt-4">
