@@ -16,7 +16,7 @@ function ProductsCreatePage() {
         toast.error("Error al crear el producto");
       } else {
         toast.success("Producto creado correctamente");
-        queryClient.invalidateQueries(["products"]);
+        queryClient.invalidateQueries(["products", 1, ""]);
       }
     },
   });

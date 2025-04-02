@@ -13,7 +13,7 @@ function ProductsEditPage() {
   const { id } = params;
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["products", id],
+    queryKey: ["products-page", id],
     queryFn: () => ProductsService.getById(id),
     enabled: !!id,
   });
@@ -27,8 +27,8 @@ function ProductsEditPage() {
         toast.error("Error al editar el producto");
       } else {
         toast.success("Producto editado correctamente");
-        queryClient.invalidateQueries(["products"]);
-        queryClient.invalidateQueries(["products", id]);
+        queryClient.invalidateQueries(["products", 1, ""]);
+        // queryClient.invalidateQueries(["products-page", id]);
       }
     },
   });
