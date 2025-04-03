@@ -30,7 +30,6 @@ async function getById(id) {
         "Content-Type": "application/json",
       },
     });
-
     return res.data;
   } catch (error) {
     return handleAxiosError(error);
