@@ -41,7 +41,7 @@ function Index() {
               {isLoading ? (
                 <Loading />
               ) : (
-                console.log(data)
+                console.log(data.products)
               )}
             </div>
           </main>
