@@ -32,7 +32,9 @@ function Index() {
           <main className="w-full md:w-3/4">
             <div>
               <p className="font-bold pb-3">
-                Mostrando {(page - 1) * 10 + 1} - {Math.min(page * 10, data?.count || 0)} de {data?.count || 0} resultados
+                Mostrando {(page - 1) * 10 + 1} -{" "}
+                {Math.min(page * 10, data?.count || 0)} de {data?.count || 0}{" "}
+                resultados
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
