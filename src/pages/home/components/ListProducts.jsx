@@ -1,4 +1,5 @@
 import CardProduct from "../../catalog/components/CardProduct";
+import { data } from "@/mocks/data.json";
 
 function ListProducts() {
   return (
@@ -6,12 +7,12 @@ function ListProducts() {
       <h2 className="text-2xl font-bold pb-8">Nuestros Productos</h2>
       <div className="w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {[...Array(4)].map((_, i) => (
-            <CardProduct key={i}/>
+          {data.products.map((infoProduct, i) => (
+            <CardProduct key={i} infoProduct={infoProduct} />
           ))}
         </div>
       </div>
     </div>
   );
 }
-export default ListProducts
+export default ListProducts;
