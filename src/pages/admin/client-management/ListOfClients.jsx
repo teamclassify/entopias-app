@@ -7,12 +7,13 @@ import { Loading } from "../../../components/ui/loading";
 import UsersService from "../../../services/api/Users";
 import Pagination from "../../catalog/components/Pagination";
 
-function ListOfClients() {
+function ListOfClients({ searchByName }) {
   const [page, setPage] = useState(1);
 
   const { isPending, isError, data } = useQuery({
-    queryKey: ["users", page],
-    queryFn: () => UsersService.getAll({ page, role: "user" }),
+    queryKey: ["users", page, searchByName],
+    queryFn: () =>
+      UsersService.getAll({ page, role: "user", search: searchByName }),
   });
 
   if (isPending) {

@@ -14,15 +14,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-import UploadImage from "@/components/base/UploadImage";
+import { Loading } from "../../../components/ui/loading";
 
 const formSchema = z.object({
   name: z.string().min(3).max(255),
-  price: z.number().min(0),
+  precio: z.number().min(0),
   stock: z.number().min(0),
-  description: z.string().min(3),
-  images: z.array(z.string()).max(3),
+  descripcion: z.string().min(3),
+  // images: z.array(z.string()).max(3),
+  loteId: z.number(),
+  molido: z.string().optional(),
+  tueste: z.string().optional(),
+  notas: z.string().optional(),
 });
 
 /*
@@ -33,24 +36,34 @@ const formSchema = z.object({
     - onSubmit: function
     - onCancel: function
 */
-function Form({ product, onSubmit }) {
-  const [images, setImages] = useState(product?.images || []);
+function Form({ product, onSubmit, isPending = false }) {
+  const [images] = useState([]);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: product?.name || "",
-      price: product?.name || 0,
+      precio: product?.precio || 0,
       stock: product?.stock || 0,
-      description: product?.description || "",
-      images: product?.images || [],
+      descripcion: product?.descripcion || "",
+      // images: product?.photos || [],
+      loteId: product?.loteId || 0,
+      molido: "",
+      tueste: "",
+      notas: product?.lote?.cafe?.notasOlfativas || "",
     },
   });
+
+  // useEffect(() => {
+  //   if (product) {
+  //     setImages(product?.photos.map((photo) => photo.url));
+  //   }
+  // }, [product]);
 
   const handleSubmit = (data) => {
     onSubmit({
       ...data,
-      images,
+      photos: images,
     });
   };
 
@@ -79,88 +92,24 @@ function Form({ product, onSubmit }) {
 
               <FormField
                 control={form.control}
-                name="origin"
+                name="loteId"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Origen</FormLabel>
+                    <FormLabel>Lote de Origen</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input
+                        {...field}
+                        disabled={product}
+                        onChange={(value) => {
+                          form.setValue("loteId", Number(value.target.value));
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <div className="grid grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="altura"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Altura</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          {...field}
-                          onChange={(value) => {
-                            form.setValue("altura", parseFloat(value.target.value));
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <p className="mt-8 text-sm text-[#565758]">msnm</p>
-              </div>
-
-              <FormField
-                control={form.control}
-                name="finca"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Finca</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="fechaTostado"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Fecha de Tostado</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="fechaCaducidad"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Fecha de Caducidad</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <Button type="submit">
-                {product ? "Actualizar producto" : "Agregar producto"}
-              </Button>
-            </div>
-            <div className="w-full grid gap-4 h-full">
               <div className="grid grid-cols-2 gap-4 ">
                 <FormField
                   control={form.control}
@@ -194,7 +143,7 @@ function Form({ product, onSubmit }) {
               <div className="grid grid-cols-2 gap-4 ">
                 <FormField
                   control={form.control}
-                  name="price"
+                  name="precio"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Precio del producto</FormLabel>
@@ -203,7 +152,10 @@ function Form({ product, onSubmit }) {
                           type="number"
                           {...field}
                           onChange={(value) => {
-                            form.setValue("price", parseFloat(value.target.value));
+                            form.setValue(
+                              "precio",
+                              parseFloat(value.target.value)
+                            );
                           }}
                         />
                       </FormControl>
@@ -219,7 +171,13 @@ function Form({ product, onSubmit }) {
                     <FormItem>
                       <FormLabel>Stock</FormLabel>
                       <FormControl>
-                        <Input type="number" disabled {...field} />
+                        <Input
+                          type="number"
+                          {...field}
+                          onChange={(value) => {
+                            form.setValue("stock", Number(value.target.value));
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -229,7 +187,7 @@ function Form({ product, onSubmit }) {
 
               <FormField
                 control={form.control}
-                name="description"
+                name="descripcion"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Descripción</FormLabel>
@@ -245,6 +203,15 @@ function Form({ product, onSubmit }) {
                 )}
               />
 
+              <Button type="submit">
+                {isPending ? (
+                  <Loading className="w-2 h-2 mr-2 border-white" />
+                ) : (
+                  <> {product ? "Actualizar producto" : "Agregar producto"}</>
+                )}
+              </Button>
+            </div>
+            <div className="w-full grid gap-4 h-full">
               <FormField
                 control={form.control}
                 name="notas"
@@ -263,15 +230,14 @@ function Form({ product, onSubmit }) {
               />
 
               <div>
-                <FormLabel className="mb-2">
+                {/* <FormLabel className="mb-2">
                   Imagenes <span className="text-gray-500">(opcional)</span>
                 </FormLabel>
-                <UploadImage setImages={setImages} />
+                <UploadImage defaultImages={images} setImages={setImages} /> */}
               </div>
             </div>
           </div>
         </div>
-
       </form>
     </FormUI>
   );

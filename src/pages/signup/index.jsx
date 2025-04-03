@@ -24,6 +24,7 @@ const formSchema = z.object({
   name: z.string().min(3),
   email: z.string().email(),
   password: z.string().min(6),
+  birthdate: z.string().optional(),
 });
 
 function SignUp() {
@@ -37,11 +38,12 @@ function SignUp() {
       name: "",
       email: "",
       password: "",
+      birthdate: "",
     },
   });
 
-  async function onSubmit({ name, email, password }) {
-    const res = await registerWithEmail(email, password, name);
+  async function onSubmit({ name, email, password, birthdate }) {
+    const res = await registerWithEmail(email, password, name, birthdate);
 
     if (res.status === 200) {
       setLocation("/iniciar-sesion");
@@ -90,6 +92,20 @@ function SignUp() {
                 </FormLabel>
                 <FormControl>
                   <Input placeholder="ejemplo@correo.com" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="birthdate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Fecha de nacimiento</FormLabel>
+                <FormControl>
+                  <Input type="date" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

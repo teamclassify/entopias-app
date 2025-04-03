@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { calculateAge } from "../../utils/calculateAge";
 
 export const columns = [
   {
@@ -6,11 +7,13 @@ export const columns = [
     header: "Nombre",
   },
   {
-    accessorKey: "age",
+    accessorKey: "birthday",
     header: "Edad",
     cell: ({ row }) => {
-      return (
-        row.getValue("age") || <span className="text-gray-400">No aplica</span>
+      return row.getValue("birthday") ? (
+        calculateAge(row.getValue("birthday"))
+      ) : (
+        <span className="text-gray-400">No aplica</span>
       );
     },
   },
