@@ -1,9 +1,5 @@
-import { useRoute } from "wouter";
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import { useQuery } from "@tanstack/react-query";
-import ProductsService from "../../services/api/Products";
 import { Button } from "@/components/ui/button";
-import { Loading } from "../../components/ui/loading";
 import {
   Card,
   CardContent,
@@ -12,11 +8,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useProductQuantity } from "@/hooks/useProductQuantity";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "wouter";
+import { Loading } from "../../components/ui/loading";
+import ProductsService from "../../services/api/Products";
 
 function ProductDetail() {
-  const [, params] = useRoute("/producto/:id");
+  const params = useParams();
+    const { id } = params;
 
-  const id = params?.id ? parseInt(params.id) : null;
   const { data, isLoading, isError } = useQuery({
     queryKey: ["products", id],
     queryFn: () => id ? ProductsService.getById(id) : null,
@@ -25,8 +25,6 @@ function ProductDetail() {
 
   const stockValue = data?.data?.stock || 0;
   const { quantity, increment, decrement } = useProductQuantity(stockValue);
-
-  //console.log(data);
 
   if (isError || data?.error) {
     return <Error message={data?.msg || "An unexpected error occurred"} />;
