@@ -16,7 +16,6 @@ function Index() {
     queryFn: () => ProductsService.getAll({ page }),
   });
 
-
   if (isError || data?.error) {
     return <Error message={data?.msg || "An unexpected error occurred"} />;
   }
@@ -39,15 +38,19 @@ function Index() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
               {isLoading ? (
                 <Loading />
+              ) : data?.data.count > 0 ? (
+                data.data.products.map((infoProduct, i) => (
+                  <CardProduct key={i} infoProduct={infoProduct} />
+                ))
               ) : (
-                console.log(data.products)
+                <p>No products found</p>
               )}
             </div>
           </main>
         </div>
         <Pagination
           currentPage={page}
-          totalItems={data?.count || 0}
+          totalItems={data?.data.count || 0}
           itemsPerPage={10}
           onPageChange={setPage}
         />

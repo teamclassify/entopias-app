@@ -1,17 +1,33 @@
 import CardProduct from "../../catalog/components/CardProduct";
-import { data } from "@/mocks/data.json";
+import { Error } from "../../../components/ui/error";
+import { Loading } from "../../../components/ui/loading";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import ProductsService from "../../../services/api/Products";
 
 function ListProducts() {
+  const [page, ] = useState(1);
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["products", page],
+    queryFn: () => ProductsService.getAll({ page }),
+  });
+
+  if (isError || data?.error) {
+    return <Error message={data?.msg || "An unexpected error occurred"} />;
+  }
+
   return (
-    <div className="flex flex-col items-center mb-20">
-      <h2 className="text-2xl font-bold pb-8">Nuestros Productos</h2>
-      <div className="w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {data.products.map((infoProduct, i) => (
-            <CardProduct key={i} infoProduct={infoProduct} />
-          ))}
-        </div>
-      </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+      {isLoading ? (
+        <Loading />
+      ) : data?.data.count > 0 ? (
+        data.data.products.map((infoProduct, i) => (
+          <CardProduct key={i} infoProduct={infoProduct} />
+        ))
+      ) : (
+        <p>No products found</p>
+      )}
     </div>
   );
 }
