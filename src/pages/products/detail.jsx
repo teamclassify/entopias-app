@@ -18,7 +18,7 @@ function ProductDetail() {
     const { id } = params;
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["products", id],
+    queryKey: ["products-page", id],
     queryFn: () => id ? ProductsService.getById(id) : null,
     enabled: !!id,
   });
