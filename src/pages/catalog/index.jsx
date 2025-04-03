@@ -16,7 +16,6 @@ function Index() {
     queryFn: () => ProductsService.getAll({ page }),
   });
 
-  console.log(data);
 
   if (isError || data?.error) {
     return <Error message={data?.msg || "An unexpected error occurred"} />;
@@ -41,7 +40,7 @@ function Index() {
               {isLoading ? (
                 <Loading />
               ) : (
-                console.log(data.products)
+                console.log(data)
               )}
             </div>
           </main>
