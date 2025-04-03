@@ -40,7 +40,7 @@ function Index() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
               {isLoading ? (
                 <Loading />
-              ) : data?.products?.length > 0 ? (
+              ) : data?.count > 0 ? (
                 data.products.map((infoProduct, i) => (
                   <CardProduct key={i} infoProduct={infoProduct} />
                 ))
