@@ -41,9 +41,7 @@ function Index() {
               {isLoading ? (
                 <Loading />
               ) : (
-                data.products.map((infoProduct, i) => (
-                  <CardProduct key={i} infoProduct={infoProduct} />
-                ))
+                console.log(data)
               )}
             </div>
           </main>
