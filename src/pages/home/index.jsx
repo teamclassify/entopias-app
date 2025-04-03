@@ -22,7 +22,12 @@ function HomePage() {
         <HeroSection />
       </div>
       <LogoInfo />
-      <ListProducts />
+      <div className="flex flex-col items-center mb-20">
+        <h2 className="text-2xl font-bold pb-8">Nuestros Productos</h2>
+        <div className="w-full">
+          <ListProducts />
+        </div>
+      </div>
       <InfoCards />
       <Message />
     </DefaultLayout>
