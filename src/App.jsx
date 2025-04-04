@@ -10,6 +10,7 @@ import ProductsCreatePage from "./pages/products/create";
 import ProductDetail from "./pages/products/detail";
 import ProductsEditPage from "./pages/products/edit";
 import ProductsListPage from "./pages/products/list";
+import ProductsBatchListPage from "./pages/products/batch";
 import RecoveryPasswordPage from "./pages/recovery-password";
 import RecoveryPasswordCompletedPage from "./pages/recovery-password/completed";
 import CreateSalesPage from "./pages/sales/create";
@@ -36,6 +37,7 @@ function App() {
 
         <Route component={AdminPage} path="/admin" />
         <Route component={ProductsListPage} path="/admin/productos" />
+        <Route component={ProductsBatchListPage} path="/admin/productos/lote" />
         <Route component={ProductsCreatePage} path="/admin/productos/agregar" />
         <Route component={ProductsEditPage} path="/admin/productos/:id" />
         <Route component={ClientManagment} path="/admin/clientes" />
