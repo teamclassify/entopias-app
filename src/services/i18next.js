@@ -1,10 +1,10 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 
-import enLanguage from "@src/i18n/en.json";
-import esLanguage from "@src/i18n/es.json";
+import enLanguage from "@/i18n/en.json";
+import esLanguage from "@/i18n/es.json";
 
-import { getLocalStorage } from "@src/utils/localStorage";
+import { getLocalStorage } from "@/utils/localStorage";
 
 const getLanguageSaved = getLocalStorage("lang") || "en";
 
