@@ -79,6 +79,23 @@ const itemsADMIN = [
       },
     ],
   },
+  {
+    title: "Productores",
+    url: "/admin/productores",
+    icon: UserRoundPen,
+    subitems: [
+      {
+        title: "Ver Productores",
+        url: "/admin/productores",
+        icon: List,
+      },
+      {
+        title: "Agregar Productores",
+        url: "/admin/productores/agregar",
+        icon: FilePlus,
+      },
+    ],
+  },
 ];
 
 const itemsSALES = [
@@ -108,6 +125,18 @@ const itemsSALES = [
       {
         title: "Ver Produtos",
         url: "/admin/productos",
+        icon: List,
+      },
+    ],
+  },
+  {
+    title: "Productores",
+    url: "/admin/productores",
+    icon: UserRoundPen,
+    subitems: [
+      {
+        title: "Ver Productores",
+        url: "/admin/productores",
         icon: List,
       },
     ],

@@ -42,7 +42,7 @@ function App() {
         <Route component={ClientManagment} path="/admin/clientes" />
         <Route component={ListSalesPage} path="/admin/asistentes" />
         <Route component={CreateSalesPage} path="/admin/asistentes/agregar" />
-        <Route component={CreateProducerPage} path="/admin/productor/agregar" />
+        <Route component={CreateProducerPage} path="/admin/productores/agregar" />
 
         <Route component={ProductDetail} path="/producto/:id" />
 
