@@ -16,6 +16,7 @@ import CreateSalesPage from "./pages/sales/create";
 import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
+import CreateProducerPage from "./pages/producer/create";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route component={ClientManagment} path="/admin/clientes" />
         <Route component={ListSalesPage} path="/admin/asistentes" />
         <Route component={CreateSalesPage} path="/admin/asistentes/agregar" />
+        <Route component={CreateProducerPage} path="/admin/productor/agregar" />
 
         <Route component={ProductDetail} path="/producto/:id" />
 
