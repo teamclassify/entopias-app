@@ -1,4 +1,5 @@
 import {
+  Coffee,
   FilePlus,
   Home,
   List,
@@ -48,7 +49,7 @@ const itemsADMIN = [
   {
     title: "Productos",
     url: "/admin/productos",
-    icon: Package,
+    icon: Coffee,
     subitems: [
       {
         title: "Ver Productos",
@@ -58,6 +59,23 @@ const itemsADMIN = [
       {
         title: "Agregar Producto",
         url: "/admin/productos/agregar",
+        icon: FilePlus,
+      },
+    ],
+  },
+  {
+    title: "Lotes",
+    url: "/admin/lotes",
+    icon: Package,
+    subitems: [
+      {
+        title: "Ver Lotes",
+        url: "/admin/lotes",
+        icon: List,
+      },
+      {
+        title: "Agregar Lotes",
+        url: "/admin/lotes/agregar",
         icon: FilePlus,
       },
     ],
@@ -120,7 +138,7 @@ const itemsSALES = [
   {
     title: "Produtos",
     url: "/admin/productos",
-    icon: Package,
+    icon: Coffee,
     subitems: [
       {
         title: "Ver Produtos",
@@ -137,6 +155,18 @@ const itemsSALES = [
       {
         title: "Ver Productores",
         url: "/admin/productores",
+        icon: List,
+      },
+    ],
+  },
+  {
+    title: "Lotes",
+    url: "/admin/lotes",
+    icon: Package,
+    subitems: [
+      {
+        title: "Ver Lotes",
+        url: "/admin/lotes",
         icon: List,
       },
     ],

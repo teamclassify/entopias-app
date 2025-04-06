@@ -26,7 +26,7 @@ function CreateBatchPage() {
 
   return (
     <AdminLayout>
-      <AdminBreadcrumb currentPage="Crear Productor" />
+      <AdminBreadcrumb currentPage="Crear Lote" />
       <Form onSubmit={handleSubmit} />
     </AdminLayout>
   );
