@@ -1,0 +1,18 @@
+{
+  "translation": {
+    "homePage": {
+      "title": "Un café premium para momento únicos",
+      "description": "Saborea experiencias inolvidables con cada taza de nuestro café.",
+
+      "about_us": {
+        "title": "Sobre Nosotros",
+        "description": "En Entopias Café, vivimos la pasión por el buen café. Seleccionamos granos de alta calidad directamente de productores, asegurando autenticidad y sabor en cada taza. Nos enfocamos en resaltar las mejores características de cada cosecha a través de un proceso cuidadoso que garantiza frescura y excelencia. Más que una marca, somos una comunidad que celebra la tradición cafetera, conectando a los amantes del café con experiencias únicas y auténticas."
+      },
+
+      "our_products": {
+        "title": "Nuestros Productos",
+        "description": "Explora nuestra gama de productos diseñados para satisfacer tus necesidades."
+      }
+    }
+  }
+}

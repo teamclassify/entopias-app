@@ -12,6 +12,7 @@ import { Link } from "wouter";
 
 import useUser from "@/hooks/useUser";
 import AvatarUser from "./AvatarUser";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 function Menu({ user, logout, userIsAdminOrSales }) {
   return (
@@ -90,28 +91,32 @@ function Header() {
         </Link>
       </div>
 
-      {user ? (
-        <AvatarUser
-          user={user}
-          logout={logout}
-          userIsAdminOrSales={userIsAdminOrSales}
-        />
-      ) : (
-        <div>
-          <div className="font-medium hidden md:flex gap-4 w-[220px] justify-end">
-            <Link href="/registrarse">Crea tu cuenta</Link>
-            <Link href="/iniciar-sesion">Ingresa</Link>
-          </div>
+      <div className="flex items-center gap-4">
+        {user ? (
+          <AvatarUser
+            user={user}
+            logout={logout}
+            userIsAdminOrSales={userIsAdminOrSales}
+          />
+        ) : (
+          <div>
+            <div className="font-medium hidden md:flex gap-4 w-[220px] justify-end">
+              <Link href="/registrarse">Crea tu cuenta</Link>
+              <Link href="/iniciar-sesion">Ingresa</Link>
+            </div>
 
-          <div className="md:hidden">
-            <Menu
-              user={user}
-              logout={logout}
-              userIsAdminOrSales={userIsAdminOrSales}
-            />
+            <div className="md:hidden">
+              <Menu
+                user={user}
+                logout={logout}
+                userIsAdminOrSales={userIsAdminOrSales}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
+        <LanguageSwitcher />
+      </div>
     </header>
   );
 }

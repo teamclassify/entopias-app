@@ -2,7 +2,7 @@ import axios from "axios";
 import { URL, handleAxiosError } from ".";
 import { getToken } from "./Auth";
 
-async function getAll({ page = 0, role }) {
+async function getAll({ page = 0, role, search }) {
   const token = await getToken();
 
   if (!token) throw new Error("Token not found");
@@ -18,6 +18,7 @@ async function getAll({ page = 0, role }) {
       params: {
         page,
         role,
+        search,
       },
     });
 

@@ -7,12 +7,12 @@ import ProductsService from "../../../services/api/Products";
 import Pagination from "../../catalog/components/Pagination";
 import { columns } from "./columns";
 
-function ListOfProducts() {
+function ListOfProducts({ searchByName }) {
   const [page, setPage] = useState(1);
 
   const { isPending, isError, data } = useQuery({
-    queryKey: ["products", page],
-    queryFn: () => ProductsService.getAll({ page }),
+    queryKey: ["products", page, searchByName],
+    queryFn: () => ProductsService.getAll({ page, search: searchByName }),
   });
 
   if (isPending) {
@@ -26,7 +26,7 @@ function ListOfProducts() {
   return (
     <div>
       <div className="pt-3">
-        <DataTable columns={columns} data={data.data || []} />
+        <DataTable columns={columns} data={data.data?.products || []} />
       </div>
 
       <div className="mt-4">

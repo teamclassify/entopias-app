@@ -1,0 +1,18 @@
+{
+  "translation": {
+    "homePage": {
+      "title": "A premium coffee for unique moments",
+      "description": "Experience unforgettable moments with every cup of our coffee.",
+
+      "about_us": {
+        "title": "About Us",
+        "description": "At Entopias Café, we live the passion for good coffee. We select high-quality beans directly from producers, ensuring authenticity and flavor in every cup. We focus on highlighting the best characteristics of each harvest through a careful process that guarantees freshness and excellence. More than a brand, we are a community that celebrates the coffee tradition, connecting coffee lovers with unique and authentic experiences."
+      },
+
+      "our_products": {
+        "title": "Our Products",
+        "description": "Explore our range of products designed to meet your needs."
+      }
+    }
+  }
+}
