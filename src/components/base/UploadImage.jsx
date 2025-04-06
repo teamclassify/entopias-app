@@ -1,29 +1,57 @@
-import "filepond/dist/filepond.min.css";
-import React from "react";
-import { FilePond, registerPlugin } from "react-filepond";
+import { RefreshCwIcon, Trash } from "lucide-react";
+import ReactImageUploading from "react-images-uploading";
+import { Button } from "@/components/ui/button";
 
-import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-
-// Register the plugins
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
-
-function UploadImage({ setImages }) {
+function UploadImage({ images, setImages, maxNumber = 1 }) {
   return (
-    <FilePond
-      allowMultiple={true}
-      onaddfile={(_, file) => {
-        console.log("file", file.file);
-        setImages((prev) => [...prev, file.file]);
-      }}
-      onremovefile={async (_, file) => {
-        setImages((prev) => prev.filter((f) => f.name !== file.name));
-      }}
-      maxFiles={3}
-      name="files" /* sets the file input name, it's filepond by default */
-      labelIdle='Arrastra y suelta tus archivos o <span class="filepond--label-action"> Busca en tu computadora</span>'
-    />
+    <ReactImageUploading
+      multiple
+      value={images}
+      onChange={setImages}
+      maxNumber={maxNumber}
+      acceptType={["jpg", "png", "jpeg"]}
+      dataURLKey="data_url"
+    >
+      {({
+        imageList,
+        onImageUpload,
+        onImageUpdate,
+        onImageRemove,
+        isDragging,
+        dragProps,
+      }) => (
+        <div className="upload__image-wrapper">
+          <button
+            style={isDragging ? { color: "red" } : undefined}
+            onClick={onImageUpload}
+            {...dragProps}
+            className="text-center bg-gray-200 border-2 border-dashed border-gray-400 rounded-lg p-4 w-full"
+          >
+            Click or Arrastra y suelta aqui
+          </button>
+
+          <div className="grid grid-cols-4 gap-4 mt-4">
+            {imageList.map((image, index) => {
+              return (
+                <div key={index} className="relative">
+                  <img src={image.data_url} alt="" />
+
+                  <div className="absolute top-0 right-0 flex gap-1 p-1">
+                    <Button onClick={() => onImageUpdate(index)} size="sm">
+                      <RefreshCwIcon className="w-4 h-4" />
+                    </Button>
+
+                    <Button onClick={() => onImageRemove(index)} size="sm">
+                      <Trash className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </ReactImageUploading>
   );
 }
 
