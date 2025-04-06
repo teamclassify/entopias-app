@@ -17,26 +17,19 @@ import { z } from "zod";
 const formSchema = z.object({
   name: z.string().min(3).max(255),
   email: z.string().email(),
-  password: z.string().min(6),
   phone: z.string().min(10).optional(),
+  country: z.string().max(255),
+  city: z.string().max(255),
 });
 
-/*
-  Component Form for adding a sales account
-
-  Props:
-    - product?: object
-    - onSubmit: function
-    - onCancel: function
-*/
 function Form({ onSubmit }) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      email: "",
-      password: "",
       phone: "",
+      country: "",
+      city: "",
     },
   });
 
@@ -71,15 +64,31 @@ function Form({ onSubmit }) {
 
               <FormField
                 control={form.control}
-                name="email"
+                name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Correo electrónico</FormLabel>
+                    <FormLabel>
+                      Teléfono <span className="text-gray-400">(opcional)</span>
+                    </FormLabel>
                     <FormControl>
-                      <Input type="email" {...field} />
+                      <Input type="number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="country"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Pais</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
                     </FormControl>
                     <FormDescription>
-                      El correo electrónico de la cuenta.
+                      El nombre del pais del productor
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -88,65 +97,25 @@ function Form({ onSubmit }) {
 
               <FormField
                 control={form.control}
-                name="password"
+                name="city"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Contraseña</FormLabel>
+                    <FormLabel>Ciudad</FormLabel>
                     <FormControl>
-                      <Input type="password" {...field} />
+                      <Input {...field} />
                     </FormControl>
-                    <FormDescription>La contraseña de la cuenta.</FormDescription>
+                    <FormDescription>La ciudad del productor</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <div className="grid grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        Teléfono <span className="text-gray-400">(opcional)</span>
-                      </FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
 
-                {/*
-                <FormField
-                  control={form.control}
-                  name="edad"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Edad</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          {...field}
-                          onChange={(value) => {
-                            form.setValue("edad", parseFloat(value.target.value));
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                */}
-              </div>
-
-              <Button className="mt-4" type="submit">Crear cuenta</Button>
+              <Button className="mt-4" type="submit">
+                Crear cuenta
+              </Button>
             </div>
-
-            {/* <div className="w-full"></div> */}
           </div>
         </div>
-
       </form>
     </FormUI>
   );
