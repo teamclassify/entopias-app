@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import {
-  FormControl,
   FormDescription,
   FormField,
   FormItem,
@@ -12,14 +11,15 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useState } from "react";
+import LocationSelector from "@/components/ui/location-input";
 
 const formSchema = z.object({
   name: z.string().min(3).max(255),
   email: z.string().email(),
   phone: z.string().min(10).optional(),
   country: z.string().max(255),
-  city: z.string().max(255),
+  state: z.string().max(255),
+  farm: z.string().max(255),
 });
 
 function Form({ onSubmit }) {
@@ -27,20 +27,17 @@ function Form({ onSubmit }) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      email: "",
       phone: "",
       country: "",
-      city: "",
+      state: "",
+      farm: "",
     },
   });
 
   const handleSubmit = (data) => {
-    onSubmit({
-      ...data,
-    });
+    onSubmit(data);
   };
-
-  const [countryName, setCountryName] = useState("");
-  const [stateName, setStateName] = useState("");
 
   return (
     <FormUI {...form}>
@@ -54,12 +51,22 @@ function Form({ onSubmit }) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Nombre</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
+                    <Input {...field} />
                     <FormDescription>
                       El nombre de la persona de la cuenta.
                     </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <Input type="email" {...field} />
                     <FormMessage />
                   </FormItem>
                 )}
@@ -73,9 +80,7 @@ function Form({ onSubmit }) {
                     <FormLabel>
                       Teléfono <span className="text-gray-400">(opcional)</span>
                     </FormLabel>
-                    <FormControl>
-                      <Input type="number" {...field} />
-                    </FormControl>
+                    <Input type="number" {...field} />
                     <FormMessage />
                   </FormItem>
                 )}
@@ -84,58 +89,44 @@ function Form({ onSubmit }) {
               <FormField
                 control={form.control}
                 name="country"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Pais</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      El nombre del pais del productor
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
+                render={({ field: countryField }) => (
+                  <FormField
+                    control={form.control}
+                    name="state"
+                    render={({ field: stateField }) => (
+                      <FormItem>
+                        <FormLabel>País y Estado</FormLabel>
+                        <LocationSelector
+                          value={{
+                            country: countryField.value,
+                            state: stateField.value, // Usamos el valor directo del campo state
+                          }}
+                          onCountryChange={(country) => {
+                            countryField.onChange(country?.name || "");
+                            stateField.onChange(""); // Resetear estado al cambiar país
+                          }}
+                          onStateChange={(state) => {
+                            stateField.onChange(state?.name || ""); // Actualizar estado
+                          }}
+                        />
+                        <FormDescription>
+                          El país y estado de la finca del productor
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 )}
               />
 
               <FormField
                 control={form.control}
-                name="city"
+                name="farm"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Ciudad</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormDescription>La ciudad del productor</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="country"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>País</FormLabel>
-                    <FormControl>
-                      <LocationSelector
-                        onCountryChange={(country) => {
-                          setCountryName(country?.name || "");
-                          form.setValue(field.name, [
-                            country?.name || "",
-                            stateName || "",
-                          ]);
-                        }}
-                        onStateChange={(state) => {
-                          setStateName(state?.name || "");
-                          form.setValue(field.name, [
-                            countryName || "",
-                            state?.name || "",
-                          ]);
-                        }}
-                      />
-                    </FormControl>
+                    <FormLabel>Finca</FormLabel>
+                    <Input {...field} />
+                    <FormDescription>Nombre de la finca del café</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
