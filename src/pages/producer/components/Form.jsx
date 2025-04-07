@@ -14,12 +14,31 @@ import { z } from "zod";
 import LocationSelector from "@/components/ui/location-input";
 
 const formSchema = z.object({
-  name: z.string().min(3).max(255),
-  email: z.string().email(),
-  phone: z.string().min(10).optional(),
-  country: z.string().max(255),
-  state: z.string().max(255),
-  farm: z.string().max(255),
+  name: z
+    .string({ required_error: "El nombre es obligatorio" })
+    .min(3, { message: "El nombre debe tener al menos 3 caracteres" })
+    .max(255, { message: "El nombre no puede exceder los 255 caracteres" }),
+  email: z
+    .string({ required_error: "El correo electrónico es obligatorio" })
+    .email({ message: "Debe ser un correo electrónico válido" }),
+  phone: z
+    .string()
+    .min(10, { message: "El teléfono debe tener al menos 10 dígitos" })
+    .optional(),
+  country: z
+    .string({ required_error: "El país es obligatorio" })
+    .min(1, "El nombre del pais es obligatorio")
+    .max(255, { message: "El país no puede exceder los 255 caracteres" }),
+  state: z
+    .string({ required_error: "El estado es obligatorio" })
+    .min(1, "El nombre del pais y estado es obligatorio")
+    .max(255, { message: "El estado no puede exceder los 255 caracteres" }),
+  farm: z
+    .string({
+      required_error: "El nombre de la finca es obligatorio",
+      invalid_type_error: "El nombre de la finca debe ser una cadena de texto",
+    })
+    .min(1, "El nombre de la finca es obligatorio"),
 });
 
 function Form({ onSubmit }) {
@@ -59,33 +78,34 @@ function Form({ onSubmit }) {
                   </FormItem>
                 )}
               />
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <Input type="email" {...field} />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <Input type="email" {...field} />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      Teléfono <span className="text-gray-400">(opcional)</span>
-                    </FormLabel>
-                    <Input type="number" {...field} />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        Teléfono{" "}
+                        <span className="text-gray-400">(opcional)</span>
+                      </FormLabel>
+                      <Input type="number" {...field} />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
               <FormField
                 control={form.control}
                 name="country"
@@ -97,19 +117,19 @@ function Form({ onSubmit }) {
                       <FormItem>
                         <FormLabel>País y Estado</FormLabel>
                         <div>
-                        <LocationSelector
-                          value={{
-                            country: countryField.value,
-                            state: stateField.value, 
-                          }}
-                          onCountryChange={(country) => {
-                            countryField.onChange(country?.name || "");
-                            stateField.onChange(""); 
-                          }}
-                          onStateChange={(state) => {
-                            stateField.onChange(state?.name || ""); 
-                          }}
-                        />
+                          <LocationSelector
+                            value={{
+                              country: countryField.value,
+                              state: stateField.value,
+                            }}
+                            onCountryChange={(country) => {
+                              countryField.onChange(country?.name || "");
+                              stateField.onChange("");
+                            }}
+                            onStateChange={(state) => {
+                              stateField.onChange(state?.name || "");
+                            }}
+                          />
                         </div>
                         <FormDescription>
                           El país y estado de la finca del productor
@@ -128,7 +148,9 @@ function Form({ onSubmit }) {
                   <FormItem>
                     <FormLabel>Finca</FormLabel>
                     <Input {...field} />
-                    <FormDescription>Nombre de la finca del café</FormDescription>
+                    <FormDescription>
+                      Nombre de la finca del productor
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
