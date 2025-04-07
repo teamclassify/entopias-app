@@ -96,19 +96,21 @@ function Form({ onSubmit }) {
                     render={({ field: stateField }) => (
                       <FormItem>
                         <FormLabel>País y Estado</FormLabel>
+                        <div>
                         <LocationSelector
                           value={{
                             country: countryField.value,
-                            state: stateField.value, // Usamos el valor directo del campo state
+                            state: stateField.value, 
                           }}
                           onCountryChange={(country) => {
                             countryField.onChange(country?.name || "");
-                            stateField.onChange(""); // Resetear estado al cambiar país
+                            stateField.onChange(""); 
                           }}
                           onStateChange={(state) => {
-                            stateField.onChange(state?.name || ""); // Actualizar estado
+                            stateField.onChange(state?.name || ""); 
                           }}
                         />
+                        </div>
                         <FormDescription>
                           El país y estado de la finca del productor
                         </FormDescription>

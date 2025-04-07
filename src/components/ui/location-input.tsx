@@ -101,7 +101,7 @@ const LocationSelector = ({
   };
 
   return (
-    <div className="flex gap-4">
+    <div className="grid grid-cols-2 gap-4">
       {/* Country Selector */}
       <Popover open={openCountryDropdown} onOpenChange={setOpenCountryDropdown}>
         <PopoverTrigger>
@@ -110,7 +110,7 @@ const LocationSelector = ({
             role="combobox"
             aria-expanded={openCountryDropdown}
             disabled={disabled}
-            className="w-full justify-between"
+            className="w-full justify-between cursor-pointer"
             type="button"
           >
             {selectedCountry ? (
@@ -168,7 +168,7 @@ const LocationSelector = ({
             role="combobox"
             aria-expanded={openStateDropdown}
             disabled={!selectedCountry || disabled}
-            className="w-full justify-between"
+            className="w-full justify-between cursor-pointer"
             type="button"
           >
             {value.state ? (
