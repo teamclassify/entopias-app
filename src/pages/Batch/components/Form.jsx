@@ -85,7 +85,7 @@ function Form({ onSubmit }) {
         <div className="bg-[#ECECEC] p-10">
           <div className="">
             <div className="w-full grid gap-4 h-full">
-              <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <FormField
                   control={form.control}
                   name="initialWeight"
@@ -118,7 +118,7 @@ function Form({ onSubmit }) {
                   )}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <FormField
                   control={form.control}
                   name="roastedDate"
@@ -178,7 +178,7 @@ function Form({ onSubmit }) {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <FormField
                   control={form.control}
                   name="aromaticsNotes"
@@ -255,7 +255,7 @@ function Form({ onSubmit }) {
               />
 
               <Button className="mt-4" type="submit">
-                Crear cuenta
+                Crear Lote
               </Button>
             </div>
           </div>
