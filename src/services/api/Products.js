@@ -42,15 +42,30 @@ async function update(id, data) {
 
   if (!token) throw new Error("Token not found");
 
+  const formData = new FormData();
+
+  console.log(data);
+
+  formData.append("name", data.name);
+  formData.append("precio", data.precio);
+  formData.append("stock", data.stock);
+  formData.append("status", true);
+  formData.append("descripcion", data.descripcion);
+
+  data.photos.forEach((photo) => {
+    if (typeof photo !== "string") formData.append("newphotos", photo);
+    else formData.append("photos", photo);
+  });
+
   try {
     const res = await axios({
       url: `${URL}/products/${id}`,
-      method: "PUT",
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
-      data,
+      data: formData,
     });
 
     return res.data;
@@ -64,15 +79,27 @@ async function create(data) {
 
   if (!token) throw new Error("Token not found");
 
+  const formData = new FormData();
+
+  formData.append("name", data.name);
+  formData.append("precio", data.precio);
+  formData.append("stock", data.stock);
+  formData.append("descripcion", data.descripcion);
+  formData.append("loteId", data.loteId);
+
+  data.photos.forEach((photo) => {
+    formData.append("photos", photo);
+  });
+
   try {
     const res = await axios({
       url: `${URL}/products`,
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
-      data,
+      data: formData,
     });
 
     return res.data;
