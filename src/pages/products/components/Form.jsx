@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Loading } from "@/components/ui/loading";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
@@ -19,8 +20,6 @@ import { z } from "zod";
 
 const formSchema = z.object({
   name: z.string().min(3).max(255),
-  precio: z.number().min(0),
-  stock: z.number().min(0),
   descripcion: z.string().min(3),
   loteId: z.number(),
 });
@@ -35,13 +34,18 @@ const formSchema = z.object({
 */
 function Form({ product, onSubmit, isPending = false }) {
   const [images, setImages] = useState([]);
+  const [varieties, setVarieties] = useState([
+    {
+      size: 0,
+      precio: 0,
+      stock: 0,
+    },
+  ]);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: product?.name || "",
-      precio: product?.precio || 0,
-      stock: product?.stock || 0,
       descripcion: product?.descripcion || "",
       photos: [],
       loteId: product?.loteId || 0,
@@ -51,6 +55,7 @@ function Form({ product, onSubmit, isPending = false }) {
   useEffect(() => {
     if (product) {
       setImages(product?.photos.map((photo) => photo.url));
+      setVarieties(product?.variedades || []);
     }
   }, [product]);
 
@@ -58,11 +63,12 @@ function Form({ product, onSubmit, isPending = false }) {
     onSubmit({
       ...data,
       photos: images.map((image) => image.file ?? image),
+      variedades: varieties,
     });
   };
 
   return (
-    <div className="lg:flex gap-8">
+    <div className="lg:flex gap-4">
       <FormUI {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
@@ -70,6 +76,10 @@ function Form({ product, onSubmit, isPending = false }) {
         >
           <div className="bg-[#ECECEC] p-10">
             <div className="">
+              <h3 className="text-lg font-semibold mb-2">
+                Información del producto
+              </h3>
+
               <div className="w-full grid gap-4 h-full">
                 <FormField
                   control={form.control}
@@ -108,54 +118,6 @@ function Form({ product, onSubmit, isPending = false }) {
                   )}
                 />
 
-                <div className="grid grid-cols-2 gap-4 ">
-                  <FormField
-                    control={form.control}
-                    name="precio"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Precio del producto</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            {...field}
-                            onChange={(value) => {
-                              form.setValue(
-                                "precio",
-                                parseFloat(value.target.value)
-                              );
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="stock"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Stock</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            {...field}
-                            onChange={(value) => {
-                              form.setValue(
-                                "stock",
-                                Number(value.target.value)
-                              );
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
                 <FormField
                   control={form.control}
                   name="descripcion"
@@ -174,6 +136,166 @@ function Form({ product, onSubmit, isPending = false }) {
                   )}
                 />
 
+                <hr />
+
+                <div>
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-2">
+                        Variedades del producto
+                      </h3>
+                    </div>
+
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={() => {
+                        setVarieties((prev) => {
+                          const newVarieties = [...prev];
+
+                          newVarieties.push({
+                            size: 0,
+                            precio: 0,
+                            stock: 0,
+                          });
+
+                          return newVarieties;
+                        });
+                      }}
+                      className="mb-2"
+                    >
+                      Agregar variedad
+                    </Button>
+                  </div>
+
+                  {/* Lista de Variedades con un boton para editar o eliminar la variedad */}
+                  <ScrollArea className="h-60 w-full px-4">
+                    {varieties.map((variety, index) => (
+                      <div key={index} className="mb-4">
+                        <div className="flex items-start justify-between mb-2">
+                          <span className="text-sm block mb-2 font-bold">
+                            #{index + 1}
+                          </span>
+
+                          <span
+                            className="text-sm cursor-pointer hover:underline"
+                            onClick={() => {
+                              setVarieties((prev) => {
+                                const newVarieties = [...prev];
+
+                                newVarieties.splice(index, 1);
+
+                                return newVarieties;
+                              });
+                            }}
+                          >
+                            Eliminar
+                          </span>
+                        </div>
+
+                        <div>
+                          <div className="flex gap-2">
+                            <FormField
+                              control={form.control}
+                              name={`variedades.${index}.size`}
+                              render={() => (
+                                <FormItem>
+                                  <FormLabel>
+                                    Peso
+                                    <span className="text-sm text-gray-500">
+                                      (gr)
+                                    </span>
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      type="number"
+                                      isRequired
+                                      min={0}
+                                      value={variety.size}
+                                      onChange={(value) => {
+                                        setVarieties((prev) => {
+                                          const newVarieties = [...prev];
+
+                                          newVarieties[index].size = Number(
+                                            value.target.value
+                                          );
+
+                                          return newVarieties;
+                                        });
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={form.control}
+                              name={`variedades.${index}.precio`}
+                              render={() => (
+                                <FormItem>
+                                  <FormLabel>Precio</FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      type="number"
+                                      isRequired
+                                      min={0}
+                                      value={variety.precio}
+                                      onChange={(value) => {
+                                        setVarieties((prev) => {
+                                          const newVarieties = [...prev];
+
+                                          newVarieties[index].precio = Number(
+                                            value.target.value
+                                          );
+
+                                          return newVarieties;
+                                        });
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={form.control}
+                              name={`variedades.${index}.stock`}
+                              render={() => (
+                                <FormItem>
+                                  <FormLabel>Stock</FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      type="number"
+                                      isRequired
+                                      min={0}
+                                      value={variety.stock}
+                                      onChange={(value) => {
+                                        setVarieties((prev) => {
+                                          const newVarieties = [...prev];
+
+                                          newVarieties[index].stock = Number(
+                                            value.target.value
+                                          );
+
+                                          return newVarieties;
+                                        });
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </ScrollArea>
+                </div>
+
                 <Button type="submit">
                   {isPending ? (
                     <Loading className="w-2 h-2 mr-2 border-white" />
@@ -188,12 +310,12 @@ function Form({ product, onSubmit, isPending = false }) {
       </FormUI>
 
       <div className="bg-[#ECECEC] p-10 w-full">
-        <p className="text-lg font-semibold mb-2">
+        <h3 className="text-lg font-semibold mb-2">
           Imagenes del producto{" "}
           <span className="text-sm text-gray-500">
             (Puedes subir hasta 3 imagenes)
           </span>
-        </p>
+        </h3>
 
         <p className="text-sm text-gray-500 mb-2">
           Las imagenes deben ser de tipo JPG, PNG o JPEG.
