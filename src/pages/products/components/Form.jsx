@@ -1,3 +1,4 @@
+import UploadImage from "@/components/base/UploadImage";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -9,23 +10,19 @@ import {
   Form as FormUI,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Loading } from "@/components/ui/loading";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Loading } from "../../../components/ui/loading";
 
 const formSchema = z.object({
   name: z.string().min(3).max(255),
   precio: z.number().min(0),
   stock: z.number().min(0),
   descripcion: z.string().min(3),
-  // images: z.array(z.string()).max(3),
   loteId: z.number(),
-  molido: z.string().optional(),
-  tueste: z.string().optional(),
-  notas: z.string().optional(),
 });
 
 /*
@@ -37,7 +34,7 @@ const formSchema = z.object({
     - onCancel: function
 */
 function Form({ product, onSubmit, isPending = false }) {
-  const [images] = useState([]);
+  const [images, setImages] = useState([]);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -46,80 +43,46 @@ function Form({ product, onSubmit, isPending = false }) {
       precio: product?.precio || 0,
       stock: product?.stock || 0,
       descripcion: product?.descripcion || "",
-      // images: product?.photos || [],
+      photos: [],
       loteId: product?.loteId || 0,
-      molido: "",
-      tueste: "",
-      notas: product?.lote?.cafe?.notasOlfativas || "",
     },
   });
 
-  // useEffect(() => {
-  //   if (product) {
-  //     setImages(product?.photos.map((photo) => photo.url));
-  //   }
-  // }, [product]);
+  useEffect(() => {
+    if (product) {
+      setImages(product?.photos.map((photo) => photo.url));
+    }
+  }, [product]);
 
   const handleSubmit = (data) => {
     onSubmit({
       ...data,
-      photos: images,
+      photos: images.map((image) => image.file ?? image),
     });
   };
 
   return (
-    <FormUI {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 ">
-        <div className="bg-[#ECECEC] p-10">
-          <div className="lg:flex gap-8">
-            <div className="w-full grid gap-4 h-full">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nombre</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      El nombre del producto debe tener al menos 3 caracteres.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="loteId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Lote de Origen</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        disabled={product}
-                        onChange={(value) => {
-                          form.setValue("loteId", Number(value.target.value));
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="grid grid-cols-2 gap-4 ">
+    <div className="lg:flex gap-8">
+      <FormUI {...form}>
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="space-y-8 w-full"
+        >
+          <div className="bg-[#ECECEC] p-10">
+            <div className="">
+              <div className="w-full grid gap-4 h-full">
                 <FormField
                   control={form.control}
-                  name="tueste"
+                  name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Tueste</FormLabel>
+                      <FormLabel>Nombre</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
+                      <FormDescription>
+                        El nombre del producto debe tener al menos 3 caracteres.
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -127,35 +90,16 @@ function Form({ product, onSubmit, isPending = false }) {
 
                 <FormField
                   control={form.control}
-                  name="molido"
+                  name="loteId"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Molido</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 ">
-                <FormField
-                  control={form.control}
-                  name="precio"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Precio del producto</FormLabel>
+                      <FormLabel>Lote de Origen</FormLabel>
                       <FormControl>
                         <Input
-                          type="number"
                           {...field}
+                          disabled={product}
                           onChange={(value) => {
-                            form.setValue(
-                              "precio",
-                              parseFloat(value.target.value)
-                            );
+                            form.setValue("loteId", Number(value.target.value));
                           }}
                         />
                       </FormControl>
@@ -164,82 +108,100 @@ function Form({ product, onSubmit, isPending = false }) {
                   )}
                 />
 
+                <div className="grid grid-cols-2 gap-4 ">
+                  <FormField
+                    control={form.control}
+                    name="precio"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Precio del producto</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            {...field}
+                            onChange={(value) => {
+                              form.setValue(
+                                "precio",
+                                parseFloat(value.target.value)
+                              );
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="stock"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Stock</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            {...field}
+                            onChange={(value) => {
+                              form.setValue(
+                                "stock",
+                                Number(value.target.value)
+                              );
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
                 <FormField
                   control={form.control}
-                  name="stock"
+                  name="descripcion"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Stock</FormLabel>
+                      <FormLabel>Descripción</FormLabel>
                       <FormControl>
-                        <Input
-                          type="number"
-                          {...field}
-                          onChange={(value) => {
-                            form.setValue("stock", Number(value.target.value));
-                          }}
-                        />
+                        <Textarea {...field} rows={4} />
                       </FormControl>
+                      <FormDescription>
+                        La descripción del producto debe tener al menos 3
+                        caracteres.
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              </div>
 
-              <FormField
-                control={form.control}
-                name="descripcion"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Descripción</FormLabel>
-                    <FormControl>
-                      <Textarea {...field} rows={4} />
-                    </FormControl>
-                    <FormDescription>
-                      La descripción del producto debe tener al menos 3
-                      caracteres.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <Button type="submit">
-                {isPending ? (
-                  <Loading className="w-2 h-2 mr-2 border-white" />
-                ) : (
-                  <> {product ? "Actualizar producto" : "Agregar producto"}</>
-                )}
-              </Button>
-            </div>
-            <div className="w-full grid gap-4 h-full">
-              <FormField
-                control={form.control}
-                name="notas"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Notas de Cata</FormLabel>
-                    <FormControl>
-                      <Textarea {...field} rows={4} />
-                    </FormControl>
-                    <FormDescription>
-                      Separar cada característica con comas ( , )
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div>
-                {/* <FormLabel className="mb-2">
-                  Imagenes <span className="text-gray-500">(opcional)</span>
-                </FormLabel>
-                <UploadImage defaultImages={images} setImages={setImages} /> */}
+                <Button type="submit">
+                  {isPending ? (
+                    <Loading className="w-2 h-2 mr-2 border-white" />
+                  ) : (
+                    <> {product ? "Actualizar producto" : "Agregar producto"}</>
+                  )}
+                </Button>
               </div>
             </div>
           </div>
-        </div>
-      </form>
-    </FormUI>
+        </form>
+      </FormUI>
+
+      <div className="bg-[#ECECEC] p-10 w-full">
+        <p className="text-lg font-semibold mb-2">
+          Imagenes del producto{" "}
+          <span className="text-sm text-gray-500">
+            (Puedes subir hasta 3 imagenes)
+          </span>
+        </p>
+
+        <p className="text-sm text-gray-500 mb-2">
+          Las imagenes deben ser de tipo JPG, PNG o JPEG.
+        </p>
+
+        <UploadImage images={images} setImages={setImages} maxNumber={3} />
+      </div>
+    </div>
   );
 }
 
