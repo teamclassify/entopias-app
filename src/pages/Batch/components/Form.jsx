@@ -23,17 +23,40 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 
 const formSchema = z.object({
-  initialWeight: z.string().min(1).max(255),
-  finalWeight: z.string().min(1).max(255),
+  initialWeight: z
+    .string({ required_error: "El peso inicial es requerido" })
+    .min(1, "Debe contener al menos un carácter")
+    .max(255, "Debe tener como máximo 255 caracteres"),
+
+  finalWeight: z
+    .string({ required_error: "El peso final es requerido" })
+    .min(1, "Debe contener al menos un carácter")
+    .max(255, "Debe tener como máximo 255 caracteres"),
+
   roastedDate: z.date({
-    required_error: "Una fecha de tostado es requerida",
+    required_error: "La fecha del tostado es requerida",
+    invalid_type_error: "Debe ser una fecha válida",
   }),
-  roastedType: z.string().min(1).max(255),
-  aromaticsNotes: z.string().min(1).max(255),
+
+  roastedType: z
+    .string({ required_error: "El tipo de tostado es requerido" })
+    .min(1, "Debe contener al menos un carácter")
+    .max(255, "Debe tener como máximo 255 caracteres"),
+
+  aromaticsNotes: z
+    .string({ required_error: "Las notas aromáticas son requeridas" })
+    .min(1, "Debe contener al menos un carácter")
+    .max(255, "Debe tener como máximo 255 caracteres"),
+
   expirationDate: z.date({
-    required_error: "Una fecha de vencimiento es requerida",
+    required_error: "La fecha de vencimiento es requerida",
+    invalid_type_error: "Debe ser una fecha válida",
   }),
-  producer: z.string().min(1).max(255),
+
+  producer: z
+    .string({ required_error: "El nombre del productor es requerido" })
+    .min(1, "Debe contener al menos un carácter")
+    .max(255, "Debe tener como máximo 255 caracteres"),
 });
 
 function Form({ onSubmit }) {
@@ -42,7 +65,7 @@ function Form({ onSubmit }) {
     defaultValues: {
       initialWeight: "",
       finalWeight: "",
-      roastedDate: "",
+      roastedDate: null,
       roastedType: "",
       aromaticsNotes: "",
       expirationDate: null,
@@ -90,6 +113,7 @@ function Form({ onSubmit }) {
                         <Input type="number" {...field} />
                       </FormControl>
                       <FormDescription>El peso final del lote</FormDescription>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
