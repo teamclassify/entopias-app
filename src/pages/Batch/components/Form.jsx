@@ -82,10 +82,10 @@ function Form({ onSubmit }) {
   return (
     <FormUI {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <div className="bg-[#ECECEC] p-10">
+        <div className="md:bg-[#ECECEC] md:p-10">
           <div className="">
             <div className="w-full grid gap-4 h-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <FormField
                   control={form.control}
                   name="initialWeight"
@@ -139,7 +139,7 @@ function Form({ onSubmit }) {
                             {field.value ? (
                               format(field.value, "dd/MM/yyyy")
                             ) : (
-                              <span>Elegí una fecha</span>
+                              <span>Elige una fecha</span>
                             )}
                           </Button>
                         </PopoverTrigger>
@@ -215,7 +215,7 @@ function Form({ onSubmit }) {
                             {field.value ? (
                               format(field.value, "dd/MM/yyyy")
                             ) : (
-                              <span>Elegí una fecha</span>
+                              <span>Elige una fecha</span>
                             )}
                           </Button>
                         </PopoverTrigger>
@@ -255,7 +255,7 @@ function Form({ onSubmit }) {
               />
 
               <Button className="mt-4" type="submit">
-                Crear Lote
+                Crear lote
               </Button>
             </div>
           </div>

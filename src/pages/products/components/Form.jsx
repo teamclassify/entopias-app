@@ -70,7 +70,7 @@ function Form({ product, onSubmit, isPending = false }) {
   return (
     <FormUI {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 ">
-        <div className="bg-[#ECECEC] p-10">
+        <div className="md:bg-[#ECECEC] md:p-10">
           <div className="lg:flex gap-8">
             <div className="w-full grid gap-4 h-full">
               <FormField
@@ -110,7 +110,7 @@ function Form({ product, onSubmit, isPending = false }) {
                 )}
               />
 
-              <div className="grid grid-cols-2 gap-4 ">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="tueste"
@@ -140,7 +140,7 @@ function Form({ product, onSubmit, isPending = false }) {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4 ">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="precio"

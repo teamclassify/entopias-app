@@ -48,7 +48,7 @@ function Form({ onSubmit }) {
   return (
     <FormUI {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <div className="bg-[#ECECEC] p-10">
+        <div className="md:bg-[#ECECEC] md:p-10">
           <div className="">
             <div className="w-full grid gap-4 h-full">
               <FormField
@@ -101,25 +101,23 @@ function Form({ onSubmit }) {
                   </FormItem>
                 )}
               />
-              <div className="grid grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        Teléfono{" "}
-                        <span className="text-gray-400">(opcional)</span>
-                      </FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Teléfono <span className="text-gray-400">(opcional)</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input type="number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                {/*
+              {/*
                 <FormField
                   control={form.control}
                   name="edad"
@@ -140,7 +138,6 @@ function Form({ onSubmit }) {
                   )}
                 />
                 */}
-              </div>
 
               <Button className="mt-4" type="submit">
                 Crear cuenta

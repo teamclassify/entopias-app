@@ -61,7 +61,7 @@ function Form({ onSubmit }) {
   return (
     <FormUI {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
-        <div className="bg-[#ECECEC] p-10">
+        <div className="md:bg-[#ECECEC] md:p-10">
           <div className="">
             <div className="w-full grid gap-4 h-full">
               <FormField
@@ -157,7 +157,7 @@ function Form({ onSubmit }) {
               />
 
               <Button className="mt-4" type="submit">
-                Crear cuenta
+                Crear productor
               </Button>
             </div>
           </div>

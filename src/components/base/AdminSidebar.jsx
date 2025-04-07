@@ -74,7 +74,7 @@ const itemsADMIN = [
         icon: List,
       },
       {
-        title: "Agregar Lotes",
+        title: "Agregar Lote",
         url: "/admin/lotes/agregar",
         icon: FilePlus,
       },
@@ -108,7 +108,7 @@ const itemsADMIN = [
         icon: List,
       },
       {
-        title: "Agregar Productores",
+        title: "Agregar Productor",
         url: "/admin/productores/agregar",
         icon: FilePlus,
       },
