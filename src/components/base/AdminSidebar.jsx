@@ -194,7 +194,7 @@ function AdminSidebar() {
 
   return (
     <Sidebar className="border-none">
-      <SidebarHeader className="bg-secondary h-16">
+      <SidebarHeader className="flex items-center justify-center  h-16 ">
         <img
           src="/logo.webp"
           alt="Logo Entopias Cafe"

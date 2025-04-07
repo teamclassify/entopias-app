@@ -21,7 +21,7 @@ function AdminBreadcrumb({ currentPage = "Dashboard" }) {
 
           return (
             <BreadcrumbItem key={index}>
-              <Link href={`/${backURL === "" ? "/admin" : backURL}/${page}`}>
+              <Link href={`/${backURL === "" ? "/admin" : backURL}/${page}`} className="text-sm">
                 {page.toUpperCase()}
               </Link>
 
@@ -31,7 +31,7 @@ function AdminBreadcrumb({ currentPage = "Dashboard" }) {
         })}
       </BreadcrumbList>
 
-      <BreadcrumbPage className="text-lg font-bold pt-12">
+      <BreadcrumbPage className="text-2xl font-bold pt-12">
         {currentPage}
       </BreadcrumbPage>
     </Breadcrumb>
