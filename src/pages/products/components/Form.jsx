@@ -70,7 +70,7 @@ function Form({ product, onSubmit, isPending = false }) {
   return (
     <FormUI {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 ">
-        <div className="md:bg-sidebar md:p-10">
+        <div className="md:bg-sidebar-accent md:p-10 md:rounded-md">
           <div className="lg:flex gap-8">
             <div className="w-full grid gap-4 h-full">
               <FormField
