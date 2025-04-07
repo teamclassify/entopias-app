@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(3).max(255),
@@ -37,6 +38,9 @@ function Form({ onSubmit }) {
       ...data,
     });
   };
+
+  const [countryName, setCountryName] = useState("");
+  const [stateName, setStateName] = useState("");
 
   return (
     <FormUI {...form}>
@@ -104,6 +108,34 @@ function Form({ onSubmit }) {
                       <Input {...field} />
                     </FormControl>
                     <FormDescription>La ciudad del productor</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="country"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>País</FormLabel>
+                    <FormControl>
+                      <LocationSelector
+                        onCountryChange={(country) => {
+                          setCountryName(country?.name || "");
+                          form.setValue(field.name, [
+                            country?.name || "",
+                            stateName || "",
+                          ]);
+                        }}
+                        onStateChange={(state) => {
+                          setStateName(state?.name || "");
+                          form.setValue(field.name, [
+                            countryName || "",
+                            state?.name || "",
+                          ]);
+                        }}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
