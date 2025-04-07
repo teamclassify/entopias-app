@@ -12,15 +12,28 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { cn } from "@/lib/utils";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
 
 const formSchema = z.object({
-  initialWeight: z.string().min().max(255),
-  finalWeight: z.string().min().max(255),
-  roastedDate: z.string().min().max(255),
-  roastedType: z.string().min().max(255),
-  aromaticsNotes: z.string().min().max(255),
-  expirationDate: z.string().min().max(255),
-  producer: z.string().min().max(255),
+  initialWeight: z.string().min(1).max(255),
+  finalWeight: z.string().min(1).max(255),
+  roastedDate: z.date({
+    required_error: "Una fecha de tostado es requerida",
+  }),
+  roastedType: z.string().min(1).max(255),
+  aromaticsNotes: z.string().min(1).max(255),
+  expirationDate: z.date({
+    required_error: "Una fecha de vencimiento es requerida",
+  }),
+  producer: z.string().min(1).max(255),
 });
 
 function Form({ onSubmit }) {
@@ -32,7 +45,7 @@ function Form({ onSubmit }) {
       roastedDate: "",
       roastedType: "",
       aromaticsNotes: "",
-      expirationDate: "",
+      expirationDate: null,
       producer: "",
     },
   });
@@ -55,9 +68,9 @@ function Form({ onSubmit }) {
                   name="initialWeight"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Peso Inicial</FormLabel>
+                      <FormLabel>Peso Inicial(kg)</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input type="number" {...field} />
                       </FormControl>
                       <FormDescription>
                         El peso inicial del lote
@@ -72,7 +85,7 @@ function Form({ onSubmit }) {
                   name="finalWeight"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Peso final</FormLabel>
+                      <FormLabel>Peso Final(kg)</FormLabel>
                       <FormControl>
                         <Input type="number" {...field} />
                       </FormControl>
@@ -86,11 +99,35 @@ function Form({ onSubmit }) {
                   control={form.control}
                   name="roastedDate"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Fecha del tostado</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
+                      <Popover>
+                        <PopoverTrigger>
+                          <Button
+                            variant="outline"
+                            type="button"
+                            className={cn(
+                              "w-full flex justify-start items-center font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {field.value ? (
+                              format(field.value, "dd/MM/yyyy")
+                            ) : (
+                              <span>Elegí una fecha</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
                       <FormDescription>
                         La fecha del tostado del lote
                       </FormDescription>
@@ -120,7 +157,7 @@ function Form({ onSubmit }) {
               <div className="grid grid-cols-2 gap-8">
                 <FormField
                   control={form.control}
-                  name="aromaticNotes"
+                  name="aromaticsNotes"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Notas aromáticas</FormLabel>
@@ -134,25 +171,48 @@ function Form({ onSubmit }) {
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="expirationDate"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Fecha de vencimiento</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
+                      <Popover>
+                        <PopoverTrigger>
+                          <Button
+                            variant="outline"
+                            type="button"
+                            className={cn(
+                              "w-full flex justify-start items-center font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {field.value ? (
+                              format(field.value, "dd/MM/yyyy")
+                            ) : (
+                              <span>Elegí una fecha</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
                       <FormDescription>
-                        La fecha de vencimiento del lote
+                        Fecha de vencimiento del lote
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
-              
+
               <FormField
                 control={form.control}
                 name="producer"
