@@ -12,6 +12,7 @@ import { Link } from "wouter";
 import { BsCart4 } from "react-icons/bs";
 import useUser from "@/hooks/useUser";
 import AvatarUser from "./AvatarUser";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 function Menu({ user, logout, userIsAdminOrSales }) {
   return (
@@ -89,7 +90,7 @@ function Header() {
 
       <div>
         <Link href="/">
-          <img src="/logo-alt.png" alt="Logo de la tienda" className="h-12" />
+          <img src="/logo-alt.webp" alt="Logo de la tienda" className="h-12" />
         </Link>
       </div>
 

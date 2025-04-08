@@ -21,10 +21,12 @@ export default function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [, setError] = useState(null);
   const [name, setName] = useState("");
+  const [birthday, setBirthday] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const registerWithEmail = async (email, password, name) => {
+  const registerWithEmail = async (email, password, name, birthdate) => {
     setName(name);
+    setBirthday(birthdate);
 
     return signUpWithEmailAndPassword(email, password).then((res) => {
       return res;
@@ -107,6 +109,8 @@ export default function UserProvider({ children }) {
   useEffect(() => {
     const unsuscribeStateChanged = auth.onAuthStateChanged(async (user) => {
       if (user) {
+        console.log(user);
+
         const userInfo = {
           email: user.email,
           id: user.uid,
@@ -117,6 +121,7 @@ export default function UserProvider({ children }) {
           photo: user.photoURL || "",
           roles: [],
           emailVerified: user.emailVerified,
+          birthday: user.birthdate || "",
         };
 
         const token = await user.getIdToken(true);
@@ -144,6 +149,7 @@ export default function UserProvider({ children }) {
       if (accessToken && user) {
         await handleLogin({
           name: name || user.name,
+          birthday: birthday || user.birthday,
           email: user.email,
           photo: user.photo,
           id: user.id,

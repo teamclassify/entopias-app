@@ -46,12 +46,12 @@ const itemsADMIN = [
     ],
   },
   {
-    title: "Produtos",
+    title: "Productos",
     url: "/admin/productos",
     icon: Package,
     subitems: [
       {
-        title: "Ver Produtos",
+        title: "Ver Productos",
         url: "/admin/productos",
         icon: List,
       },
@@ -137,7 +137,7 @@ function AdminSidebar() {
     <Sidebar className="border-none">
       <SidebarHeader className="bg-secondary h-16">
         <img
-          src="/logo.png"
+          src="/logo.webp"
           alt="Logo Entopias Cafe"
           className="w-full max-w-[120px] mx-auto"
         />

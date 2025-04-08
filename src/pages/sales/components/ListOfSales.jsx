@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { columns } from "../../../components/tables/Columns";
 import DataTable from "../../../components/tables/DataTable";
 import { Error } from "../../../components/ui/error";
 import { Loading } from "../../../components/ui/loading";
 import UsersService from "../../../services/api/Users";
 import Pagination from "../../catalog/components/Pagination";
+import { columns } from "./columns";
 
 function ListOfSales() {
   const [page, setPage] = useState(1);
@@ -22,6 +22,8 @@ function ListOfSales() {
   if (isError) {
     return <Error message={isError.message} />;
   }
+
+  console.log(data);
 
   return (
     <div>

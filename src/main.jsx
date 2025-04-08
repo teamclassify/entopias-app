@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 
 import App from "./App.jsx";
 import "./index.css";
+import "./services/i18next";
 
 import UserProvider from "./context/UserContext.jsx";
 

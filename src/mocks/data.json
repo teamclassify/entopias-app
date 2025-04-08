@@ -1,0 +1,97 @@
+{
+  "data": {
+      "products": [
+          {
+              "id": 2,
+              "name": "Cafe Excelso",
+              "descripcion": "Café Kumaka nace en el Municipio de Tibacuy, inspección de Cumaca y es creada por la Familia Zapata, viejos caficultores de la zona, buscando llegar con su producto directamente al consumidor final, queriendo asi mostrar las ventajas de un café de origen, al tiempo de maximizar sus ingresos evitando intermediarios en la cadena.",
+              "loteId": 1,
+              "precio": 29999,
+              "fechaMolido": null,
+              "fechaCaducidad": null,
+              "stock": 449,
+              "status": true,
+              "createdAt": "2025-04-01T23:48:26.850Z",
+              "updatedAt": "2025-04-02T23:06:25.920Z",
+              "photos": [
+                  {
+                      "id": 1,
+                      "url": "https://comprocafedecolombia.com/wp-content//uploads/2021/02/Cafe_Kumaka_Grano_500_g_-1-removebg-preview.png",
+                      "productId": 2
+                  }
+              ],
+              "lote": {
+                  "id": 1,
+                  "pesoCafe": 50,
+                  "tipoTueste": "Normal",
+                  "fechaTostado": "2025-04-01T18:45:16.000Z",
+                  "fechaLote": "2025-04-01T18:45:17.000Z",
+                  "cafeId": 1,
+                  "createdAt": "2025-04-01T23:45:23.458Z",
+                  "updatedAt": "2025-04-01T23:45:23.458Z",
+                  "cafe": {
+                      "id": 1,
+                      "nombre": "Cafe Basico",
+                      "origen": "Merida,Venezuela",
+                      "finca": "San Juanito",
+                      "productor": "Juan",
+                      "cantidad": 200,
+                      "proceso": "Normal",
+                      "notasOlfativas": "Limon ahumado",
+                      "precioGranoVerde": 10000,
+                      "createdAt": "2025-04-01T18:44:59.000Z",
+                      "updatedAt": "2025-04-01T18:45:01.000Z"
+                  }
+              }
+          },
+          {
+              "id": 1,
+              "name": "Cafe Basico",
+              "descripcion": "Café suave con notas de sabor a limón y dulce de panela, una región montañosa con grandes abismos, donde el frío obliga al café a madurar más lentamente y producir más azúcares para convertirse en un café de exquisita suavidad.",
+              "loteId": 1,
+              "precio": 65000,
+              "fechaMolido": null,
+              "fechaCaducidad": null,
+              "stock": 100,
+              "status": true,
+              "createdAt": "2025-04-01T23:47:12.271Z",
+              "updatedAt": "2025-04-01T23:47:12.271Z",
+              "photos": [
+                  {
+                      "id": 2,
+                      "url": "https://comprocafedecolombia.com/wp-content//uploads/2021/05/7701362015918-NARINO-GRANO-454-FRONT-1000x1000-1.jpg",
+                      "productId": 1
+                  }
+              ],
+              "lote": {
+                  "id": 1,
+                  "pesoCafe": 50,
+                  "tipoTueste": "Normal",
+                  "fechaTostado": "2025-04-01T18:45:16.000Z",
+                  "fechaLote": "2025-04-01T18:45:17.000Z",
+                  "cafeId": 1,
+                  "createdAt": "2025-04-01T23:45:23.458Z",
+                  "updatedAt": "2025-04-01T23:45:23.458Z",
+                  "cafe": {
+                      "id": 1,
+                      "nombre": "Cafe Basico",
+                      "origen": "Merida,Venezuela",
+                      "finca": "San Juanito",
+                      "productor": "Juan",
+                      "cantidad": 200,
+                      "proceso": "Normal",
+                      "notasOlfativas": "Limon ahumado",
+                      "precioGranoVerde": 10000,
+                      "createdAt": "2025-04-01T18:44:59.000Z",
+                      "updatedAt": "2025-04-01T18:45:01.000Z"
+                  }
+              }
+          }
+      ],
+      "count": 2
+  },
+  "error": null,
+  "status": 200,
+  "timestamp": "2025-04-02T23:09:55.542Z",
+  "msg": "Products retrieved successfully"
+}
