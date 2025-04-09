@@ -47,14 +47,18 @@ async function update(id, data) {
   console.log(data);
 
   formData.append("name", data.name);
-  formData.append("precio", data.precio);
-  formData.append("stock", data.stock);
+
   formData.append("status", true);
-  formData.append("descripcion", data.descripcion);
+  formData.append("description", data.description);
+  formData.append("type", data.type);
 
   data.photos.forEach((photo) => {
     if (typeof photo !== "string") formData.append("newphotos", photo);
     else formData.append("photos", photo);
+  });
+
+  data.varieties.forEach((variety) => {
+    formData.append("varieties", JSON.stringify(variety));
   });
 
   try {

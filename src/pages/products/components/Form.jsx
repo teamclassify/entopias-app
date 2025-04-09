@@ -20,8 +20,8 @@ import { z } from "zod";
 
 const formSchema = z.object({
   name: z.string().min(3).max(255),
-  descripcion: z.string().min(3),
-  loteId: z.number(),
+  description: z.string().min(3),
+  type: z.string().min(3).max(255),
 });
 
 /*
@@ -36,8 +36,8 @@ function Form({ product, onSubmit, isPending = false }) {
   const [images, setImages] = useState([]);
   const [varieties, setVarieties] = useState([
     {
-      size: 0,
-      precio: 0,
+      weight: 0,
+      price: 0,
       stock: 0,
     },
   ]);
@@ -46,16 +46,16 @@ function Form({ product, onSubmit, isPending = false }) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: product?.name || "",
-      descripcion: product?.descripcion || "",
+      description: product?.description || "",
       photos: [],
-      loteId: product?.loteId || 0,
+      type: product?.type || "",
     },
   });
 
   useEffect(() => {
     if (product) {
       setImages(product?.photos.map((photo) => photo.url));
-      setVarieties(product?.variedades || []);
+      setVarieties(product?.varieties || []);
     }
   }, [product]);
 
@@ -63,7 +63,7 @@ function Form({ product, onSubmit, isPending = false }) {
     onSubmit({
       ...data,
       photos: images.map((image) => image.file ?? image),
-      variedades: varieties,
+      varieties: varieties,
     });
   };
 
@@ -100,27 +100,7 @@ function Form({ product, onSubmit, isPending = false }) {
 
                 <FormField
                   control={form.control}
-                  name="loteId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Lote de Origen</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          disabled={product}
-                          onChange={(value) => {
-                            form.setValue("loteId", Number(value.target.value));
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="descripcion"
+                  name="description"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Descripción</FormLabel>
@@ -136,14 +116,30 @@ function Form({ product, onSubmit, isPending = false }) {
                   )}
                 />
 
+                <FormField
+                  control={form.control}
+                  name="type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Tipo</FormLabel>
+                      <FormControl>
+                        <FormItem>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                        </FormItem>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
                 <hr />
 
                 <div>
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-lg font-semibold mb-2">
-                        Variedades del producto
-                      </h3>
+                      <h3 className="text-lg font-semibold mb-2">Variedades</h3>
                     </div>
 
                     <Button
@@ -154,8 +150,8 @@ function Form({ product, onSubmit, isPending = false }) {
                           const newVarieties = [...prev];
 
                           newVarieties.push({
-                            size: 0,
-                            precio: 0,
+                            weight: 0,
+                            price: 0,
                             stock: 0,
                           });
 
@@ -211,12 +207,12 @@ function Form({ product, onSubmit, isPending = false }) {
                                       type="number"
                                       isRequired
                                       min={0}
-                                      value={variety.size}
+                                      value={variety.weight}
                                       onChange={(value) => {
                                         setVarieties((prev) => {
                                           const newVarieties = [...prev];
 
-                                          newVarieties[index].size = Number(
+                                          newVarieties[index].weight = Number(
                                             value.target.value
                                           );
 
@@ -232,7 +228,7 @@ function Form({ product, onSubmit, isPending = false }) {
 
                             <FormField
                               control={form.control}
-                              name={`variedades.${index}.precio`}
+                              name={`variedades.${index}.price`}
                               render={() => (
                                 <FormItem>
                                   <FormLabel>Precio</FormLabel>
@@ -241,12 +237,12 @@ function Form({ product, onSubmit, isPending = false }) {
                                       type="number"
                                       isRequired
                                       min={0}
-                                      value={variety.precio}
+                                      value={variety.price}
                                       onChange={(value) => {
                                         setVarieties((prev) => {
                                           const newVarieties = [...prev];
 
-                                          newVarieties[index].precio = Number(
+                                          newVarieties[index].price = Number(
                                             value.target.value
                                           );
 
