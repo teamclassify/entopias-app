@@ -7,7 +7,7 @@ import InfoUser from "./components/InfoUser";
 function Profile() {
     return (
         <DefaultLayout>
-            <div className="flex flex-row w-full">
+            <div className="flex flex-row w-full gap-8">
                 <div className="flex flex-col w-[28%] gap-8">
                     <ProfileCard />
                     <ProfileMenu />
