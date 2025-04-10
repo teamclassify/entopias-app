@@ -6,16 +6,18 @@ function InfoUser() {
     const { user, logout } = useUser();
 
     return (
-        <div className="flex flex-col w-[70%] gap-6">
+        <div className="flex flex-col w-full gap-6">
             <div className="flex flex-row justify-between py-4">
                 <p className="font-bold text-[20px]">Perfil</p>
-                <button className="border-2 border-[#1C0B08] p-1 w-32 cursor-pointer">Editar</button>
+                <button className="border-2 border-[#1C0B08] p-1 w-32 cursor-pointer"
+                        onClick={"/"}
+                >Editar</button>
             </div>
-            <div className="flex flex-row w-full justify-between">
-                <div className="w-[130px] h-[130px] bg-fuchsia-200">
+            <div className="flex flex-col sm:flex-row w-full md:justify-between justify-center items-center gap-8">
+                <div className="w-[130px] h-[130px] bg-fuchsia-200 flex justify-center">
                     <img src={user?.photo} alt="" />
                 </div>
-                <div className="w-[80%]">
+                <div className="w-full sm:w-[80%]">
                     <Table >
                         <TableBody>
                             <TableRow>
