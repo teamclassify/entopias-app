@@ -16,7 +16,6 @@ import CreateSalesPage from "./pages/sales/create";
 import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
-import ProfileCard from "./pages/profile/components/ProfileCard";
 import Profile from "./pages/profile";
 
 function App() {
@@ -33,7 +32,7 @@ function App() {
 
         <Route
           component={RecoveryPasswordCompletedPage}
-          path="/recuperar-enviado"
+          path="/recuperar-enviado" 
         />
 
         <Route component={ProductCatalog} path="/tienda" />

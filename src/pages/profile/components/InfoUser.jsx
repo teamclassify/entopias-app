@@ -1,16 +1,17 @@
 import useUser from "@/hooks/useUser";
 import { Table, TableBody, TableRow, TableCell, } from "@/components/ui/table";
 
-function InfoUser() {
+function InfoUser({ onChange }) {
 
-    const { user, logout } = useUser();
+    const { user } = useUser();
+    
 
     return (
         <div className="flex flex-col w-full gap-6">
             <div className="flex flex-row justify-between py-4">
                 <p className="font-bold text-[20px]">Perfil</p>
                 <button className="border-2 border-[#1C0B08] p-1 w-32 cursor-pointer"
-                        onClick={"/"}
+                    onClick={() => onChange("editar")}
                 >Editar</button>
             </div>
             <div className="flex flex-col sm:flex-row w-full md:justify-between justify-center items-center gap-8">

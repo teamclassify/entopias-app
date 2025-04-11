@@ -315,7 +315,7 @@ function Form({ product, onSubmit, isPending = false }) {
 
         <p className="text-sm text-gray-500 mb-2">
           Las imagenes deben ser de tipo JPG, PNG o JPEG.
-        </p>
+        </p> 
 
         <UploadImage images={images} setImages={setImages} maxNumber={3} />
       </div>

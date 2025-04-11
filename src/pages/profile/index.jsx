@@ -12,6 +12,8 @@ import ProfileMenu from "./components/ProfileMenu";
 import InfoUser from "./components/InfoUser";
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
+import EditUser from "./components/EditUser";
+import { useMutation } from "@tanstack/react-query";
 
 
 function Menu() {
@@ -47,6 +49,19 @@ function Profile() {
     //     );
     // }, [location]);
 
+
+    const { mutate, isPending } = useMutation({
+        mutationFn: (data) => {
+          return ProductsService.create(data);
+        },
+        onSuccess: (data) => {
+          if (data.data.error) {
+            toast.error("Error al editar el perfil");
+          } else {
+            toast.success("Perfil editado correctamente");
+          }
+        },
+      });
     return (
         <DefaultLayout>
             <div className="lg:hidden">
@@ -57,8 +72,10 @@ function Profile() {
                     <ProfileCard />
                     <ProfileMenu page={page} onChange={(value) => setPage(value)} />
                 </div>
+
                 <div className="w-full">
-                    {page === "inicio" && <InfoUser/>}
+                    {page === "inicio" && <InfoUser onChange={(value) => setPage(value)} />}
+                    {page === "editar" && <EditUser onChange={(value) => setPage(value)}  isPending={isPending} />}
                 </div>
             </div>
 
