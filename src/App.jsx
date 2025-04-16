@@ -28,11 +28,13 @@ function App() {
         <Route component={SignInPage} path="/iniciar-sesion" />
         <Route component={SignUpPage} path="/registrarse" />
         <Route component={RecoveryPasswordPage} path="/recuperar" />
-        <Route component={Profile} path="/perfil/inicio"/>
+        <Route path="/perfil/:page?" component={Profile} />
+        {/* :page? hace que /perfil o /perfil/editar/inicio funcionen */}
+        {/* puedes agregar más rutas si las necesitas */}
 
         <Route
           component={RecoveryPasswordCompletedPage}
-          path="/recuperar-enviado" 
+          path="/recuperar-enviado"
         />
 
         <Route component={ProductCatalog} path="/tienda" />

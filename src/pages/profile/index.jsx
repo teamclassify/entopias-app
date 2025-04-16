@@ -13,7 +13,6 @@ import InfoUser from "./components/InfoUser";
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
 import EditUser from "./components/EditUser";
-import { useMutation } from "@tanstack/react-query";
 
 
 function Menu() {
@@ -35,7 +34,7 @@ function Menu() {
 }
 
 function Profile() {
-    const [location] = useLocation();
+    const [location, navigate] = useLocation();
     const [page, setPage] = useState("inicio");
 
     // useEffect(() => {
@@ -49,19 +48,17 @@ function Profile() {
     //     );
     // }, [location]);
 
+    useEffect(() => {
+        const current = location.split("/")[2] || "inicio";
+        setPage(current);
+    }, [location]);
 
-    const { mutate, isPending } = useMutation({
-        mutationFn: (data) => {
-          return ProductsService.create(data);
-        },
-        onSuccess: (data) => {
-          if (data.data.error) {
-            toast.error("Error al editar el perfil");
-          } else {
-            toast.success("Perfil editado correctamente");
-          }
-        },
-      });
+    const handleChangePage = (value) => {
+        navigate(`/perfil/${value}`);
+        setPage(value);
+    };
+
+
     return (
         <DefaultLayout>
             <div className="lg:hidden">
@@ -70,12 +67,11 @@ function Profile() {
             <div className="grid lg:grid-cols-[1.2fr_3fr] lg:w-full gap-8">
                 <div className="lg:flex flex-col w-full gap-8 hidden">
                     <ProfileCard />
-                    <ProfileMenu page={page} onChange={(value) => setPage(value)} />
+                    <ProfileMenu page={page} onChange={handleChangePage} />
                 </div>
-
                 <div className="w-full">
-                    {page === "inicio" && <InfoUser onChange={(value) => setPage(value)} />}
-                    {page === "editar" && <EditUser onChange={(value) => setPage(value)}  isPending={isPending} />}
+                    {page === "inicio" && <InfoUser onChange={handleChangePage} />}
+                    {page === "editar" && <EditUser onChange={handleChangePage} />}
                 </div>
             </div>
 

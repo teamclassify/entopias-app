@@ -17,26 +17,28 @@ import { Loading } from "@/components/ui/loading";
 import UploadImage from "../../../components/base/UploadImage";
 import ProfilePicture from "./ProfilePicture";
 import { useLocation } from "wouter";
+import { useMutation } from '@tanstack/react-query';
+import UsersService from "../../../services/api/Users";
 
 const formSchema = z.object({
     name: z.string().min(3).max(255),
     email: z.string().email(),
     password: z.string().min(6),
     phone: z.string().min(10).optional(),
+    gender: z.string(),
 });
 
-function EditUser({ isPending = false }) {
+function EditUser({ onChange }) {
 
     const [image, setImage] = useState([]);
     const { user } = useUser();
-    const [location, navigate] = useLocation();
 
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: user?.name || "",
             email: user?.email || "",
-            photo: "",
+            photo: user?.photo || "",
             phone: user?.phone || "",
             gender: user?.gender,
         },
@@ -48,12 +50,32 @@ function EditUser({ isPending = false }) {
         }
     }, [user]);
 
-    const handleSubmit = (data) => {
-        onSubmit({
-            ...data,
-            photo: image[0]?.file ?? image[0],
-        });
-    };
+    const mutateUpdateProfile = useMutation({
+        mutationFn: (data) => {
+            return UsersService.update(
+                data.name,
+                data.email,
+                data.photo,
+                data.phone,
+                data.gender
+            );
+        },
+        onSuccess: (data) => {
+            if (data.error) {
+                toast.error(data.error);
+            } else {
+                toast.success("Perfil actualizado");
+            }
+        },
+        onError: (error) => {
+            toast.error("Ocurrió un error al actualizar el perfil");
+            console.log(error);
+        },
+    });
+
+    function onSubmit(values) {
+        mutateUpdateProfile.mutate(values);
+    }
 
     return (
         <div className="flex flex-col gap-8">
@@ -66,7 +88,7 @@ function EditUser({ isPending = false }) {
                     }}
                 />
                 <FormUI {...form}>
-                    <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         <div className="w-full grid gap-4 h-full">
                             <FormField
                                 control={form.control}
@@ -121,14 +143,11 @@ function EditUser({ isPending = false }) {
                                 )}
                             />
                             <div className="w-full flex flex-row justify-between">
-                                <Button type="submit" className="w-[48%]">
-                                    {isPending ? (
-                                        <Loading className="w-2 h-2 mr-2 border-white" />
-                                    ) : (
-                                        <> {"Actualizar Perfil"}</>
-                                    )}
+                                <Button type="submit" className="w-[48%]" disabled={mutateUpdateProfile.isLoading}>
+                                    {mutateUpdateProfile.isLoading ? "Guardando..." : "Guardar"}
                                 </Button>
-                                <Button 
+                                <Button
+                                    type="button"
                                     className="w-[48%] px-4 py-2 bg-gray-200 text-gray-700  hover:bg-gray-300"
                                     onClick={() => onChange("inicio")}
                                 >
