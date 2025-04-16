@@ -29,8 +29,7 @@ function App() {
         <Route component={SignUpPage} path="/registrarse" />
         <Route component={RecoveryPasswordPage} path="/recuperar" />
         <Route path="/perfil/:page?" component={Profile} />
-        {/* :page? hace que /perfil o /perfil/editar/inicio funcionen */}
-        {/* puedes agregar más rutas si las necesitas */}
+        
 
         <Route
           component={RecoveryPasswordCompletedPage}
