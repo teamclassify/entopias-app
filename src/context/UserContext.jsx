@@ -172,6 +172,7 @@ export default function UserProvider({ children }) {
     return {
       token,
       user,
+      setUser,
       handleLogin,
       loginWithGoogle,
       logout,

@@ -64,9 +64,40 @@ async function updateRole({ id, role }) {
   }
 }
 
+async function updateUser({ id, data }) {
+  const token = await getToken();
+
+  if (!token) throw new Error("Token not found");
+
+  console.log("Datos que se enviarán al backend:", data);
+
+  try {
+    const res = await axios({
+      url: `${URL}/users/${id}`,
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      data,
+    });
+
+    if (res.status !== 200) {
+      throw new Error("Error actualizando el usuario");
+    }
+
+    return res.data;
+  } catch (error) {
+    console.error("Error en la solicitud:", error);
+    return handleAxiosError(error);
+  }
+}
+
+
 const UsersService = {
   getAll,
   updateRole,
+  updateUser,
 };
 
 export default UsersService;
