@@ -12,7 +12,7 @@ import ProfileMenu from "./components/ProfileMenu";
 import InfoUser from "./components/InfoUser";
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
-import EditUser from "./components/EditUser";
+import EditUser from "./edit_user";
 
 
 function Menu() {

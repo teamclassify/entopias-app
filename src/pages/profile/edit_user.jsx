@@ -13,17 +13,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useEffect, useState } from "react";
-import { Loading } from "@/components/ui/loading";
-import UploadImage from "../../../components/base/UploadImage";
-import ProfilePicture from "./ProfilePicture";
-import { useLocation } from "wouter";
-import { useMutation } from '@tanstack/react-query';
-import UsersService from "../../../services/api/Users";
+import UploadImage from "../../components/base/UploadImage";
+import ProfilePicture from "./components/ProfilePicture";
+import { useMutation, useQuery } from '@tanstack/react-query';
+import UsersService from "../../services/api/Users";
+import { toast } from 'react-hot-toast';
+
+
 
 const formSchema = z.object({
     name: z.string().min(3).max(255),
     email: z.string().email(),
-    password: z.string().min(6),
     phone: z.string().min(10).optional(),
     gender: z.string(),
 });
@@ -31,14 +31,13 @@ const formSchema = z.object({
 function EditUser({ onChange }) {
 
     const [image, setImage] = useState([]);
-    const { user } = useUser();
+    const { user, setUser } = useUser();
 
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: user?.name || "",
             email: user?.email || "",
-            photo: user?.photo || "",
             phone: user?.phone || "",
             gender: user?.gender,
         },
@@ -49,23 +48,18 @@ function EditUser({ onChange }) {
             setImage([user.photo.url]);
         }
     }, [user]);
+    
 
     const mutateUpdateProfile = useMutation({
-        mutationFn: (data) => {
-            return UsersService.update(
-                data.name,
-                data.email,
-                data.photo,
-                data.phone,
-                data.gender
-            );
-        },
+        mutationFn: ({ id, data }) => UsersService.updateUser({ id, data }),
         onSuccess: (data) => {
-            if (data.error) {
-                toast.error(data.error);
-            } else {
-                toast.success("Perfil actualizado");
-            }
+            toast.success("Perfil actualizado");
+            setUser((prev) => ({
+                ...prev,
+                ...data.data,
+              }));            
+            onChange("inicio");
+            console.log("Perfil actualizado");
         },
         onError: (error) => {
             toast.error("Ocurrió un error al actualizar el perfil");
@@ -73,8 +67,12 @@ function EditUser({ onChange }) {
         },
     });
 
-    function onSubmit(values) {
-        mutateUpdateProfile.mutate(values);
+
+    const handleSubmit = (formValues) => {
+        mutateUpdateProfile.mutate({
+            id: user.id,
+            data: formValues
+        });
     }
 
     return (
@@ -88,7 +86,7 @@ function EditUser({ onChange }) {
                     }}
                 />
                 <FormUI {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
                         <div className="w-full grid gap-4 h-full">
                             <FormField
                                 control={form.control}
