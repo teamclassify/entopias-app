@@ -13,7 +13,7 @@ function CardProduct({ infoProduct }) {
     <Link href={`/producto/${id}`}>
       <div className="card">
         <AspectRatio ratio={3 / 4}>
-          <div className="bg-[#ECECEC] h-full w-full flex justify-center items-center">
+          <div className="bg-sidebar h-full w-full flex justify-center items-center">
             <img
               src={url}
               className="card-img-top object-cover h-[95%]"
