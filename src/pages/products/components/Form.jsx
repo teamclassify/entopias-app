@@ -1,3 +1,4 @@
+import UploadImage from "@/components/base/UploadImage";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -9,23 +10,18 @@ import {
   Form as FormUI,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Loading } from "@/components/ui/loading";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Loading } from "../../../components/ui/loading";
 
 const formSchema = z.object({
   name: z.string().min(3).max(255),
-  precio: z.number().min(0),
-  stock: z.number().min(0),
-  descripcion: z.string().min(3),
-  // images: z.array(z.string()).max(3),
-  loteId: z.number(),
-  molido: z.string().optional(),
-  tueste: z.string().optional(),
-  notas: z.string().optional(),
+  description: z.string().min(3),
+  type: z.string().min(3).max(255),
 });
 
 /*
@@ -37,89 +33,66 @@ const formSchema = z.object({
     - onCancel: function
 */
 function Form({ product, onSubmit, isPending = false }) {
-  const [images] = useState([]);
+  const [images, setImages] = useState([]);
+  const [varieties, setVarieties] = useState([
+    {
+      weight: 0,
+      price: 0,
+      stock: 0,
+    },
+  ]);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: product?.name || "",
-      precio: product?.precio || 0,
-      stock: product?.stock || 0,
-      descripcion: product?.descripcion || "",
-      // images: product?.photos || [],
-      loteId: product?.loteId || 0,
-      molido: "",
-      tueste: "",
-      notas: product?.lote?.cafe?.notasOlfativas || "",
+      description: product?.description || "",
+      photos: [],
+      type: product?.type || "",
     },
   });
 
-  // useEffect(() => {
-  //   if (product) {
-  //     setImages(product?.photos.map((photo) => photo.url));
-  //   }
-  // }, [product]);
+  useEffect(() => {
+    if (product) {
+      setImages(product?.photos.map((photo) => photo.url));
+      setVarieties(product?.varieties || []);
+    }
+  }, [product]);
 
   const handleSubmit = (data) => {
     onSubmit({
       ...data,
-      photos: images,
+      photos: images.map((image) => image.file ?? image),
+      varieties: varieties,
     });
   };
 
   return (
-    <FormUI {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 ">
-        <div className="md:bg-[#ECECEC] md:p-10">
-          <div className="lg:flex gap-8">
-            <div className="w-full grid gap-4 h-full">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nombre</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      El nombre del producto debe tener al menos 3 caracteres.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+    <div className="lg:flex gap-4">
+      <FormUI {...form}>
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="space-y-8 w-full"
+        >
+          <div className="bg-[#ECECEC] p-10">
+            <div className="">
+              <h3 className="text-lg font-semibold mb-2">
+                Información del producto
+              </h3>
 
-              <FormField
-                control={form.control}
-                name="loteId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Lote de Origen</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        disabled={product}
-                        onChange={(value) => {
-                          form.setValue("loteId", Number(value.target.value));
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="w-full grid gap-4 h-full">
                 <FormField
                   control={form.control}
-                  name="tueste"
+                  name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Tueste</FormLabel>
+                      <FormLabel>Nombre</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
+                      <FormDescription>
+                        El nombre del producto debe tener al menos 3 caracteres.
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -127,38 +100,17 @@ function Form({ product, onSubmit, isPending = false }) {
 
                 <FormField
                   control={form.control}
-                  name="molido"
+                  name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Molido</FormLabel>
+                      <FormLabel>Descripción</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Textarea {...field} rows={4} />
                       </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="precio"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Precio del producto</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          {...field}
-                          onChange={(value) => {
-                            form.setValue(
-                              "precio",
-                              parseFloat(value.target.value)
-                            );
-                          }}
-                        />
-                      </FormControl>
+                      <FormDescription>
+                        La descripción del producto debe tener al menos 3
+                        caracteres.
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -166,80 +118,208 @@ function Form({ product, onSubmit, isPending = false }) {
 
                 <FormField
                   control={form.control}
-                  name="stock"
+                  name="type"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Stock</FormLabel>
+                      <FormLabel>Tipo</FormLabel>
                       <FormControl>
-                        <Input
-                          type="number"
-                          {...field}
-                          onChange={(value) => {
-                            form.setValue("stock", Number(value.target.value));
-                          }}
-                        />
+                        <FormItem>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                        </FormItem>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              </div>
 
-              <FormField
-                control={form.control}
-                name="descripcion"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Descripción</FormLabel>
-                    <FormControl>
-                      <Textarea {...field} rows={4} />
-                    </FormControl>
-                    <FormDescription>
-                      La descripción del producto debe tener al menos 3
-                      caracteres.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <hr />
 
-              <Button type="submit">
-                {isPending ? (
-                  <Loading className="w-2 h-2 mr-2 border-white" />
-                ) : (
-                  <> {product ? "Actualizar producto" : "Agregar producto"}</>
-                )}
-              </Button>
-            </div>
-            <div className="w-full grid gap-4 h-full">
-              <FormField
-                control={form.control}
-                name="notas"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Notas de Cata</FormLabel>
-                    <FormControl>
-                      <Textarea {...field} rows={4} />
-                    </FormControl>
-                    <FormDescription>
-                      Separar cada característica con comas ( , )
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <div>
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h3 className="text-lg font-semibold mb-2">Variedades</h3>
+                    </div>
 
-              <div>
-                {/* <FormLabel className="mb-2">
-                  Imagenes <span className="text-gray-500">(opcional)</span>
-                </FormLabel>
-                <UploadImage defaultImages={images} setImages={setImages} /> */}
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={() => {
+                        setVarieties((prev) => {
+                          const newVarieties = [...prev];
+
+                          newVarieties.push({
+                            weight: 0,
+                            price: 0,
+                            stock: 0,
+                          });
+
+                          return newVarieties;
+                        });
+                      }}
+                      className="mb-2"
+                    >
+                      Agregar variedad
+                    </Button>
+                  </div>
+
+                  {/* Lista de Variedades con un boton para editar o eliminar la variedad */}
+                  <ScrollArea className="h-60 w-full px-4">
+                    {varieties.map((variety, index) => (
+                      <div key={index} className="mb-4">
+                        <div className="flex items-start justify-between mb-2">
+                          <span className="text-sm block mb-2 font-bold">
+                            #{index + 1}
+                          </span>
+
+                          <span
+                            className="text-sm cursor-pointer hover:underline"
+                            onClick={() => {
+                              setVarieties((prev) => {
+                                const newVarieties = [...prev];
+
+                                newVarieties.splice(index, 1);
+
+                                return newVarieties;
+                              });
+                            }}
+                          >
+                            Eliminar
+                          </span>
+                        </div>
+
+                        <div>
+                          <div className="flex gap-2">
+                            <FormField
+                              control={form.control}
+                              name={`variedades.${index}.size`}
+                              render={() => (
+                                <FormItem>
+                                  <FormLabel>
+                                    Peso
+                                    <span className="text-sm text-gray-500">
+                                      (gr)
+                                    </span>
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      type="number"
+                                      isRequired
+                                      min={0}
+                                      value={variety.weight}
+                                      onChange={(value) => {
+                                        setVarieties((prev) => {
+                                          const newVarieties = [...prev];
+
+                                          newVarieties[index].weight = Number(
+                                            value.target.value
+                                          );
+
+                                          return newVarieties;
+                                        });
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={form.control}
+                              name={`variedades.${index}.price`}
+                              render={() => (
+                                <FormItem>
+                                  <FormLabel>Precio</FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      type="number"
+                                      isRequired
+                                      min={0}
+                                      value={variety.price}
+                                      onChange={(value) => {
+                                        setVarieties((prev) => {
+                                          const newVarieties = [...prev];
+
+                                          newVarieties[index].price = Number(
+                                            value.target.value
+                                          );
+
+                                          return newVarieties;
+                                        });
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={form.control}
+                              name={`variedades.${index}.stock`}
+                              render={() => (
+                                <FormItem>
+                                  <FormLabel>Stock</FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      type="number"
+                                      isRequired
+                                      min={0}
+                                      value={variety.stock}
+                                      onChange={(value) => {
+                                        setVarieties((prev) => {
+                                          const newVarieties = [...prev];
+
+                                          newVarieties[index].stock = Number(
+                                            value.target.value
+                                          );
+
+                                          return newVarieties;
+                                        });
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </ScrollArea>
+                </div>
+
+                <Button type="submit">
+                  {isPending ? (
+                    <Loading className="w-2 h-2 mr-2 border-white" />
+                  ) : (
+                    <> {product ? "Actualizar producto" : "Agregar producto"}</>
+                  )}
+                </Button>
               </div>
             </div>
           </div>
-        </div>
-      </form>
-    </FormUI>
+        </form>
+      </FormUI>
+
+      <div className="bg-[#ECECEC] p-10 w-full">
+        <h3 className="text-lg font-semibold mb-2">
+          Imagenes del producto{" "}
+          <span className="text-sm text-gray-500">
+            (Puedes subir hasta 3 imagenes)
+          </span>
+        </h3>
+
+        <p className="text-sm text-gray-500 mb-2">
+          Las imagenes deben ser de tipo JPG, PNG o JPEG.
+        </p>
+
+        <UploadImage images={images} setImages={setImages} maxNumber={3} />
+      </div>
+    </div>
   );
 }
 

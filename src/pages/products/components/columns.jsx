@@ -4,38 +4,38 @@ import CheckboxProduct from "./CheckboxProduct";
 
 export const columns = [
   {
+    accessorKey: "id",
+    header: "ID",
+  },
+
+  {
     accessorKey: "name",
     header: "Nombre",
     cell: ({ row }) => {
       const id = row.original.id;
 
       return (
-        <Button asChild variant="link">
+        <Button asChild variant="link" className="p-0">
           <Link to={`/admin/productos/${id}`}>{row.getValue("name")}</Link>
         </Button>
       );
     },
   },
+
   {
-    accessorKey: "precio",
-    header: "Precio",
-  },
-  {
-    accessorKey: "stock",
-    header: "Stock",
-  },
-  {
-    accessorKey: "loteId",
-    header: "Lote",
+    accessorKey: "createdAt",
+    header: "Fecha de creación",
     cell: ({ row }) => {
-      const id = row.getValue("loteId");
-      return (
-        <Button asChild variant="link">
-          <Link to={`/admin/lote/${id}`}>{id}</Link>
-        </Button>
-      );
+      const date = row.getValue("createdAt");
+      return <span>{new Date(date).toLocaleDateString()}</span>;
     },
   },
+
+  {
+    accessorKey: "type",
+    header: "Tipo",
+  },
+
   {
     accessorKey: "status",
     header: "Estado",
