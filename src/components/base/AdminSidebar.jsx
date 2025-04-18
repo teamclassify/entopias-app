@@ -61,11 +61,6 @@ const itemsADMIN = [
         url: "/admin/productos/agregar",
         icon: FilePlus,
       },
-      {
-        title: "Lote de Productos",
-        url: "/admin/productos/lote",
-        icon: FilePlus,
-      },
     ],
   },
   {

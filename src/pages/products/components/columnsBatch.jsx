@@ -1,94 +1,62 @@
-import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import CheckboxProduct from "./CheckboxProduct";
-
 export const columnsBatch = [
   {
-    accessorKey: "cafe",
-    header: "Nombre del Lote",
-    cell: ({ row }) => {
-      const id = row.original.cafe.nombre;
-
-      return (
-        <span>{id}</span>
-      );
-    },
+    accessorKey: "id",
+    header: "Lote",
   },
   {
-    accessorKey: "cafe",
-    header: "Origen",
-    cell: ({ row }) => {
-      const id = row.original.cafe.origen;
-
-      return (
-        <span>{id}</span>
-      );
-    },
-  },
-  {
-    accessorKey: "finca",
+    accessorKey: "producer.farm",
     header: "Finca",
-    cell: ({ row }) => {
-      const id = row.original.cafe.finca;
-
-      return (
-        <span>{id}</span>
-      );
-    },
   },
   {
-    accessorKey: "productor",
+    accessorKey: "producer.name",
     header: "Productor",
-    cell: ({ row }) => {
-      const id = row.original.cafe.productor;
-
-      return (
-        <span>{id}</span>
-      );
+  },
+  {
+    accessorKey: "initialWeight",
+    header: "Peso Inicial",
+    cell: ({ getValue }) => {
+      const weight = getValue();
+      return `${weight} gr`; 
     },
   },
   {
-    accessorKey: "cantidad",
-    header: "Disponible",
-    cell: ({ row }) => {
-      const id = row.original.cafe.cantidad;
-
-      return (
-        <span>{id}</span>
-      );
+    accessorKey: "finalWeight",
+    header: "Peso Final",
+    cell: ({ getValue }) => {
+      const weight = getValue();
+      return `${weight} gr`; 
     },
   },
   {
-    accessorKey: "proceso",
-    header: "Proceso",
-    cell: ({ row }) => {
-      const id = row.original.cafe.proceso;
-
-      return (
-        <span>{id}</span>
-      );
+    accessorKey: "roastedDate",
+    header: "Fecha de tostado",
+    cell: ({ getValue }) => {
+      const date = new Date(getValue());
+      return date.toLocaleDateString('es-CO'); 
     },
   },
   {
-    accessorKey: "notasOlfativas",
+    accessorKey: "roastedType",
+    header: "Tipo de tostado",
+  },
+  {
+    accessorKey: "expirationDate",
+    header: "Fecha de vencimiento",
+    cell: ({ getValue }) => {
+      const date = new Date(getValue());
+      return date.toLocaleDateString('es-CO');
+    }
+  },
+  {
+    accessorKey: "aromaticNotes",
     header: "Notas Olfativas",
-    cell: ({ row }) => {
-      const id = row.original.cafe.notasOlfativas;
-
-      return (
-        <span>{id}</span>
-      );
-    },
   },
   {
-    accessorKey: "precioGranoVerde",
-    header: "Precio Grano Verde",
-    cell: ({ row }) => {
-      const id = row.original.cafe.precioGranoVerde;
-
-      return (
-        <span>{id} COP$</span>
-      );
+    accessorKey: "purchasePrice",
+    header: "Precio",
+    cell: ({ getValue }) => {
+      const price = getValue();
+      return price.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
     },
   },
 ];
