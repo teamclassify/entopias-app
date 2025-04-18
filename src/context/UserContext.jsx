@@ -101,7 +101,6 @@ export default function UserProvider({ children }) {
 
       setError(null);
     } else {
-      console.log(response);
       setUser(null);
     }
   };
@@ -109,7 +108,6 @@ export default function UserProvider({ children }) {
   useEffect(() => {
     const unsuscribeStateChanged = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        console.log(user);
 
         const userInfo = {
           email: user.email,

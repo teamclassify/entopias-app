@@ -12,7 +12,6 @@ function CheckboxProduct({ productId, initialStatus }) {
       return ProductsService.update(data.id, data.data);
     },
     onSuccess: (data) => {
-      console.log(data);
       setStatus(data.data.error ? false : !data.data.error);
     },
   });

@@ -33,7 +33,6 @@ function ProductDetail() {
   }
 
   const handleBuy = () => {
-    console.log(`Compraste ${quantity} unidades de ${data.data.name}`);
   };
 
   const bgCoffee = "bg-[rgba(183,110,73,0.42)]";

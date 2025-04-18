@@ -44,7 +44,6 @@ async function update(id, data) {
 
   const formData = new FormData();
 
-  console.log(data);
 
   formData.append("name", data.name);
 
