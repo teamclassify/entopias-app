@@ -41,7 +41,7 @@ const formSchema = z.object({
     .min(1, "El nombre de la finca es obligatorio"),
 });
 
-function Form({ onSubmit }) {
+function Form({ onSubmit, isLoading}) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -157,7 +157,7 @@ function Form({ onSubmit }) {
               />
 
               <Button className="mt-4" type="submit">
-                Crear productor
+              {isLoading ? "Creando..." : "Crear Productor"}
               </Button>
             </div>
           </div>

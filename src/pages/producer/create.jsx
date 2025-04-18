@@ -1,33 +1,41 @@
 import AdminLayout from "@/components/layouts/AdminLayout";
 import Form from "./components/Form";
 import AdminBreadcrumb from "../../components/base/AdminBreadcrumb";
-//import { register } from "../../services/api/Auth";
-//import { toast } from "sonner";
+import { toast } from "sonner";
+import ProducersServices from "../../services/api/Producers";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 function CreateProducerPage() {
-  const handleSubmit = async (data) => {
-    /* Conectarlo con la api
+  const queryClient = useQueryClient();
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data) => {
+      return ProducersServices.create(data);
+    },
+    onSuccess: (data) => {
+      if (data.data.error) {
+        toast.error("Error al crear productor");
+      } else {
+        toast.success("Productor creado correctamente");
+        queryClient.invalidateQueries(["producers", 1, ""]);
+      }
+    },
+    onError: (error) => {
+      const message =
+        error?.response?.data?.message || "Ya existe un productor con ese email o teléfono";
 
-    const response = await register({
-      ...data,
-    });
-
-    
-    if (response?.error) {
-      toast.error(response.error?.message);
-      return;
+      toast.error(message);
     }
+  });
 
-    toast.success("Productor creado correctamente");
-    */
-    console.log("Esta es la data", data);
+  const handleSubmit = (data) => {
+    return mutate(data);
   };
 
   return (
     <AdminLayout>
       <AdminBreadcrumb currentPage="Crear Productor" />
-      <Form onSubmit={handleSubmit} />
+      <Form onSubmit={handleSubmit} isLoading={isPending} />
     </AdminLayout>
   );
 }
