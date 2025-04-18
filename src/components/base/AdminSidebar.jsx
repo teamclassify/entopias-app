@@ -200,11 +200,13 @@ function AdminSidebar() {
   return (
     <Sidebar className="border-none">
       <SidebarHeader className="flex items-center justify-center  h-16 ">
-        <img
-          src="/logo.webp"
-          alt="Logo Entopias Cafe"
-          className="w-full max-w-[120px] mx-auto"
-        />
+        <Link to="/">
+          <img
+            src="/logo.webp"
+            alt="Logo Entopias Cafe"
+            className="w-full max-w-[120px] mx-auto"
+          />
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
