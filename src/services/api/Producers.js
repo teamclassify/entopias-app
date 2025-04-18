@@ -57,6 +57,6 @@ async function create(data) {
   }
 }
 
-const ProducerServices = { getAll, getById, create };
+const ProducersServices = { getAll, getById, create };
 
-export default ProducerServices;
+export default ProducersServices;

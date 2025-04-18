@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 function CreateProducerPage() {
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (data) => {
       return ProducersServices.create(data);
     },
@@ -20,17 +20,22 @@ function CreateProducerPage() {
         queryClient.invalidateQueries(["producers", 1, ""]);
       }
     },
+    onError: (error) => {
+      const message =
+        error?.response?.data?.message || "Ya existe un productor con ese email o teléfono";
+
+      toast.error(message);
+    }
   });
 
   const handleSubmit = (data) => {
-    console.log(data)
     return mutate(data);
   };
 
   return (
     <AdminLayout>
       <AdminBreadcrumb currentPage="Crear Productor" />
-      <Form onSubmit={handleSubmit} />
+      <Form onSubmit={handleSubmit} isLoading={isPending} />
     </AdminLayout>
   );
 }
