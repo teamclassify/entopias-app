@@ -39,7 +39,7 @@ function App() {
 
         <Route component={AdminPage} path="/admin" />
         <Route component={ProductsListPage} path="/admin/productos" />
-        <Route component={ProductsBatchListPage} path="/admin/productos/lote" />
+        <Route component={ProductsBatchListPage} path="/admin/lotes" />
         <Route component={ProductsCreatePage} path="/admin/productos/agregar" />
         <Route component={ProductsEditPage} path="/admin/productos/:id" />
         <Route component={ClientManagment} path="/admin/clientes" />
