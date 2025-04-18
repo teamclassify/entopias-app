@@ -61,6 +61,11 @@ const itemsADMIN = [
         url: "/admin/productos/agregar",
         icon: FilePlus,
       },
+      {
+        title: "Lote de Productos",
+        url: "/admin/productos/lote",
+        icon: FilePlus,
+      },
     ],
   },
   {
@@ -143,6 +148,11 @@ const itemsSALES = [
       {
         title: "Ver Produtos",
         url: "/admin/productos",
+        icon: List,
+      },
+      {
+        title: "Lote de Productos",
+        url: "/admin/productos/lote",
         icon: List,
       },
     ],
