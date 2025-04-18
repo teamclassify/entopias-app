@@ -27,9 +27,30 @@ async function getAll({ page = 1, search }) {
   }
 }
 
+async function create(data) {
+  const token = await getToken();
+
+  if (!token) throw new Error("Token not found");
+
+  try {
+    const res = await axios({
+      url: `${URL}/lotes`,
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      data: data,
+    });
+    return res.data;
+  } catch (error) {
+    handleAxiosError(error);
+  }
+}
 
 const ProductsBatchService = {
   getAll,
+  create,
 };
 
 export default ProductsBatchService;
