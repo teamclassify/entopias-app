@@ -2,7 +2,6 @@ import { Link } from "wouter";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 function CardProduct({ infoProduct }) {
-  console.log(infoProduct);
 
   const { name, photos, id, varieties } = infoProduct;
 

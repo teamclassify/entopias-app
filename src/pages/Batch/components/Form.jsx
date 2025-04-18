@@ -59,7 +59,7 @@ const formSchema = z.object({
     .max(255, "Debe tener como máximo 255 caracteres"),
 });
 
-function Form({ onSubmit }) {
+function Form({ onSubmit, isLoading }) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -255,7 +255,7 @@ function Form({ onSubmit }) {
               />
 
               <Button className="mt-4" type="submit">
-                Crear lote
+                {isLoading ? "Creando lote...." : "Crear lote"}
               </Button>
             </div>
           </div>
