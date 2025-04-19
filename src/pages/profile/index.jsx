@@ -13,6 +13,7 @@ import InfoUser from "./components/InfoUser";
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
 import EditUser from "./edit_user";
+import UserAddress from "./user_address";
 
 
 function Menu() {
@@ -72,6 +73,7 @@ function Profile() {
                 <div className="w-full">
                     {page === "inicio" && <InfoUser onChange={handleChangePage} />}
                     {page === "editar" && <EditUser onChange={handleChangePage} />}
+                    {page === "direcciones" && <UserAddress onChange={handleChangePage} />}
                 </div>
             </div>
 

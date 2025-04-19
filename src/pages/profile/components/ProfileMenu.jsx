@@ -1,10 +1,11 @@
-
+import useUser from "@/hooks/useUser";
 import { useLocation } from "wouter";
 import { ChevronRight } from "lucide-react";
 
 function ProfileMenu({ page, onChange }) {
 
     const [, setLocation] = useLocation();
+    const { logout } = useUser();
 
     return (
         <div className="w-full">
@@ -15,7 +16,7 @@ function ProfileMenu({ page, onChange }) {
                     onClick={() => setLocation("/perfil/inicio")}
                     className={`flex justify-between cursor-pointer hover:bg-gray-100 p-1 rounded ${page === "inicio" ? "bg-gray-100" : ""
                         }`}
-                >
+                > 
                     <span>Mi perfil</span>
                     <ChevronRight />
                 </li>
@@ -28,7 +29,7 @@ function ProfileMenu({ page, onChange }) {
                     <ChevronRight />
                 </li>
                 <li
-                    onClick={() => setLocation("/perfil/direcciones")}
+                    onClick={logout}
                     className={`flex justify-between cursor-pointer hover:bg-gray-100 p-1 rounded ${page === "" ? "bg-gray-100" : ""
                         }`}
                 >

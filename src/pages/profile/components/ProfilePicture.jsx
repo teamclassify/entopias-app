@@ -1,50 +1,53 @@
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import ReactImageUploading from "react-images-uploading";
 import { SlUser } from "react-icons/sl";
 
 function ProfilePicture({ currentImageUrl, onImageChange }) {
-    const fileInputRef = useRef(null);
-    const [preview, setPreview] = useState(currentImageUrl);
+    const [imageList, setImageList] = useState([]);
 
-    const handleImageClick = () => {
-        fileInputRef.current.click();
-    };
-
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const imageURL = URL.createObjectURL(file);
-            setPreview(imageURL);
-            onImageChange(file); 
+    useEffect(() => {
+        if (currentImageUrl) {
+            setImageList([{ data_url: currentImageUrl }]);
         }
+    }, [currentImageUrl]);
+
+    const handleImageChange = (imageList) => {
+        setImageList(imageList);
+        const imageName = imageList?.[0]?.file?.name || "";
+        onImageChange(imageName); 
     };
 
     return (
-        <div className="flex flex-col items-center">
-            <div className="w-32 h-32 bg-gray-100 rounded flex items-center justify-center overflow-hidden">
-                {preview ? (
-                    <img
-                        src={preview}
-                        alt="Foto de perfil"
-                        className="object-cover w-full h-full"
-                    />
-                ) : (
-                    <SlUser className="h-18 w-18 text-gray-400" />
-                )}
-            </div>
-            <button
-                onClick={handleImageClick}
-                className="mt-3 px-4 py-1 border-2 text-sm cursor-pointer"
-            >
-                Cambiar Foto
-            </button>
-            <input
-                type="file"
-                accept="image/*"
-                ref={fileInputRef}
-                onChange={handleFileChange}
-                className="hidden"
-            />
-        </div>
+        <ReactImageUploading
+            value={imageList}
+            onChange={handleImageChange}
+            maxNumber={1}
+            acceptType={["jpg", "png", "jpeg"]}
+            dataURLKey="data_url"
+        >
+            {({ onImageUpload }) => (
+                <div className="flex flex-col items-center">
+                    <div className="w-32 h-32 bg-gray-100 rounded flex items-center justify-center overflow-hidden">
+                        {imageList[0]?.data_url ? (
+                            <img
+                                src={imageList[0]?.data_url}
+                                alt="Foto de perfil"
+                                className="object-cover w-full h-full"
+                            />
+                        ) : (
+                            <SlUser className="h-18 w-18 text-gray-400" />
+                        )}
+                    </div>
+
+                    <button
+                        onClick={onImageUpload}
+                        className="mt-3 px-4 py-1 border-2 text-sm cursor-pointer"
+                    >
+                        Cambiar Foto
+                    </button>
+                </div>
+            )}
+        </ReactImageUploading>
     );
 }
 

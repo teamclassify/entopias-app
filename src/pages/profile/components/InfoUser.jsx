@@ -4,7 +4,6 @@ import { Table, TableBody, TableRow, TableCell, } from "@/components/ui/table";
 function InfoUser({ onChange }) {
 
     const { user } = useUser();
-    
 
     return (
         <div className="flex flex-col w-full gap-6">

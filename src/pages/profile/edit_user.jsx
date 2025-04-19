@@ -12,8 +12,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useEffect, useState } from "react";
-import UploadImage from "../../components/base/UploadImage";
+import { useState } from "react";
 import ProfilePicture from "./components/ProfilePicture";
 import { useMutation, useQuery } from '@tanstack/react-query';
 import UsersService from "../../services/api/Users";
@@ -23,6 +22,7 @@ import { toast } from 'react-hot-toast';
 
 const formSchema = z.object({
     name: z.string().min(3).max(255),
+    photo: z.string().optional(),
     email: z.string().email(),
     phone: z.string().min(10).optional(),
     gender: z.string(),
@@ -37,18 +37,13 @@ function EditUser({ onChange }) {
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: user?.name || "",
+            photo: user?.photoUrl || "",
             email: user?.email || "",
             phone: user?.phone || "",
             gender: user?.gender,
         },
     });
 
-    useEffect(() => {
-        if (user?.photo) {
-            setImage([user.photo.url]);
-        }
-    }, [user]);
-    
 
     const mutateUpdateProfile = useMutation({
         mutationFn: ({ id, data }) => UsersService.updateUser({ id, data }),
@@ -57,7 +52,7 @@ function EditUser({ onChange }) {
             setUser((prev) => ({
                 ...prev,
                 ...data.data,
-              }));            
+            }));
             onChange("inicio");
             console.log("Perfil actualizado");
         },
@@ -80,9 +75,9 @@ function EditUser({ onChange }) {
             <p className="font-bold text-[20px] py-4">Editar Perfil</p>
             <div>
                 <ProfilePicture
-                    currentImageUrl={user.photoUrl}
-                    onImageChange={(file) => {
-                        setValue("photo", file);
+                    currentImageUrl={user?.photo}
+                    onImageChange={(imageName) => {
+                        form.setValue("photo", imageName);
                     }}
                 />
                 <FormUI {...form}>
