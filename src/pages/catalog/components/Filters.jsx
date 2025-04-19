@@ -1,17 +1,45 @@
-import CategoryCoffe from "./CategoryCoffe";
-import PriceFilter from "./PriceFilter";
-import QuantityFilter from "./QuantityFilter";
+import { Skeleton } from "@/components/ui/skeleton";
+//import { useQuery } from "react-query";
+//import AttributesService from "../../services/api/AttributesService";
+import AccordionOption from "./AccordionOptions";
+import { mockProducts } from "../../../mocks/product";
+
 
 function Filters() {
+  
+  const data = mockProducts
+/*
+  const { data, isLoading } = useQuery("colors", () =>
+    AttributesService.getAll({
+      type: "color",
+    })
+  );
+  
+
+  if (isLoading) {
+    return <Skeleton className="h-[125px] w-full rounded-xl mb-4" />;
+  }
+
+  
+  const handleSelect = (option) => {
+    setColors((prev) => {
+      if (prev.includes(option)) {
+        return prev.filter((color) => color !== option);
+      }
+      return [...prev, option];
+    });
+  };*/
+
   return (
-    <div className="flex flex-col gap-3">
-      <div>
-        <p className="h-[24px] pb-3"></p>
-      </div>
-      <PriceFilter />
-      <QuantityFilter />
-      <CategoryCoffe />
-    </div>
+    <>
+      {data && (
+        <AccordionOption
+          name="Tipo de cafe"
+          options={data.products}
+          //handleSelect={handleSelect}
+        />
+      )}
+    </>
   );
 }
 

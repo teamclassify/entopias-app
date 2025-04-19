@@ -1,6 +1,6 @@
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import CardProduct from "./components/CardProduct";
-import Filters from "./components/Filters";
+import AccordionFilter from "./components/AccordionFilter";
 import ProductsService from "../../services/api/Products";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -25,7 +25,7 @@ function Index() {
       <div className="w-full max-w-screen-lg mx-auto">
         <div className="flex flex-col md:flex-row gap-8 pt-4">
           <aside className="w-full md:w-1/4 mr-5">
-            <Filters />
+          <AccordionFilter />
           </aside>
           <main className="w-full md:w-3/4">
             <div>
