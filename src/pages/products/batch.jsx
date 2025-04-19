@@ -2,18 +2,28 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
+import { Link } from "wouter";
 
 import AdminLayout from "@/components/layouts/AdminLayout";
-import ListOfProducts from "./components/ListOfProducts";
+import ListOfBatchProducts from "./components/ListOfBatchProducts";
 
-function ProductsListPage() {
+function ProductsBatchListPage() {
   const [searchByName, setSearchByName] = useState("");
   const [text] = useDebounce(searchByName, 500);
 
   return (
     <AdminLayout>
       <main>
-      <h1 className="text-2xl font-bold pt-6">Productos</h1>
+        <header className="flex flex-row justify-between items-center">
+          <h1 className="text-2xl font-bold pt-6">Lotes</h1>
+
+          <div className="flex flex-row gap-3">
+            <Link href="/admin/lotes/agregar">
+              <Button>Crear lote</Button>
+            </Link>
+          </div>
+        </header>
+
         <section className="flex flex-row gap-3 pt-4 pb-4">
           <Input
             placeholder="Buscar"
@@ -22,10 +32,10 @@ function ProductsListPage() {
           />
         </section>
 
-        <ListOfProducts searchByName={text} />
+        <ListOfBatchProducts searchByName={text} />
       </main>
     </AdminLayout>
   );
 }
 
-export default ProductsListPage;
+export default ProductsBatchListPage;
