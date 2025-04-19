@@ -19,6 +19,7 @@ import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import CreateProducerPage from "./pages/producer/create";
 import CreateBatchPage from "./pages/Batch/create";
+import Cart from "./pages/cart"
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
         <Route component={CreateProducerPage} path="/admin/productores/agregar" />
         <Route component={CreateBatchPage} path="/admin/lotes/agregar" />
         <Route component={ProductDetail} path="/producto/:id" />
+        <Route component={Cart} path="/carrito" />
         <Route component={NotFoundPage} />
       </Switch>
     </>
