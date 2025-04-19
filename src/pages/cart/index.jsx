@@ -1,7 +1,7 @@
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { mockProducts } from "../../mocks/product";
 import ProductCartGrid from "./components/ProductCartGrid";
-//import Purchase from "./components/Purchase"
+import Purchase from "./components/Purchase/Purchase"
 
 function Cart() {
 
@@ -11,7 +11,7 @@ function Cart() {
     <DefaultLayout>
       <div className="flex flex-row justify-between ">
         <ProductCartGrid data={data} /*isLoading={isLoading || isFetching}*/ />
-        {/* <Purchase buy={false} data={data} /*isLoading={isLoading || isFetching} /> */}
+        <Purchase buy={false} data={data} /*isLoading={isLoading || isFetching}*/ /> 
       </div>
     </DefaultLayout>
   );
