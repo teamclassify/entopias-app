@@ -6,9 +6,10 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { DialogDisableProduct } from "./DialogDisableProduct";
 import ProductCartInfo from "./ProductCartInfo";
+import { formatPrice } from "../../../utils/formatPrice";
+
 
 export default function ProductCart({ product, isChecked }) {
-  
   const [openDialog, setOpenDialog] = useState(false);
 
   //const queryClient = useQueryClient();
@@ -34,10 +35,10 @@ export default function ProductCart({ product, isChecked }) {
   };
 
   const handleConfirmDelete = () => {
-   // if (isLoading) return;
+    // if (isLoading) return;
 
     //mutate({ id: product.id });
-    toast.success("Eliminado..")
+    toast.success("Eliminado..");
   };
 
   return (
@@ -50,7 +51,7 @@ export default function ProductCart({ product, isChecked }) {
             <Trash />
           </Button>
           <p>
-            ${new Intl.NumberFormat().format(product?.varieties[0].price || 0)}
+           {formatPrice(product?.varieties[0].price)}
           </p>
         </div>
       </div>
