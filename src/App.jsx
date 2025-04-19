@@ -17,6 +17,7 @@ import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import Profile from "./pages/profile";
+import BillsManagment from "./pages/admin/bills-management";
 
 function App() {
   return (
@@ -45,9 +46,9 @@ function App() {
         <Route component={ClientManagment} path="/admin/clientes" />
         <Route component={ListSalesPage} path="/admin/asistentes" />
         <Route component={CreateSalesPage} path="/admin/asistentes/agregar" />
-
+        <Route component={BillsManagment} path="/admin/facturas" />
         <Route component={ProductDetail} path="/producto/:id" />
-
+ 
         <Route component={NotFoundPage} />
 
       </Switch>

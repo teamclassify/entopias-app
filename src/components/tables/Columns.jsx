@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { calculateAge } from "../../utils/calculateAge";
 
 export const columns = [
-  {
+  { 
     accessorKey: "name",
     header: "Nombre",
   },
