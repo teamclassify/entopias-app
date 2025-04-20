@@ -9,7 +9,7 @@ async function getAll({ page = 1, search }) {
 
   try {
     const res = await axios({
-      url: `${URL}/lotes`,
+      url: `${URL}/batches`,
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -34,7 +34,7 @@ async function create(data) {
 
   try {
     const res = await axios({
-      url: `${URL}/lotes`,
+      url: `${URL}/batches`,
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
