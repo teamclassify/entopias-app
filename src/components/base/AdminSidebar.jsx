@@ -7,6 +7,7 @@ import {
   UserRound,
   UserRoundPen,
   ReceiptText,
+  NotebookPen,
 } from "lucide-react";
 
 import {
@@ -192,12 +193,12 @@ const itemsSALES = [
   {
     title: "Pedidos",
     url: "/admin/pedidos",
-    icon: UserRoundPen,
+    icon: NotebookPen,
     subitems: [
       {
         title: "Ver Pedidos",
         url: "/admin/pedidos",
-        icon: FilePlus,
+        icon: List,
       },
     ],
   },
