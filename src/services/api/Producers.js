@@ -24,7 +24,7 @@ async function getAll({ page = 1, search }) {
 async function getById(id) {
   try {
     const res = await axios({
-      url: `${URL}/productores/${id}` /**Deberia ser producers */,
+      url: `${URL}/producers/${id}`,
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ async function create(data) {
 
   try {
     const res = await axios({
-      url: `${URL}/productores` /**Deberia ser producers */,
+      url: `${URL}/producers`,
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
