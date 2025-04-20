@@ -17,6 +17,7 @@ import CreateSalesPage from "./pages/sales/create";
 import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
+import Profile from "./pages/profile";
 import CreateProducerPage from "./pages/producer/create";
 import CreateBatchPage from "./pages/Batch/create";
 
@@ -30,6 +31,9 @@ function App() {
         <Route component={SignInPage} path="/iniciar-sesion" />
         <Route component={SignUpPage} path="/registrarse" />
         <Route component={RecoveryPasswordPage} path="/recuperar" />
+        <Route path="/perfil/:page?" component={Profile} />
+        
+
         <Route
           component={RecoveryPasswordCompletedPage}
           path="/recuperar-enviado"
@@ -49,6 +53,7 @@ function App() {
         <Route component={CreateBatchPage} path="/admin/lotes/agregar" />
         <Route component={ProductDetail} path="/producto/:id" />
         <Route component={NotFoundPage} />
+
       </Switch>
     </>
   );
