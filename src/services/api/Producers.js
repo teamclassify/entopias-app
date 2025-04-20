@@ -5,7 +5,7 @@ import { getToken } from "./Auth";
 async function getAll({ page = 1, search }) {
   try {
     const res = await axios({
-      url: `${URL}/productores` /**Deberia ser producers */,
+      url: `${URL}/producers`,
       method: "GET",
       headers: {
         "Content-Type": "application/json",
