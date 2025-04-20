@@ -19,6 +19,7 @@ import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import Profile from "./pages/profile";
 import CreateProducerPage from "./pages/producer/create";
+import ProducersListPage from "./pages/producer/list";
 import CreateBatchPage from "./pages/Batch/create";
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
         <Route component={ListSalesPage} path="/admin/asistentes" />
         <Route component={CreateSalesPage} path="/admin/asistentes/agregar" />
         <Route component={CreateProducerPage} path="/admin/productores/agregar" />
+        <Route component={ProducersListPage} path="/admin/productores" />
         <Route component={CreateBatchPage} path="/admin/lotes/agregar" />
         <Route component={ProductDetail} path="/producto/:id" />
         <Route component={NotFoundPage} />
