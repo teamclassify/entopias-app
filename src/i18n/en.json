@@ -13,6 +13,11 @@
         "title": "Our Products",
         "description": "Explore our range of products designed to meet your needs."
       }
+    },
+
+    "payments": {
+      "title": "Payments",
+      "description": "Hello {{name}}, please enter your credit card details to complete the payment."
     }
   }
 }

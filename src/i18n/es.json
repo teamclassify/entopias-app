@@ -13,6 +13,11 @@
         "title": "Nuestros Productos",
         "description": "Explora nuestra gama de productos diseñados para satisfacer tus necesidades."
       }
+    },
+
+    "payments": {
+      "title": "Pagos",
+      "description": "Hola {{name}}, por favor, ingrese los datos de su tarjeta de crédito para completar el pago."
     }
   }
 }
