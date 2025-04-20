@@ -13,7 +13,6 @@ function CheckboxRole({ userId, roles }) {
       return UsersService.updateRole(data);
     },
     onSuccess: (data) => {
-      console.log(data);
       setIsSales(!data.data.error);
     },
   });

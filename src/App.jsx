@@ -10,6 +10,7 @@ import ProductsCreatePage from "./pages/products/create";
 import ProductDetail from "./pages/products/detail";
 import ProductsEditPage from "./pages/products/edit";
 import ProductsListPage from "./pages/products/list";
+import ProductsBatchListPage from "./pages/products/batch";
 import RecoveryPasswordPage from "./pages/recovery-password";
 import RecoveryPasswordCompletedPage from "./pages/recovery-password/completed";
 import CreateSalesPage from "./pages/sales/create";
@@ -17,6 +18,8 @@ import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import Profile from "./pages/profile";
+import CreateProducerPage from "./pages/producer/create";
+import CreateBatchPage from "./pages/Batch/create";
 
 function App() {
   return (
@@ -40,14 +43,15 @@ function App() {
 
         <Route component={AdminPage} path="/admin" />
         <Route component={ProductsListPage} path="/admin/productos" />
+        <Route component={ProductsBatchListPage} path="/admin/lotes" />
         <Route component={ProductsCreatePage} path="/admin/productos/agregar" />
         <Route component={ProductsEditPage} path="/admin/productos/:id" />
         <Route component={ClientManagment} path="/admin/clientes" />
         <Route component={ListSalesPage} path="/admin/asistentes" />
         <Route component={CreateSalesPage} path="/admin/asistentes/agregar" />
-
+        <Route component={CreateProducerPage} path="/admin/productores/agregar" />
+        <Route component={CreateBatchPage} path="/admin/lotes/agregar" />
         <Route component={ProductDetail} path="/producto/:id" />
-
         <Route component={NotFoundPage} />
 
       </Switch>

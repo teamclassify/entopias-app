@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import ProductsService from "../../services/api/Products";
 import Form from "./components/Form";
+import AdminBreadcrumb from "../../components/base/AdminBreadcrumb";
 
 function ProductsCreatePage() {
   const queryClient = useQueryClient();
@@ -27,7 +28,7 @@ function ProductsCreatePage() {
 
   return (
     <AdminLayout>
-      <h1 className="mb-4 text-lg font-bold">Crear producto</h1>
+      <AdminBreadcrumb currentPage="Crear Producto" />
       <Form onSubmit={handleOnSubmit} isPending={isPending} />
     </AdminLayout>
   );
