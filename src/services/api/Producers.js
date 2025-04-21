@@ -3,11 +3,16 @@ import { URL, handleAxiosError } from ".";
 import { getToken } from "./Auth";
 
 async function getAll({ page = 1, search }) {
+  const token = await getToken();
+
+  if (!token) throw new Error("Token not found");
+
   try {
     const res = await axios({
-      url: `${URL}/producers` /**Deberia ser producers */,
+      url: `${URL}/producers`,
       method: "GET",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       params: {
@@ -22,11 +27,16 @@ async function getAll({ page = 1, search }) {
 }
 
 async function getById(id) {
+  const token = await getToken();
+
+  if (!token) throw new Error("Token not found");
+  
   try {
     const res = await axios({
-      url: `${URL}/producers/${id}` /**Deberia ser producers */,
+      url: `${URL}/producers/${id}`,
       method: "GET",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -43,7 +53,7 @@ async function create(data) {
 
   try {
     const res = await axios({
-      url: `${URL}/producers` /**Deberia ser producers */,
+      url: `${URL}/producers`,
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
