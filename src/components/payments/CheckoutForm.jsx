@@ -1,4 +1,7 @@
-import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js";
+import {
+  EmbeddedCheckout,
+  EmbeddedCheckoutProvider,
+} from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useCallback } from "react";
 
@@ -10,17 +13,8 @@ const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 function CheckoutForm() {
   const fetchClientSecret = useCallback(async () => {
     const res = await paymentsService.createPaymentIntent({
-      products: [
-        {
-          id: 1,
-          name: "Cafe Test",
-          price: 1,
-          quantity: 1,
-        },
-      ],
-      currency: "usd",
+      currency: "cop",
     });
-
 
     return res.data.session.client_secret;
   }, []);
