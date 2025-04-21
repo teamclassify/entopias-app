@@ -23,8 +23,6 @@ import CreateSalesPage from "./pages/sales/create";
 import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
-import CreateProducerPage from "./pages/producer/create";
-import CreateBatchPage from "./pages/Batch/create";
 import Cart from "./pages/cart"
 
 function App() {
