@@ -89,7 +89,7 @@ function ProductDetail() {
                   <div className="text-gray-700 text-sm space-y-4">
                     <p>
                       <span className="font-semibold">Notas olfativas:</span>{" "}
-                      {data?.data?.batches[0]?.aromaticNotes ?? "No aplica"}
+                      {data?.data?.batches[0]?.aromaNotes ?? "No aplica"}
                     </p>
                     <p>
                       <span className="font-semibold">Tipo:</span>{" "}

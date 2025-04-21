@@ -16,7 +16,6 @@ function ProductsBatchListPage() {
       <main>
         <header className="flex flex-row justify-between items-center">
           <h1 className="text-2xl font-bold pt-6">Lotes</h1>
-
           <div className="flex flex-row gap-3">
             <Link href="/admin/lotes/agregar">
               <Button>Crear lote</Button>

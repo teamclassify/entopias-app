@@ -28,7 +28,7 @@ export const columnsBatch = [
     },
   },
   {
-    accessorKey: "roastedDate",
+    accessorKey: "roastDate",
     header: "Fecha de tostado",
     cell: ({ getValue }) => {
       const date = new Date(getValue());
@@ -36,7 +36,7 @@ export const columnsBatch = [
     },
   },
   {
-    accessorKey: "roastedType",
+    accessorKey: "roastType",
     header: "Tipo de tostado",
   },
   {
@@ -48,7 +48,7 @@ export const columnsBatch = [
     }
   },
   {
-    accessorKey: "aromaticNotes",
+    accessorKey: "aromaNotes",
     header: "Notas Olfativas",
   },
   {
