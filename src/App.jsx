@@ -20,6 +20,7 @@ import CreateSalesPage from "./pages/sales/create";
 import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
+import PaymentsSuccessPage from "./pages/payments/success";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route component={ProductCatalog} path="/tienda" />
 
         <Route component={Payments} path="/pagos" />
+        <Route component={PaymentsSuccessPage} path="/pagos/exitoso" />
 
         <Route component={AdminPage} path="/admin" />
         <Route component={ProductsListPage} path="/admin/productos" />
@@ -48,7 +50,10 @@ function App() {
         <Route component={ClientManagment} path="/admin/clientes" />
         <Route component={ListSalesPage} path="/admin/asistentes" />
         <Route component={CreateSalesPage} path="/admin/asistentes/agregar" />
-        <Route component={CreateProducerPage} path="/admin/productores/agregar" />
+        <Route
+          component={CreateProducerPage}
+          path="/admin/productores/agregar"
+        />
         <Route component={CreateBatchPage} path="/admin/lotes/agregar" />
         <Route component={ProductDetail} path="/producto/:id" />
         <Route component={NotFoundPage} />
