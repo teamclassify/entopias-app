@@ -21,6 +21,10 @@ import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import PaymentsSuccessPage from "./pages/payments/success";
+import Profile from "./pages/profile";
+import CreateProducerPage from "./pages/producer/create";
+import ProducersListPage from "./pages/producer/list";
+import CreateBatchPage from "./pages/Batch/create";
 
 function App() {
   return (
@@ -32,6 +36,9 @@ function App() {
         <Route component={SignInPage} path="/iniciar-sesion" />
         <Route component={SignUpPage} path="/registrarse" />
         <Route component={RecoveryPasswordPage} path="/recuperar" />
+        <Route path="/perfil/:page?" component={Profile} />
+        
+
         <Route
           component={RecoveryPasswordCompletedPage}
           path="/recuperar-enviado"
@@ -50,13 +57,12 @@ function App() {
         <Route component={ClientManagment} path="/admin/clientes" />
         <Route component={ListSalesPage} path="/admin/asistentes" />
         <Route component={CreateSalesPage} path="/admin/asistentes/agregar" />
-        <Route
-          component={CreateProducerPage}
-          path="/admin/productores/agregar"
-        />
+        <Route component={CreateProducerPage} path="/admin/productores/agregar" />
+        <Route component={ProducersListPage} path="/admin/productores" />
         <Route component={CreateBatchPage} path="/admin/lotes/agregar" />
         <Route component={ProductDetail} path="/producto/:id" />
         <Route component={NotFoundPage} />
+
       </Switch>
     </>
   );
