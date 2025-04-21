@@ -22,7 +22,7 @@ function CheckoutForm() {
     });
 
 
-    return res.data.client_secret;
+    return res.data.session.client_secret;
   }, []);
 
   const options = { fetchClientSecret };
