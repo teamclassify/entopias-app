@@ -3,20 +3,24 @@ import { Route, Switch } from "wouter";
 
 import AdminPage from "./pages/admin";
 import ClientManagment from "./pages/admin/client-management";
+import CreateBatchPage from "./pages/Batch/create";
 import ProductCatalog from "./pages/catalog";
 import HomePage from "./pages/home";
 import NotFoundPage from "./pages/not-found";
+import Payments from "./pages/payments";
+import CreateProducerPage from "./pages/producer/create";
+import ProductsBatchListPage from "./pages/products/batch";
 import ProductsCreatePage from "./pages/products/create";
 import ProductDetail from "./pages/products/detail";
 import ProductsEditPage from "./pages/products/edit";
 import ProductsListPage from "./pages/products/list";
-import ProductsBatchListPage from "./pages/products/batch";
 import RecoveryPasswordPage from "./pages/recovery-password";
 import RecoveryPasswordCompletedPage from "./pages/recovery-password/completed";
 import CreateSalesPage from "./pages/sales/create";
 import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
+import PaymentsSuccessPage from "./pages/payments/success";
 import Profile from "./pages/profile";
 import CreateProducerPage from "./pages/producer/create";
 import ProducersListPage from "./pages/producer/list";
@@ -41,6 +45,9 @@ function App() {
         />
 
         <Route component={ProductCatalog} path="/tienda" />
+
+        <Route component={Payments} path="/pagos" />
+        <Route component={PaymentsSuccessPage} path="/pagos/exitoso" />
 
         <Route component={AdminPage} path="/admin" />
         <Route component={ProductsListPage} path="/admin/productos" />
