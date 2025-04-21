@@ -15,9 +15,23 @@
       }
     },
 
+    "errors": {
+      "title": "Ocurrió un error inesperado",
+      "description": "Por favor, inténtelo de nuevo más tarde.",
+      "notFound": {
+        "title": "No se encontró",
+        "description": "Lo que estás buscando no existe."
+      }
+    },
+
     "payments": {
       "title": "Pagos",
-      "description": "Hola {{name}}, por favor, ingrese los datos de su tarjeta de crédito para completar el pago."
+      "description": "Hola {{name}}, por favor, ingrese los datos de su tarjeta de crédito para completar el pago.",
+      "success": {
+        "title": "Pago exitoso",
+        "description": "Hola {{name}}, su pago ha sido exitoso.",
+        "content": "Tu transacción ha sido procesada correctamente. En breve recibirás un correo de confirmación con los detalles de tu pedido."
+      }
     }
   }
 }
