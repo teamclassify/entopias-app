@@ -25,7 +25,7 @@ export function DialogDisableProduct({
         <DialogHeader>
           <DialogTitle>Eliminar Producto</DialogTitle>
           <DialogDescription>
-            ¿Estas seguro que quieres eliminar el articulo {product.name}?
+            ¿Estas seguro que quieres eliminar el articulo {product.variety.product.name}?
           </DialogDescription>
           <DialogFooter className="sm:justify-end pt-4">
             <Button

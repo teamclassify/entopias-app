@@ -5,38 +5,31 @@ import { Button } from "@/components/ui/button";
 import { DialogDisableProduct } from "./DialogDisableProduct";
 import ProductCartInfo from "./ProductCartInfo";
 import { formatPrice } from "../../../utils/formatPrice";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import CartServices from "../../../services/api/Cart";
 
 export default function ProductCart({ product, isChecked }) {
   const [openDialog, setOpenDialog] = useState(false);
 
-  //const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-  /*
-  const { mutate, isLoading } = useMutation(
-    (data) => {
-      return CartService.remove({
-        id: data.id,
-      });
+  const { mutate } = useMutation({
+    mutationFn: (varietyId) => {
+      return CartServices.remove(varietyId);
     },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("products-cart");
-        toast.success("Se ha eliminado el producto del carrito de compras");
-      },
-    }
-  );
-  */
+    onSuccess: () => {
+      toast.success("Se ha eliminado el producto del carrito de compras");
+      queryClient.invalidateQueries("products-cart");
+    },
+  });
 
   const handleDeleteProduct = () => {
     setOpenDialog(true);
   };
 
   const handleConfirmDelete = () => {
-    // if (isLoading) return;
-
-    //mutate({ id: product.id });
-    toast.success("Eliminado..");
+    mutate(product.variety.id);
+    toast.success("Eliminando..");
   };
 
   return (
@@ -47,18 +40,16 @@ export default function ProductCart({ product, isChecked }) {
           <Button variant="ghost" className="p-1" onClick={handleDeleteProduct}>
             <Trash />
           </Button>
-          <p>
-           {formatPrice(product?.variety.price)}
-          </p>
+          <p>{formatPrice(product?.variety.price)}</p>
         </div>
       </div>
 
-      {/* <DialogDisableProduct
+      <DialogDisableProduct
         product={product}
         setOpen={setOpenDialog}
         open={openDialog}
         handleConfirm={handleConfirmDelete}
-      /> */}
+      />
     </main>
   );
 }

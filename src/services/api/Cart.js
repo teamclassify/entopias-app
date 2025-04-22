@@ -93,7 +93,7 @@ async function update( data ) {
   }
 }
 
-async function remove(data) {
+async function remove(varietyId) {
   const token = await getToken();
 
   if (!token) throw new Error("Token not found");
@@ -107,7 +107,7 @@ async function remove(data) {
         "Content-Type": "application/json",
       },
       data: {
-        varietyId: data.varietyId,
+        varietyId: varietyId,
       },
     });
     return res.data;
