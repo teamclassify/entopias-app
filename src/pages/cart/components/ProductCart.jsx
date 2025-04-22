@@ -8,7 +8,7 @@ import { formatPrice } from "../../../utils/formatPrice";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import CartServices from "../../../services/api/Cart";
 
-export default function ProductCart({ product, isChecked, isCartPage}) {
+export default function ProductCart({ product, isChecked}) {
   const [openDialog, setOpenDialog] = useState(false);
   const [quantity, setQuantity] = useState(product.quantity)
 
