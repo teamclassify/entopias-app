@@ -4,7 +4,7 @@ import PurchaseInfo from "./PurchaseInfo";
 // import PurchaseProduct from "./PurchaseProduct";
 
 export default function Purchase({ buy, data }) {
-  const [totalPrice, setTotalPrice] = useState("100.000");
+  const [totalPrice, setTotalPrice] = useState("");
 
   useEffect(() => {
     const total = data.reduce((acc, product) => {

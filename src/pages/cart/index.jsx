@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Loading } from "../../components/ui/loading";
 
 function Cart() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error, isError } = useQuery({
     queryKey: ["products"],
     queryFn: () => CartServices.getAll(),
   });
@@ -15,15 +15,15 @@ function Cart() {
     <DefaultLayout>
       {isLoading ? (
         <Loading />
+      ) : isError ? (
+        <div className="w-full p-4 text-red-600">
+          Error al cargar el carrito:{" "}
+          {error?.message || "Servidor no disponible"}
+        </div>
       ) : (
         <div className="flex flex-row justify-between ">
-          <ProductCartGrid
-            data={data?.data?.items}
-          />
-          <Purchase
-            buy={false}
-            data={data?.data?.items}
-          />
+          <ProductCartGrid data={data?.data?.items} />
+          <Purchase buy={false} data={data?.data?.items} />
         </div>
       )}
     </DefaultLayout>
