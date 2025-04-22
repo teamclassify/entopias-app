@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { getProductInfoConfig } from "../../../data/getProductInfoConfig";
 import Quantity from "./Quantity";
 
-export default function ProductCartInfo({ product }) {
+export default function ProductCartInfo({ product, quantity, setQuantity }) {
   const coffeInfo = getProductInfoConfig(product);
-  const [quantity, setQuantity] = useState(product.quantity)
 
   return (
     <div className="flex">
@@ -16,7 +14,7 @@ export default function ProductCartInfo({ product }) {
             {item.value}
           </p>
         ))}
-        <Quantity quantity={quantity} setQuantity={setQuantity} stock={product.variety.stock} weightSelected={product.variety.id}/>
+        <Quantity quantity={quantity} setQuantity={setQuantity} stock={product.variety.stock} weightSelected={product.variety.id}  isCartPage={true}/>
       </div>
     </div>
   );

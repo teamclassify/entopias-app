@@ -8,9 +8,11 @@ import { formatPrice } from "../../../utils/formatPrice";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import CartServices from "../../../services/api/Cart";
 
-export default function ProductCart({ product, isChecked }) {
+export default function ProductCart({ product, isChecked, isCartPage}) {
   const [openDialog, setOpenDialog] = useState(false);
+  const [quantity, setQuantity] = useState(product.quantity)
 
+  //console.log("Producto ", product.id, " tiene ", product.quantity)
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -35,12 +37,12 @@ export default function ProductCart({ product, isChecked }) {
   return (
     <main>
       <div className="flex flex-row justify-between">
-        <ProductCartInfo product={product} isChecked={isChecked} />
+        <ProductCartInfo product={product} isChecked={isChecked} quantity={quantity} setQuantity={setQuantity}/>
         <div className="flex flex-col items-end">
           <Button variant="ghost" className="p-1" onClick={handleDeleteProduct}>
             <Trash />
           </Button>
-          <p>{formatPrice(product?.variety.price)}</p>
+          <p>{formatPrice(product?.variety.price * quantity)}</p>
         </div>
       </div>
 

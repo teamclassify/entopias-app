@@ -44,7 +44,6 @@ async function create(data) {
 }
 
 async function add(varietyId, quantity) {
-  // console.log("Que me está llegando acá", data)
   try {
     const token = await getToken();
 
@@ -60,30 +59,6 @@ async function add(varietyId, quantity) {
       data: {
         varietyId: varietyId,
         quantity: quantity,
-      },
-    });
-
-    return res.data;
-  } catch (error) {
-    return handleAxiosError(error);
-  }
-}
-
-async function update( data ) {
-  try {
-    const token = await getToken();
-
-    if (!token) throw new Error("Token not found");
-
-    const res = await axios({
-      url: `${URL}/cart`,
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      data: {
-        varietyId: data.varietyId,
       },
     });
 
@@ -115,6 +90,6 @@ async function remove(varietyId) {
     handleAxiosError(error);
   }
 }
-const CartServices = { getAll, create, add, remove, update };
+const CartServices = { getAll, create, add, remove };
 
 export default CartServices;

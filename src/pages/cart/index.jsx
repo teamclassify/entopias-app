@@ -18,8 +18,7 @@ function Cart() {
       ) : (
         <div className="flex flex-row justify-between ">
           <ProductCartGrid
-            data={data.data.items}
-            isLoading={isLoading} 
+            data={data?.data?.items}
           />
           <Purchase
             buy={false}
