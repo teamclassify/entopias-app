@@ -8,7 +8,7 @@ export default function PayButton({ buy, totalPrice }) {
         (totalPrice === 0 ? (
           <Button disabled={totalPrice === 0}>Proceder al pago</Button>
         ) : (
-          <Link to="/carrito/direccion">
+          <Link to="/pagos">
             <Button>Proceder al pago</Button>
           </Link>
         ))}
