@@ -1,34 +1,67 @@
 import { useCallback } from "react";
 import { toast } from "sonner";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import CartServices from "../services/api/Cart";
 
-export function useProductQuantity(quantity, setQuantity, stock) {
+export function useProductQuantity(
+  quantity,
+  setQuantity,
+  stock,
+  weightSelected
+) {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: (delta) => {
+      return CartServices.add(weightSelected, delta);
+    },
+    onSuccess: (data, delta) => {
+      if (data.data.error) {
+        toast.error(`Error al ${delta > 0 ? "aumnetar" : "disminuir"} la cantidad del producto`);
+      } else {
+        toast.success(`Producto ${delta > 0 ? "aumentó" : "disminuyó"} la cantidad exitosamente`);
+        queryClient.invalidateQueries({ queryKey: ["cart"] });
+      }
+    },
+    onError: (error) => {
+      const message = error?.response?.data?.message || "Ocurrió un error";
+
+      toast.error(message);
+    },
+  });
 
   const handleDecrementQuantity = () => {
-    setQuantity((prev) => {
-      if (prev > 1) {
-        return prev - 1;
-      } else {
-        toast.error("Has alcanzado el minimo permitido");
-        return prev;
-      }
-    });
+    const newQuantity = quantity - 1;
+
+    if (newQuantity >= 1) {
+      setQuantity(newQuantity);
+      mutate(-1);
+    } else {
+      toast.error("Has alcanzado el mínimo permitido");
+    }
   };
 
   const handleIncrementQuantity = () => {
-    setQuantity((prev) => {
-      if (prev < stock) {
-        console.log(prev)
-        return prev + 1;
-      } else {
-        toast.error("Has alcanzado el límite disponible de este producto");
-        return prev;
-      }
-    });
+    if (quantity < stock) {
+      const newQuantity = quantity + 1;
+      setQuantity(newQuantity);
+      mutate(1);
+    } else {
+      toast.error("Has alcanzado el límite disponible de este producto");
+    }
   };
 
-  const resetQuantity = useCallback((value = 1) => {
-    setQuantity(value);
-  }, [setQuantity]);
+  const resetQuantity = useCallback(
+    (value = 1) => {
+      setQuantity(value);
+    },
+    [setQuantity]
+  );
 
-  return { quantity, handleDecrementQuantity, handleIncrementQuantity, resetQuantity };
+  return {
+    quantity,
+    handleDecrementQuantity,
+    handleIncrementQuantity,
+    resetQuantity,
+  };
 }
