@@ -33,17 +33,17 @@ const formSchema = z.object({
     .min(1, "Debe contener al menos un carácter")
     .max(255, "Debe tener como máximo 255 caracteres"),
 
-  roastDate: z.date({
+  roastedDate: z.date({
     required_error: "La fecha del tostado es requerida",
     invalid_type_error: "Debe ser una fecha válida",
   }),
 
-  roastType: z
+  roastedType: z
     .string({ required_error: "El tipo de tostado es requerido" })
     .min(1, "Debe contener al menos un carácter")
     .max(255, "Debe tener como máximo 255 caracteres"),
 
-  aromaNotes: z
+  aromaticNotes: z
     .string({ required_error: "Las notas aromáticas son requeridas" })
     .min(1, "Debe contener al menos un carácter")
     .max(255, "Debe tener como máximo 255 caracteres"),
@@ -65,9 +65,9 @@ function Form({ onSubmit, isLoading }) {
     defaultValues: {
       initialWeight: "",
       finalWeight: "",
-      roastDate: null,
-      roastType: "",
-      aromaNotes: "",
+      roastedDate: null,
+      roastedType: "",
+      aromaticNotes: "",
       expirationDate: null,
       producer: "",
     },
@@ -121,7 +121,7 @@ function Form({ onSubmit, isLoading }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <FormField
                   control={form.control}
-                  name="roastDate"
+                  name="roastedDate"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Fecha del tostado</FormLabel>
@@ -162,7 +162,7 @@ function Form({ onSubmit, isLoading }) {
 
                 <FormField
                   control={form.control}
-                  name="roastType"
+                  name="roastedType"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Tipo de tostado</FormLabel>
@@ -181,7 +181,7 @@ function Form({ onSubmit, isLoading }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <FormField
                   control={form.control}
-                  name="aromaNotes"
+                  name="aromaticNotes"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Notas aromáticas</FormLabel>
