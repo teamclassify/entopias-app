@@ -22,7 +22,7 @@ function Cart() {
           />
           <Purchase
             buy={false}
-            data={data} /*isLoading={isLoading || isFetching}*/
+            data={data?.data?.items}
           />
         </div>
       )}
