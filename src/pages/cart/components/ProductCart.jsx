@@ -1,8 +1,6 @@
 import { Trash } from "lucide-react";
 import { useState } from "react";
-//import { useMutation, useQueryClient } from "react-query";
 import { toast } from "sonner";
-//import CartService from "../../services/api/CartService";
 import { Button } from "@/components/ui/button";
 import { DialogDisableProduct } from "./DialogDisableProduct";
 import ProductCartInfo from "./ProductCartInfo";
@@ -45,23 +43,22 @@ export default function ProductCart({ product, isChecked }) {
     <main>
       <div className="flex flex-row justify-between">
         <ProductCartInfo product={product} isChecked={isChecked} />
-
         <div className="flex flex-col items-end">
           <Button variant="ghost" className="p-1" onClick={handleDeleteProduct}>
             <Trash />
           </Button>
           <p>
-           {formatPrice(product?.varieties[0].price)}
+           {formatPrice(product?.variety.price)}
           </p>
         </div>
       </div>
 
-      <DialogDisableProduct
+      {/* <DialogDisableProduct
         product={product}
         setOpen={setOpenDialog}
         open={openDialog}
         handleConfirm={handleConfirmDelete}
-      />
+      /> */}
     </main>
   );
 }
