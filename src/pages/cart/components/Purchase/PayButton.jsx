@@ -5,7 +5,7 @@ export default function PayButton({buy, totalPrice}) {
   return (
     <div className="flex justify-end pt-5">
       {!buy && (
-        <Link to="/">
+        <Link to="/carrito/direccion">
           <Button disabled={totalPrice === 0}>
             Proceder al pago
           </Button>

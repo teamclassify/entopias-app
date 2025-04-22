@@ -24,6 +24,7 @@ import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import Cart from "./pages/cart"
+import Address from "./pages/address";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
         <Route component={CreateBatchPage} path="/admin/lotes/agregar" />
         <Route component={ProductDetail} path="/producto/:id" />
         <Route component={Cart} path="/carrito" />
+        <Route component={Address} path="/carrito/direccion"/>
         <Route component={NotFoundPage} />
       </Switch>
     </>
