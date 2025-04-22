@@ -44,6 +44,7 @@ async function create(data) {
 }
 
 async function add(data) {
+  // console.log("Que me está llegando acá", data)
   try {
     const token = await getToken();
 

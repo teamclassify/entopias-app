@@ -1,17 +1,35 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { toast } from "sonner";
 
-export function useProductQuantity(stock) {
-  const [quantity, setQuantity] = useState(1);
+export function useProductQuantity(num, stock) {
+  const [quantity, setQuantity] = useState(num);
 
-  const increment = () => {
-    setQuantity((prev) => (prev < stock ? prev + 1 : prev));
+  const handleDecrementQuantity = () => {
+    setQuantity((prev) => {
+      if (prev > 1) {
+        return prev - 1;
+      } else {
+        toast.error("Has alcanzado el minimo permitido");
+        return prev;
+      }
+    });
   };
 
-  const decrement = () => {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
+  const handleIncrementQuantity = () => {
+    setQuantity((prev) => {
+      if (prev < stock) {
+        console.log(prev)
+        return prev + 1;
+      } else {
+        toast.error("Has alcanzado el límite disponible de este producto");
+        return prev;
+      }
+    });
   };
 
-  const reset = () => setQuantity(1);
+  const resetQuantity = useCallback((value = 1) => {
+    setQuantity(value);
+  }, []);
 
-  return { quantity, increment, decrement, reset };
+  return { quantity, handleDecrementQuantity, handleIncrementQuantity, resetQuantity };
 }
