@@ -1,8 +1,7 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { toast } from "sonner";
 
-export function useProductQuantity(num, stock) {
-  const [quantity, setQuantity] = useState(num);
+export function useProductQuantity(quantity, setQuantity, stock) {
 
   const handleDecrementQuantity = () => {
     setQuantity((prev) => {
@@ -29,7 +28,7 @@ export function useProductQuantity(num, stock) {
 
   const resetQuantity = useCallback((value = 1) => {
     setQuantity(value);
-  }, []);
+  }, [setQuantity]);
 
   return { quantity, handleDecrementQuantity, handleIncrementQuantity, resetQuantity };
 }

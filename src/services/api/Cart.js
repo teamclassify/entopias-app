@@ -43,7 +43,7 @@ async function create(data) {
   }
 }
 
-async function add(data) {
+async function add(varietyId, quantity) {
   // console.log("Que me está llegando acá", data)
   try {
     const token = await getToken();
@@ -58,8 +58,8 @@ async function add(data) {
         Authorization: `Bearer ${token}`,
       },
       data: {
-        varietyId: data.varietyId,
-        quantity: data.quantity,
+        varietyId: varietyId,
+        quantity: quantity,
       },
     });
 

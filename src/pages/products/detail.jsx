@@ -19,22 +19,23 @@ import CartServices from "../../services/api/Cart";
 function ProductDetail() {
   const params = useParams();
   const { id } = params;
+  const [quantity, setQuantity] = useState(1);
 
   const queryClient = useQueryClient();
 
-  const { data, isLoading,  } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["products-page", id],
     queryFn: () => (id ? ProductsService.getById(id) : null),
     enabled: !!id,
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (data) => {
-      return CartServices.add(data);
+    mutationFn: () => {
+      return CartServices.add(weightSelected, quantity);
     },
     onSuccess: (data) => {
       if (data.data.error) {
-        toast.error("Error al agregar el prodcuto al carrito");
+        toast.error("Error al agregar el producto al carrito");
       } else {
         toast.success("Producto agregado al carrito");
         queryClient.invalidateQueries({ queryKey: ["cart"] });
@@ -142,7 +143,8 @@ function ProductDetail() {
                   <div className="flex items-center gap-4">
                     <Quantity
                       id={data.id}
-                      num={1}
+                      quantity={quantity}
+                      setQuantity={setQuantity}
                       stock={stockValue}
                       weightSelected={weightSelected}
                     />

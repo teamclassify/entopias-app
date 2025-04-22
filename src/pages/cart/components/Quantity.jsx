@@ -3,9 +3,9 @@ import { Card } from "@/components/ui/card.tsx";
 import { useProductQuantity } from "../../../hooks/useProductQuantity";
 import { useEffect } from "react";
 
-export default function Quantity({ num, stock, weightSelected }) {
-  const { handleDecrementQuantity, handleIncrementQuantity, quantity, resetQuantity } =
-    useProductQuantity(num, stock);
+export default function Quantity({ quantity, setQuantity, stock, weightSelected }) {
+  const { handleDecrementQuantity, handleIncrementQuantity, resetQuantity } =
+    useProductQuantity(quantity, setQuantity, stock);
 
     useEffect(() => {
       resetQuantity(1);
