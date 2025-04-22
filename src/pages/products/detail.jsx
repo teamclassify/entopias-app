@@ -8,21 +8,45 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useProductQuantity } from "@/hooks/useProductQuantity";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "wouter";
 import { Loading } from "../../components/ui/loading";
 import ProductsService from "../../services/api/Products";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import CartServices from "../../services/api/Cart";
 
 function ProductDetail() {
   const params = useParams();
   const { id } = params;
+
+  const queryClient = useQueryClient();
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["products-page", id],
     queryFn: () => (id ? ProductsService.getById(id) : null),
     enabled: !!id,
   });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data) => {
+      return CartServices.add(data);
+    },
+    onSuccess: (data) => {
+      if (data.data.error) {
+        toast.error("Error al agregar el prodcuto al carrito");
+      } else {
+        toast.success("Producto agregado al carrito");
+        queryClient.invalidateQueries({ queryKey: ['cart'] });
+      }
+    },
+    onError: (error) => {
+      const message = error?.response?.data?.message || "Ocurrió un error";
+
+      toast.error(message);
+    },
+  });
+
 
   const stockValue = data?.data?.stock || 0;
   const { quantity, increment, decrement } = useProductQuantity(stockValue);
@@ -31,8 +55,9 @@ function ProductDetail() {
   if (isError || data?.error) {
     return <Error message={data?.msg || "An unexpected error occurred"} />;
   }
-
-  const handleBuy = () => {
+  
+  const handleAddCart = () => {
+    return mutate(data);
   };
 
   const bgCoffee = "bg-[rgba(183,110,73,0.42)]";
@@ -136,14 +161,15 @@ function ProductDetail() {
                         +
                       </Button>
                     </div>
-                    <Button variant="outline">Añadir al carrito</Button>
+                    <Button variant="outline" onClick={handleAddCart}>
+                      {isPending ? "Añadiendo al carrito.." : "Añadir al carrito"}
+                    </Button>
                   </div>
                 </CardContent>
 
                 <CardFooter className="flex">
                   <Button
                     className="bg-black text-white w-full"
-                    onClick={handleBuy}
                   >
                     Comprar producto
                   </Button>
