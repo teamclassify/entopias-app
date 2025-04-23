@@ -23,10 +23,7 @@ import CreateSalesPage from "./pages/sales/create";
 import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
-import Profile from "./pages/profile";
 import BillsManagment from "./pages/admin/bills-management";
-import CreateProducerPage from "./pages/producer/create";
-import CreateBatchPage from "./pages/Batch/create";
 import OrdersManagment from "./pages/orders";
 
 function App() {
@@ -62,10 +59,6 @@ function App() {
         <Route component={BillsManagment} path="/admin/facturas" />
         <Route component={OrdersManagment} path="/admin/pedidos" />
         <Route component={CreateProducerPage} path="/admin/productores/agregar" />
-        <Route
-          component={CreateProducerPage}
-          path="/admin/productores/agregar"
-        />
         <Route component={ProducersListPage} path="/admin/productores" />
         <Route component={CreateBatchPage} path="/admin/lotes/agregar" />
         <Route component={ProductDetail} path="/producto/:id" />
