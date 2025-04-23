@@ -28,7 +28,7 @@ export function ComboBoxResponsive({ field }) {
     return (
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger>
-          <Button className="flex justify-between w-full" type="button">
+          <Button variant="outline" className="flex justify-between w-full" type="button">
             {field.value ? field.value.name : "Selecciona el productor"}
             <ChevronsUpDown className="opacity-50" />
           </Button>
