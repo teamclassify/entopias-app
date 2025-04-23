@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ProductsBatchService from "../../services/api/ProductsBatch";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
+import { ComboBoxResponsive } from "./components/ComboBoxProducer";
 
 function CreateBatchPage() {
   const queryClient = useQueryClient();
@@ -34,7 +35,7 @@ function CreateBatchPage() {
   const handleSubmit = (data) => {
     return mutate({
       ...data,
-      producerId: Number(data.producer),
+      producerId: Number(data.producer.id),
     });
   };
 
