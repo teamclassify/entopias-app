@@ -1,5 +1,13 @@
 const PAGINATION_LIMIT = 10;
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY;
+const API_URL = import.meta.env.VITE_API_URL;
+const STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
 
-export { PAGINATION_LIMIT, SUPABASE_URL, SUPABASE_KEY };
+export {
+  API_URL,
+  PAGINATION_LIMIT,
+  STRIPE_PUBLIC_KEY,
+  SUPABASE_KEY,
+  SUPABASE_URL,
+};
