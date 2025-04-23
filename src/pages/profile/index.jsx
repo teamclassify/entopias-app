@@ -11,6 +11,7 @@ import { useLocation } from "wouter";
 import InfoUser from "./components/InfoUser";
 import ProfileCard from "./components/ProfileCard";
 import ProfileMenu from "./components/ProfileMenu";
+import EditAddress from "./edit_address";
 import EditUser from "./edit_user";
 import NewAddress from "./new_address";
 import UserAddress from "./user_address";
@@ -36,26 +37,17 @@ function Menu() {
 function Profile() {
   const [location, navigate] = useLocation();
   const [page, setPage] = useState("inicio");
-
-  // useEffect(() => {
-  //     const page = location.split("/")[2];
-  //     setPage(
-  //         page === "direcciones"
-  //             ? location.split("/")[3] === "nueva"
-  //                 ? "nueva"
-  //                 : "direcciones"
-  //             : page
-  //     );
-  // }, [location]);
+  const [address, setAddress] = useState(null);
 
   useEffect(() => {
     const current = location.split("/")[2] || "inicio";
     setPage(current);
   }, [location]);
 
-  const handleChangePage = (value) => {
+  const handleChangePage = (value, address = null) => {
     navigate(`/perfil/${value}`);
     setPage(value);
+    setAddress(address);
   };
 
   return (
@@ -74,8 +66,13 @@ function Profile() {
           {page === "direcciones" && (
             <UserAddress onChange={handleChangePage} />
           )}
+
           {page === "nueva-direccion" && (
             <NewAddress onChange={handleChangePage} />
+          )}
+
+          {page === "editar-direccion" && (
+            <EditAddress onChange={handleChangePage} address={address} />
           )}
         </div>
       </div>
