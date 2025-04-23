@@ -30,7 +30,7 @@ export function ComboBoxProducts({ field }) {
         <PopoverTrigger>
           <Button
             variant="outline"
-            className="flex justify-start"
+            className="flex justify-between w-full"
             type="button"
           >
             {field.value ? field.value.name : "Selecciona el producto"}
@@ -47,8 +47,8 @@ export function ComboBoxProducts({ field }) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger>
-        <Button variant="outline" className="flex justify-start" type="button">
-          {field ? field.value.name : "Selecciona el producto"}
+        <Button variant="outline" className="flex justify-between w-full" type="button">
+          {field.value ? field.value.name : "Selecciona el producto"}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </DrawerTrigger>
@@ -63,7 +63,7 @@ export function ComboBoxProducts({ field }) {
 
 function StatusList({ setOpen, onChange }) {
   const { isPending, data, isLoading } = useQuery({
-    queryKey: ["products", { page: 1, search: "", status:true}],
+    queryKey: ["products", { page: 1, search: "", status: true }],
     queryFn: ({ queryKey }) => {
       const [, params] = queryKey;
       return ProductsService.getAll(params);
