@@ -2,22 +2,20 @@ import axios from "axios";
 import { URL, handleAxiosError } from ".";
 import { getToken } from "./Auth";
 
-async function getAll({ page = 1, search }) {
+async function createPaymentIntent({ products, currency = "usd" }) {
   const token = await getToken();
-
-  if (!token) throw new Error("Token not found");
 
   try {
     const res = await axios({
-      url: `${URL}/batches`,
-      method: "GET",
+      url: `${URL}/payments/create-checkout-session`,
+      method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      params: {
-        page,
-        search,
+      data: {
+        products,
+        currency,
       },
     });
 
@@ -27,30 +25,30 @@ async function getAll({ page = 1, search }) {
   }
 }
 
-async function create(data) {
+async function getPayment(session_id) {
   const token = await getToken();
 
   if (!token) throw new Error("Token not found");
 
   try {
     const res = await axios({
-      url: `${URL}/batches`,
-      method: "POST",
+      url: `${URL}/payments/get-payment/${session_id}`,
+      method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      data: data,
     });
+
     return res.data;
   } catch (error) {
-    handleAxiosError(error);
+    return handleAxiosError(error);
   }
 }
 
-const ProductsBatchService = {
-  getAll,
-  create,
+const paymentsService = {
+  createPaymentIntent,
+  getPayment,
 };
 
-export default ProductsBatchService;
+export default paymentsService;

@@ -3,14 +3,20 @@ import { Route, Switch } from "wouter";
 
 import AdminPage from "./pages/admin";
 import ClientManagment from "./pages/admin/client-management";
+import CreateBatchPage from "./pages/Batch/create";
 import ProductCatalog from "./pages/catalog";
 import HomePage from "./pages/home";
 import NotFoundPage from "./pages/not-found";
+import Payments from "./pages/payments";
+import PaymentsSuccessPage from "./pages/payments/success";
+import CreateProducerPage from "./pages/producer/create";
+import ProducersListPage from "./pages/producer/list";
+import ProductsBatchListPage from "./pages/products/batch";
 import ProductsCreatePage from "./pages/products/create";
 import ProductDetail from "./pages/products/detail";
 import ProductsEditPage from "./pages/products/edit";
 import ProductsListPage from "./pages/products/list";
-import ProductsBatchListPage from "./pages/products/batch";
+import Profile from "./pages/profile";
 import RecoveryPasswordPage from "./pages/recovery-password";
 import RecoveryPasswordCompletedPage from "./pages/recovery-password/completed";
 import CreateSalesPage from "./pages/sales/create";
@@ -34,7 +40,6 @@ function App() {
         <Route component={SignUpPage} path="/registrarse" />
         <Route component={RecoveryPasswordPage} path="/recuperar" />
         <Route path="/perfil/:page?" component={Profile} />
-        
 
         <Route
           component={RecoveryPasswordCompletedPage}
@@ -42,6 +47,9 @@ function App() {
         />
 
         <Route component={ProductCatalog} path="/tienda" />
+
+        <Route component={Payments} path="/pagos" />
+        <Route component={PaymentsSuccessPage} path="/pagos/exitoso" />
 
         <Route component={AdminPage} path="/admin" />
         <Route component={ProductsListPage} path="/admin/productos" />
@@ -54,11 +62,15 @@ function App() {
         <Route component={BillsManagment} path="/admin/facturas" />
         <Route component={OrdersManagment} path="/admin/pedidos" />
         <Route component={CreateProducerPage} path="/admin/productores/agregar" />
+        <Route
+          component={CreateProducerPage}
+          path="/admin/productores/agregar"
+        />
+        <Route component={ProducersListPage} path="/admin/productores" />
         <Route component={CreateBatchPage} path="/admin/lotes/agregar" />
         <Route component={ProductDetail} path="/producto/:id" />
  
         <Route component={NotFoundPage} />
-
       </Switch>
     </>
   );
