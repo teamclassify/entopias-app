@@ -36,6 +36,7 @@ function CreateBatchPage() {
     return mutate({
       ...data,
       producerId: Number(data.producer.id),
+      productId: Number(data.product.id)
     });
   };
 
