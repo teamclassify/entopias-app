@@ -21,6 +21,8 @@ import {
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
+import { ComboBoxResponsive } from "./ComboBoxProducer";
+import { ComboBoxProducts } from "./ComboBoxProducts";
 
 const formSchema = z.object({
   initialWeight: z
@@ -43,7 +45,7 @@ const formSchema = z.object({
     .min(1, "Debe contener al menos un carácter")
     .max(255, "Debe tener como máximo 255 caracteres"),
 
-  aromaticsNotes: z
+  aromaticNotes: z
     .string({ required_error: "Las notas aromáticas son requeridas" })
     .min(1, "Debe contener al menos un carácter")
     .max(255, "Debe tener como máximo 255 caracteres"),
@@ -52,11 +54,22 @@ const formSchema = z.object({
     required_error: "La fecha de vencimiento es requerida",
     invalid_type_error: "Debe ser una fecha válida",
   }),
-
-  producer: z
-    .string({ required_error: "El nombre del productor es requerido" })
-    .min(1, "Debe contener al menos un carácter")
-    .max(255, "Debe tener como máximo 255 caracteres"),
+  producer: z.object(
+    {
+      id: z.number(),
+      name: z.string(),
+    },
+    {
+      required_error: "El productor es requerido",
+      invalid_type_error: "Debe ser un productor válido",
+    }
+  ),
+  product: z
+    .object({
+      id: z.number(),
+      name: z.string(),
+    })
+    .optional(),
 });
 
 function Form({ onSubmit, isLoading }) {
@@ -67,9 +80,10 @@ function Form({ onSubmit, isLoading }) {
       finalWeight: "",
       roastedDate: null,
       roastedType: "",
-      aromaticsNotes: "",
+      aromaticNotes: "",
       expirationDate: null,
-      producer: "",
+      producer: null,
+      product: null,
     },
   });
 
@@ -91,7 +105,7 @@ function Form({ onSubmit, isLoading }) {
                   name="initialWeight"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Peso Inicial(kg)</FormLabel>
+                      <FormLabel>Peso Inicial(gr)</FormLabel>
                       <FormControl>
                         <Input type="number" {...field} />
                       </FormControl>
@@ -108,7 +122,7 @@ function Form({ onSubmit, isLoading }) {
                   name="finalWeight"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Peso Final(kg)</FormLabel>
+                      <FormLabel>Peso Final(gr)</FormLabel>
                       <FormControl>
                         <Input type="number" {...field} />
                       </FormControl>
@@ -181,7 +195,7 @@ function Form({ onSubmit, isLoading }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <FormField
                   control={form.control}
-                  name="aromaticsNotes"
+                  name="aromaticNotes"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Notas aromáticas</FormLabel>
@@ -237,24 +251,42 @@ function Form({ onSubmit, isLoading }) {
                 />
               </div>
 
-              <FormField
-                control={form.control}
-                name="producer"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Productor</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      El nombre del productor asociado el lote
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <FormField
+                  control={form.control}
+                  name="producer"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Productor</FormLabel>
+                      <FormControl>
+                        <ComboBoxResponsive field={field} />
+                      </FormControl>
+                      <FormDescription>
+                        El nombre del productor asociado el lote
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="product"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Producto</FormLabel>
+                      <FormControl>
+                        <ComboBoxProducts field={field} />
+                      </FormControl>
+                      <FormDescription>
+                        El nombre del producto asociado el lote
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
-              <Button className="mt-4" type="submit">
+              <Button className="mt-4" type="submit" disable={isLoading}>
                 {isLoading ? "Creando lote...." : "Crear lote"}
               </Button>
             </div>

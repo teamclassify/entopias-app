@@ -7,36 +7,60 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useProductQuantity } from "@/hooks/useProductQuantity";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "wouter";
 import { Loading } from "../../components/ui/loading";
+import Quantity from "../cart/components/Quantity";
 import ProductsService from "../../services/api/Products";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import CartServices from "../../services/api/Cart";
 
 function ProductDetail() {
   const params = useParams();
   const { id } = params;
+  const [quantity, setQuantity] = useState(1);
 
-  const { data, isLoading, isError } = useQuery({
+  const queryClient = useQueryClient();
+
+  const { data, isLoading } = useQuery({
     queryKey: ["products-page", id],
     queryFn: () => (id ? ProductsService.getById(id) : null),
     enabled: !!id,
   });
 
-  const stockValue = data?.data?.stock || 0;
-  const { quantity, increment, decrement } = useProductQuantity(stockValue);
-  const [weightSelected, setWeightSelected] = useState(0);
+  const { mutate, isPending } = useMutation({
+    mutationFn: () => {
+      return CartServices.add(weightSelected, quantity);
+    },
+    onSuccess: (data) => {
+      if (data.data.error) {
+        toast.error("Error al agregar el producto al carrito");
+      } else {
+        toast.success("Producto agregado al carrito");
+        queryClient.invalidateQueries({ queryKey: ["cart"] });
+      }
+    },
+    onError: (error) => {
+      const message = error?.response?.data?.message || "Ocurrió un error";
 
-  if (isError || data?.error) {
-    return <Error message={data?.msg || "An unexpected error occurred"} />;
-  }
+      toast.error(message);
+    },
+  });
 
-  const handleBuy = () => {
+  const getStock = () => {
+    const variety = data?.data.varieties.find((v) => v.id === weightSelected);
+    return variety ? variety.stock : 0;
   };
 
-  const bgCoffee = "bg-[rgba(183,110,73,0.42)]";
-  const url = "/cafe.webp";
+  const [weightSelected, setWeightSelected] = useState(0);
+  const stockValue = getStock();
+
+  const handleAddCart = () => {
+    return mutate(data);
+  };
+
+  const url = "/cafe.webp"; //Cuando no hay foto disponible
 
   const price =
     data?.data?.varieties
@@ -89,7 +113,7 @@ function ProductDetail() {
                   <div className="text-gray-700 text-sm space-y-4">
                     <p>
                       <span className="font-semibold">Notas olfativas:</span>{" "}
-                      {data?.data?.batches[0]?.aromaticNotes ?? "No aplica"}
+                      {data?.data?.batches[0]?.aromaNotes ?? "No aplica"}
                     </p>
                     <p>
                       <span className="font-semibold">Tipo:</span>{" "}
@@ -117,34 +141,23 @@ function ProductDetail() {
                   </div>
 
                   <div className="flex items-center gap-4">
-                    <div
-                      className={`flex items-center border py-0 ${bgCoffee} rounded`}
-                    >
-                      <Button
-                        variant="ghost"
-                        className="px-2 hover:bg-transparent"
-                        onClick={decrement}
-                      >
-                        -
-                      </Button>
-                      <span className="px-4">{quantity}</span>
-                      <Button
-                        variant="ghost"
-                        className="px-2 hover:bg-transparent"
-                        onClick={increment}
-                      >
-                        +
-                      </Button>
-                    </div>
-                    <Button variant="outline">Añadir al carrito</Button>
+                    <Quantity
+                      id={data.id}
+                      quantity={quantity}
+                      setQuantity={setQuantity}
+                      stock={stockValue}
+                      weightSelected={weightSelected}
+                    />
+                    <Button variant="outline" onClick={handleAddCart}>
+                      {isPending
+                        ? "Añadiendo al carrito.."
+                        : "Añadir al carrito"}
+                    </Button>
                   </div>
                 </CardContent>
 
                 <CardFooter className="flex">
-                  <Button
-                    className="bg-black text-white w-full"
-                    onClick={handleBuy}
-                  >
+                  <Button className="bg-black text-white w-full">
                     Comprar producto
                   </Button>
                 </CardFooter>
