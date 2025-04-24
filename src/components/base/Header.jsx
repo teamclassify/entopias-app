@@ -2,7 +2,7 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription, 
+  DrawerDescription,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { DialogTitle } from "@radix-ui/react-dialog";
@@ -13,6 +13,9 @@ import { BsCart4 } from "react-icons/bs";
 import useUser from "@/hooks/useUser";
 import AvatarUser from "./AvatarUser";
 import LanguageSwitcher from "./LanguageSwitcher";
+import CartServices from "../../services/api/Cart";
+import { useQuery } from "@tanstack/react-query";
+import { Loading } from "../ui/loading";
 
 function Menu({ user, logout, userIsAdminOrSales }) {
   return (
@@ -67,6 +70,10 @@ function Menu({ user, logout, userIsAdminOrSales }) {
 function Header() {
   const { user, loading, logout } = useUser();
   const [userIsAdminOrSales, setUserIsAdminOrSales] = useState(false);
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["products"],
+    queryFn: () => CartServices.getAll(),
+  });
 
   useEffect(() => {
     if (!loading)
@@ -118,11 +125,21 @@ function Header() {
           </div>
         )}
         <Link to="/carrito">
-          <button className="flex flex-row gap-1 items-center justify-center cursor-pointer max-lg:hidden">
-            <BsCart4 className="text-3xl" />
-            <div className="bg-white h-6 w-6 rounded-full text-black flex items-center justify-center">
-              0
-            </div>
+          <button className="relative flex flex-row items-center justify-center cursor-pointer max-lg:hidden">
+            {!isError && (
+              <>
+                <BsCart4 className="text-3xl" />
+                {isLoading ? (
+                  <div className="absolute top-0 right-0 h-5 w-5 rounded-full text-xs flex items-center justify-center z-10">
+                    <Loading />
+                  </div>
+                ) : (
+                  <div className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/3 bg-red-500 h-5 w-5 rounded-full text-xs text-white flex items-center justify-center z-10">
+                    {data.data.items.length}
+                  </div>
+                )}
+              </>
+            )}
           </button>
         </Link>
         <LanguageSwitcher />
