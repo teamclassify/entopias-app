@@ -147,6 +147,7 @@ function ProductDetail() {
                       setQuantity={setQuantity}
                       stock={stockValue}
                       weightSelected={weightSelected}
+                      isCartPage={false}
                     />
                     <Button variant="outline" onClick={handleAddCart}>
                       {isPending

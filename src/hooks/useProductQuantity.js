@@ -7,7 +7,8 @@ export function useProductQuantity(
   quantity,
   setQuantity,
   stock,
-  weightSelected
+  weightSelected,
+  isCartPage
 ) {
   const queryClient = useQueryClient();
 
@@ -17,9 +18,17 @@ export function useProductQuantity(
     },
     onSuccess: (data, delta) => {
       if (data.data.error) {
-        toast.error(`Error al ${delta > 0 ? "aumnetar" : "disminuir"} la cantidad del producto`);
+        toast.error(
+          `Error al ${
+            delta > 0 ? "aumentar" : "disminuir"
+          } la cantidad del producto`
+        );
       } else {
-        toast.success(`Producto ${delta > 0 ? "aumentó" : "disminuyó"} la cantidad exitosamente`);
+        toast.success(
+          `Producto ${
+            delta > 0 ? "aumentó" : "disminuyó"
+          } la cantidad exitosamente`
+        );
         queryClient.invalidateQueries({ queryKey: ["cart"] });
       }
     },
@@ -35,6 +44,7 @@ export function useProductQuantity(
 
     if (newQuantity >= 1) {
       setQuantity(newQuantity);
+      if (!isCartPage) return;
       mutate(-1);
     } else {
       toast.error("Has alcanzado el mínimo permitido");
@@ -45,6 +55,7 @@ export function useProductQuantity(
     if (quantity < stock) {
       const newQuantity = quantity + 1;
       setQuantity(newQuantity);
+      if (!isCartPage) return;
       mutate(1);
     } else {
       toast.error("Has alcanzado el límite disponible de este producto");
