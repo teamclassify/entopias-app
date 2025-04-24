@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Loading } from "../../../components/ui/loading";
-import { Error } from "../../../components/ui/error";
-import DataTable from "../../../components/tables/DataTable";
+import { Loading } from "../../components/ui/loading";
+import { Error } from "../../components/ui/error";
+import DataTable from "../../components/tables/DataTable";
 import { columns } from "./Column";
+import InvoicesService from "../../services/api/Invoices";
+import { useQuery } from "@tanstack/react-query";
 
 const facturas = [
     {
@@ -53,11 +55,10 @@ const facturas = [
 function ListOfSales({ searchByName }) {
     const [page, setPage] = useState(1);
 
-    /**
+    
     const { isPending, isError, data } = useQuery({
-        queryKey: ["users", page, searchByName],
-        queryFn: () =>
-        UsersService.getAll({ page, role: "user", search: searchByName }),
+        queryKey: ["invoices", page, searchByName],
+        queryFn: () => InvoicesService.getAllInvoices({ page, search: searchByName }),
     });
     
     if (isPending) {
@@ -67,12 +68,11 @@ function ListOfSales({ searchByName }) {
     if (isError || data?.error) {
         return <Error message={data?.msg} />;
     }
-    */
 
     return (
         <div>
             <div className="pt-3">
-                <DataTable columns={columns} data={facturas || []} />
+                <DataTable columns={columns} data={data.data?.invoices || []} />
             </div>
             {/** 
           <div className="mt-4">
