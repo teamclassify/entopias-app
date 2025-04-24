@@ -13,9 +13,8 @@ import { BsCart4 } from "react-icons/bs";
 import useUser from "@/hooks/useUser";
 import AvatarUser from "./AvatarUser";
 import LanguageSwitcher from "./LanguageSwitcher";
-import CartServices from "../../services/api/Cart";
-import { useQuery } from "@tanstack/react-query";
 import { Loading } from "../ui/loading";
+import useCart from "../../hooks/useCart";
 
 function Menu({ user, logout, userIsAdminOrSales }) {
   return (
@@ -70,11 +69,9 @@ function Menu({ user, logout, userIsAdminOrSales }) {
 function Header() {
   const { user, loading, logout } = useUser();
   const [userIsAdminOrSales, setUserIsAdminOrSales] = useState(false);
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["products"],
-    queryFn: () => CartServices.getAll(),
-  });
+  const { data, isLoading, isError } = useCart();
 
+  
   useEffect(() => {
     if (!loading)
       setUserIsAdminOrSales(

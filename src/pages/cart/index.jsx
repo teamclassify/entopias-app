@@ -1,16 +1,11 @@
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import ProductCartGrid from "./components/ProductCartGrid";
 import Purchase from "./components/Purchase/Purchase";
-import CartServices from "../../services/api/Cart";
-import { useQuery } from "@tanstack/react-query";
 import { Loading } from "../../components/ui/loading";
+import useCart from "../../hooks/useCart";
 
 function Cart() {
-  const { data, isLoading, error, isError } = useQuery({
-    queryKey: ["products"],
-    queryFn: () => CartServices.getAll(),
-  });
-
+  const { data, isLoading, error, isError } = useCart()
 
   return (
     <DefaultLayout>
