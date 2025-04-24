@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 export default function Quantity({ quantity, setQuantity, stock, weightSelected, isCartPage}) {
   const { handleDecrementQuantity, handleIncrementQuantity, resetQuantity } =
-    useProductQuantity(quantity, setQuantity, stock, weightSelected);
+    useProductQuantity(quantity, setQuantity, stock, weightSelected, isCartPage);
 
     useEffect(() => {
       if(!isCartPage){
