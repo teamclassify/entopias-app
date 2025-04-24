@@ -3,10 +3,10 @@ import { useDebounce } from "use-debounce";
 
 import { Button } from "@/components/ui/button.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import AdminLayout from "../../../components/layouts/AdminLayout";
 import ListOfSales from "./ListOfSales";
+import AdminLayout from "../../components/layouts/AdminLayout";
 
-function BillsManagment() {
+function InvoicesManagment() {
     const [searchByName, setSearchByName] = useState("");
     const [text] = useDebounce(searchByName, 500);
 
@@ -27,4 +27,4 @@ function BillsManagment() {
         </AdminLayout>
     );
 }
-export default BillsManagment;
+export default InvoicesManagment;
