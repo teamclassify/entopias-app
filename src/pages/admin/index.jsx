@@ -1,12 +1,32 @@
+import { useEffect, useState } from "react"
 import AdminLayout from "../../components/layouts/AdminLayout";
 import { Card, CardContent } from "@/components/ui/card"
 import { Truck, Receipt, User, DollarSign } from "lucide-react"
+import OrdersService from "../../services/api/Orders";
 
 function AdminPage() {
+  const [orderCount, setOrderCount] = useState(0)
+
+
+  useEffect(() => {
+    const loadOrderCount = async () => {
+      try {
+        const res = await OrdersService.countAll()
+        console.log("Pedidos totales:", res.data.count)
+        setOrderCount(res.data.count)
+
+      } catch (err) {
+        console.error("No se pudo cargar el total de pedidos:", err)
+      }
+    }
+
+    loadOrderCount()
+  }, [])
+
   const stats = [
     {
       label: "Total de Pedidos",
-      value: "210",
+      value: orderCount,
       icon: <Truck className="h-10 w-10 text-red-500" />,
     },
     {
