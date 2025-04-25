@@ -7,7 +7,6 @@ import { createContext } from "react";
 
 export const CartContext = createContext();
 
-
 export const CartProvider = ({ children }) => {
   /**
    * Get all the products in Cart
@@ -22,7 +21,7 @@ export const CartProvider = ({ children }) => {
    */
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate: mutateAdd } = useMutation({
     mutationFn: (delta, weightSelected) => {
       return CartServices.add(weightSelected, delta);
     },
@@ -49,12 +48,31 @@ export const CartProvider = ({ children }) => {
     },
   });
 
+  /**
+   * Delete the product in cart
+   */
+  const { mutate : mutateRemove} = useMutation({
+    mutationFn: (varietyId) => {
+      return CartServices.remove(varietyId);
+    },
+    onSuccess: () => {
+      toast.success("Se ha eliminado el producto del carrito de compras");
+      queryClient.invalidateQueries({ queryKey: ["products-cart"] });
+    },
+  });
+
   const handleUpdateData = (data) => {
-    return mutate(data);
+    return mutateAdd(data);
   };
 
+  const handleConfirmDelete = (product) => {
+    mutateRemove(product.variety.id);
+    toast.success("Eliminando..");
+  };
   return (
-    <CartContext.Provider value={{ data, isLoading, isError, error, handleUpdateData }}>
+    <CartContext.Provider
+      value={{ data, isLoading, isError, error, handleUpdateData, handleConfirmDelete}}
+    >
       {children}
     </CartContext.Provider>
   );

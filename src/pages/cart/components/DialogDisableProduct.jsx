@@ -19,13 +19,15 @@ export function DialogDisableProduct({
     setOpen(false);
   };
 
+  console.log(product)
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Eliminar Producto</DialogTitle>
           <DialogDescription>
-            ¿Estas seguro que quieres eliminar el articulo {product.variety.product.name}?
+            ¿Estas seguro que quieres eliminar el articulo {product?.variety?.product?.name}?
           </DialogDescription>
           <DialogFooter className="sm:justify-end pt-4">
             <Button
