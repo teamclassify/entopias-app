@@ -55,7 +55,8 @@ function Profile() {
       <div className="lg:hidden">
         <Menu />
       </div>
-      <div className="grid lg:grid-cols-[1.2fr_3fr] lg:w-full gap-8">
+      <div className="flex flex-col lg:grid lg:grid-cols-[1.2fr_3fr] lg:w-full gap-8">
+
         <div className="lg:flex flex-col w-full gap-8 hidden">
           <ProfileCard />
           <ProfileMenu page={page} onChange={handleChangePage} />

@@ -1,64 +1,61 @@
 import useUser from "@/hooks/useUser";
-import { Table, TableBody, TableRow, TableCell, } from "@/components/ui/table";
+import { Button } from "@/components/ui/button.tsx";
+import { Table, TableBody, TableRow, TableCell } from "@/components/ui/table";
 
 function InfoUser({ onChange }) {
+  const { user } = useUser();
 
-    const { user } = useUser();
-
-    return (
-        <div className="flex flex-col w-full gap-6">
-            <div className="flex flex-row justify-between py-4">
-                <p className="font-bold text-[20px]">Perfil</p>
-                <button className="border-2 border-[#1C0B08] p-1 w-32 cursor-pointer"
-                    onClick={() => onChange("editar")}
-                >Editar</button>
-            </div>
-            <div className="flex flex-col sm:flex-row w-full md:justify-between justify-center items-center gap-8">
-                <div className="w-[130px] h-[130px] bg-fuchsia-200 flex justify-center">
-                    <img src={user?.photo} alt="" />
-                </div>
-                <div className="w-full sm:w-[80%]">
-                    <Table >
-                        <TableBody>
-                            <TableRow>
-                                <TableCell>
-                                    <p>Nombre</p>
-                                </TableCell>
-                                <TableCell>
-                                    <p className="text-[#737373]">{user.name}</p>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>
-                                    <p>Correo Electrónico</p>
-                                </TableCell>
-                                <TableCell>
-                                    <p className="text-[#737373]">{user.email}</p>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>
-                                    <p>Número de Teléfono</p>
-                                </TableCell>
-                                <TableCell>
-                                    <p className="text-[#737373]">{user.phone}</p>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>
-                                    <p>Género</p>
-                                </TableCell>
-                                <TableCell>
-                                    <p className="text-[#737373]">{user.gender}</p>
-                                </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-                </div>
-            </div>
-
+  return (
+    <div className="flex flex-col w-full gap-6 overflow-hidden">
+      <div className="flex items-center justify-between pt-6 pb-3">
+        <h1 className="text-2xl font-bold">Perfil</h1>
+        <Button onClick={() => onChange("editar")}>Editar</Button>
+      </div>
+      <div className="flex flex-col sm:flex-row w-full md:justify-between justify-center items-center gap-8">
+        
+          <img src={user?.photo} alt="Imagen de foto de perfil de usuario" className="w-32 h-32 rounded-full object-cover" />
+        
+        <div className="w-full overflow-auto">
+          <Table className="min-w-full">
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  <p>Nombre</p>
+                </TableCell>
+                <TableCell>
+                  <p className="text-[#737373]">{user.name}</p>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <p>Correo Electrónico</p>
+                </TableCell>
+                <TableCell>
+                  <p className="text-[#737373]">{user.email}</p>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <p>Número de Teléfono</p>
+                </TableCell>
+                <TableCell>
+                  <p className="text-[#737373]">{user.phone}</p>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <p>Género</p>
+                </TableCell>
+                <TableCell>
+                  <p className="text-[#737373]">{user.gender}</p>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default InfoUser;
