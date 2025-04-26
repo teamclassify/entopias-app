@@ -22,6 +22,8 @@ import CreateSalesPage from "./pages/sales/create";
 import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
+import Cart from "./pages/cart"
+import Address from "./pages/address";
 import CreateBatchPage from "./pages/Batch/create";
 import OrdersManagment from "./pages/orders";
 import ViewDetails from "./pages/invoices/ViewDetails";
@@ -67,7 +69,8 @@ function App() {
         <Route component={ProducersListPage} path="/admin/productores" />
         <Route component={CreateBatchPage} path="/admin/lotes/agregar" />
         <Route component={ProductDetail} path="/producto/:id" />
- 
+        <Route component={Cart} path="/carrito" />
+        <Route component={Address} path="/carrito/direccion"/>
         <Route component={NotFoundPage} />
       </Switch>
     </>

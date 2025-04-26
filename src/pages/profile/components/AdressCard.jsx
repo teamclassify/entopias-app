@@ -1,39 +1,84 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { EditIcon, TrashIcon } from "lucide-react";
 import { useState } from "react";
-import { FiMoreVertical } from "react-icons/fi";
+import toast from "react-hot-toast";
+import AddressService from "../../../services/api/Address";
+import { DialogDeleteAddress } from "./DialogDeleteAddress";
 
-function AdressCard({ name, address }) {
+function AdressCard({ id, address, city, country, postalCode, onChange }) {
+  const [open, setOpen] = useState(false);
+  const queryClient = useQueryClient();
 
-    const [aceptado, setAceptado] = useState(false);
+  const { mutate: deleteAddress } = useMutation({
+    mutationFn: () => AddressService.deleteAddress(id),
+    onSuccess: (data) => {
+      if (data.error) {
+        toast.error(data.error);
+        return;
+      }
 
-    const handleChange = (e) => {
-        setAceptado(e.target.checked);
-    };
+      toast.success("Dirección eliminada");
+      queryClient.invalidateQueries({ queryKey: ["addresses"] });
+    },
+    onError: (error) => {
+      toast.error("Ocurrió un error al eliminar la dirección");
+      console.log(error);
+    },
+  });
 
-    return (
-        <div className="border-1 border-[#C6CCD5] h-20 p-3">
-            <div className="flex flex-row w-full h-full justify-between">
-                <div className="w-[95%] flex flex-col justify-between">
-                    <div className="flex flex-row ">
-                        <p className="w-24 truncate">{name}</p>
-                        <label className="flex items-center gap-2 text-xs">
+  const handleDeleteAddress = () => {
+    deleteAddress(id);
+    setOpen(false);
+  };
 
-                            <input
-                                type="checkbox"
-                                checked={aceptado}
-                                onChange={handleChange}
-                                className="w-3 h-3"
-                            />
-                            Establecer como mi dirección
-                        </label>
-                    </div>
-                    <p className="text-sm text-[#737373]">{address}</p>
-                </div>
-                <div className="w-[5%] flex justify-end">
-                    <FiMoreVertical />
-                </div>
-            </div>
+  return (
+    <div className="border-1 border-[#C6CCD5] h-20 p-3">
+      <div className="flex flex-row w-full h-full justify-between">
+        <div className="w-[95%] flex flex-col justify-between">
+          <div className="flex flex-row ">
+            <p className="w-24 truncate capitalize">{address}</p>
+          </div>
+          <p className="text-sm text-[#737373] capitalize">
+            {`${city}, ${country} ${postalCode}`}
+          </p>
         </div>
-    );
+        <div className="flex justify-end gap-2">
+          <EditIcon
+            className="cursor-pointer text-gray-400"
+            size={16}
+            onClick={() =>
+              onChange("editar-direccion", {
+                id,
+                address,
+                city,
+                country,
+                postalCode,
+              })
+            }
+          />
+
+          <TrashIcon
+            className="cursor-pointer text-gray-400"
+            size={16}
+            onClick={() => setOpen(true)}
+          />
+
+          <DialogDeleteAddress
+            open={open}
+            setOpen={setOpen}
+            address={{
+              id,
+              address,
+              city,
+              country,
+              postalCode,
+            }}
+            handleConfirm={handleDeleteAddress}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default AdressCard;
