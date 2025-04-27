@@ -28,6 +28,7 @@ import CreateBatchPage from "./pages/Batch/create";
 import OrdersManagment from "./pages/orders";
 import ViewDetails from "./pages/invoices/ViewDetails";
 import InvoicesManagment from "./pages/invoices";
+import OrderDetails from "./pages/orders/OrderDetails";
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
         <Route component={InvoicesManagment} path="/admin/facturas" />
         <Route component={ViewDetails} path="/admin/facturas/:id" />
         <Route component={OrdersManagment} path="/admin/pedidos" />
+        <Route component={OrderDetails} path="/admin/pedidos/:id" />
         <Route
           component={CreateProducerPage}
           path="/admin/productores/agregar"
