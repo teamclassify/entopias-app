@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Loading } from "../../components/ui/loading";
-import { Error } from "../../components/ui/error";
-import DataTable from "../../components/tables/DataTable";
+import { Loading } from "../../../components/ui/loading";
+import { Error } from "../../../components/ui/error";
+import DataTable from "../../../components/tables/DataTable";
 import { columns } from "./Column";
-import InvoicesService from "../../services/api/Invoices";
+import InvoicesService from "../../../services/api/Invoices";
 import { useQuery } from "@tanstack/react-query";
 
 function ListOfSales({ searchByName }) {

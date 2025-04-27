@@ -60,7 +60,7 @@ function App() {
         <Route component={ListSalesPage} path="/admin/asistentes" />
         <Route component={CreateSalesPage} path="/admin/asistentes/agregar" />
         <Route component={InvoicesManagment} path="/admin/facturas" />
-        <Route component={ViewDetails} path="/admin/facturas/detalles" />
+        <Route component={ViewDetails} path="/admin/facturas/:id" />
         <Route component={OrdersManagment} path="/admin/pedidos" />
         <Route
           component={CreateProducerPage}

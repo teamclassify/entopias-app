@@ -3,7 +3,7 @@ import { useLocation } from 'wouter';
 
 export const columns = [
     {
-        accessorKey: "orderId",
+        accessorKey: "id",
         header: "Número",
     },
     {
@@ -18,9 +18,7 @@ export const columns = [
             const anio = fecha.getFullYear();
 
             const formato = `${dia}/${mes}/${anio}`;
-
-            console.log(formato);
-
+            
             return (
                 <span className='w-fit'>{formato}</span>
             );
@@ -36,11 +34,14 @@ export const columns = [
         cell: ({ row }) => {
             const valor = row.getValue("amount");
 
+            const valorReal = valor / 100;
+
             const formatoCOP = new Intl.NumberFormat('es-CO', {
                 style: 'currency',
                 currency: 'COP',
-                minimumFractionDigits: 0 // normalmente no se usan decimales en COP
-            }).format(valor);
+                minimumFractionDigits: 0 
+            }).format(valorReal);
+            
             return (
                 <span className='w-fit'>{formatoCOP}</span>
             );
@@ -91,14 +92,15 @@ export const columns = [
         },
     },
     {
-        accessorKey: "actions",
         header: "Acciones",
-        cell: () => {
+        cell: ({ row }) => {
             const [_, navigate] = useLocation();
+
+            const id = row.getValue("id");
 
             return (
                 <div className='flex flex-row gap-4 w-full'>
-                    <button className='cursor-pointer' onClick={() => navigate("/admin/facturas/detalles")}>
+                    <button className='cursor-pointer' onClick={() => navigate(`facturas/${id}`)}>
                         <Eye />
                     </button>
                     <button className='cursor-pointer'>
