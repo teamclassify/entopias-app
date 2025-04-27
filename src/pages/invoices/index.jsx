@@ -3,8 +3,8 @@ import { useDebounce } from "use-debounce";
 
 import { Button } from "@/components/ui/button.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import ListOfSales from "./ListOfSales";
 import AdminLayout from "../../components/layouts/AdminLayout";
+import ListOfSales from "./components/ListOfSales";
 
 function InvoicesManagment() {
     const [searchByName, setSearchByName] = useState("");

@@ -54,31 +54,32 @@ function Profile() {
         setPage(current);
     }, [location]);
 
-    const handleChangePage = (value) => {
-        navigate(`/perfil/${value}`);
-        setPage(value);
-    };
+  const handleChangePage = (value, address = null) => {
+    navigate(`/perfil/${value}`);
+    setPage(value);
+    setAddress(address);
+  };
 
-
-    return (
-        <DefaultLayout>
-            <div className="lg:hidden">
-                <Menu />
-            </div>
-            <div className="grid lg:grid-cols-[1.2fr_3fr] lg:w-full gap-8">
-                <div className="lg:flex flex-col w-full gap-8 hidden">
-                    <ProfileCard />
-                    <ProfileMenu page={page} onChange={handleChangePage} />
-                </div>
-                <div className="w-full">
-                    {page === "inicio" && <InfoUser onChange={handleChangePage} />}
-                    {page === "editar" && <EditUser onChange={handleChangePage} />}
-                    {page === "direcciones" && <UserAddress onChange={handleChangePage} />}
-                </div>
-            </div>
-
-        </DefaultLayout>
-    );
+  return (
+    <DefaultLayout>
+      <div className="lg:hidden">
+        <Menu />
+      </div>
+      <div className="grid lg:grid-cols-[1.2fr_3fr] lg:w-full gap-8">
+        <div className="lg:flex flex-col w-full gap-8 hidden">
+          <ProfileCard />
+          <ProfileMenu page={page} onChange={handleChangePage} />
+        </div>
+        <div className="w-full">
+          {page === "inicio" && <InfoUser onChange={handleChangePage} />}
+          {page === "editar" && <EditUser onChange={handleChangePage} />}
+          {page === "direcciones" && (<UserAddress onChange={handleChangePage} />)}
+          {page === "nueva-direccion" && (<NewAddress onChange={handleChangePage} /> )}
+          {page === "editar-direccion" && (<EditAddress onChange={handleChangePage} address={address} />)}
+        </div>
+      </div>
+    </DefaultLayout>
+  );
 }
 
 export default Profile;
