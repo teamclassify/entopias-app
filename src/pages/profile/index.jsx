@@ -38,17 +38,6 @@ function Profile() {
     const [location, navigate] = useLocation();
     const [page, setPage] = useState("inicio");
 
-    // useEffect(() => {
-    //     const page = location.split("/")[2];
-    //     setPage(
-    //         page === "direcciones"
-    //             ? location.split("/")[3] === "nueva"
-    //                 ? "nueva"
-    //                 : "direcciones"
-    //             : page
-    //     );
-    // }, [location]);
-
     useEffect(() => {
         const current = location.split("/")[2] || "inicio";
         setPage(current);

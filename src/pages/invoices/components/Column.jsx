@@ -34,11 +34,14 @@ export const columns = [
         cell: ({ row }) => {
             const valor = row.getValue("amount");
 
+            const valorReal = valor / 100;
+
             const formatoCOP = new Intl.NumberFormat('es-CO', {
                 style: 'currency',
                 currency: 'COP',
                 minimumFractionDigits: 0 
-            }).format(valor);
+            }).format(valorReal);
+            
             return (
                 <span className='w-fit'>{formatoCOP}</span>
             );
