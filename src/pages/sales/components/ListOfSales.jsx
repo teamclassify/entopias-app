@@ -23,7 +23,6 @@ function ListOfSales() {
     return <Error message={isError.message} />;
   }
 
-  console.log(data);
 
   return (
     <div>

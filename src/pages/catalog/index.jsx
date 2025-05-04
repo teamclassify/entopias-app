@@ -13,7 +13,11 @@ function Index() {
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["products", page],
-    queryFn: () => ProductsService.getAll({ page }),
+    queryFn: () =>
+      ProductsService.getAll({
+        page,
+        status: true,
+      }),
   });
 
   if (isError || data?.error) {

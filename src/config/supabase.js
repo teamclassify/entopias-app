@@ -20,8 +20,6 @@ async function uploadFile(bucket, file, name) {
     return error;
   }
 
-  console.log("File uploaded: ", data);
-
   return data;
 }
 
@@ -41,7 +39,6 @@ async function deleteFile(bucket, name) {
     return error;
   }
 
-  console.log("File deleted: ", data);
 
   return data;
 }

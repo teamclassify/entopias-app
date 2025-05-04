@@ -115,13 +115,16 @@ function Header() {
                 userIsAdminOrSales={userIsAdminOrSales}
               />
             </div>
-
           </div>
         )}
-        <button className="flex flex-row gap-1 items-center justify-center cursor-pointer max-lg:hidden" >
-          <BsCart4 className="text-3xl" />
-          <div className="bg-white h-6 w-6 rounded-full text-black flex items-center justify-center">0</div>
-        </button>
+        <Link to="/carrito">
+          <button className="flex flex-row gap-1 items-center justify-center cursor-pointer max-lg:hidden">
+            <BsCart4 className="text-3xl" />
+            <div className="bg-white h-6 w-6 rounded-full text-black flex items-center justify-center">
+              0
+            </div>
+          </button>
+        </Link>
         <LanguageSwitcher />
       </div>
     </header>

@@ -13,7 +13,6 @@ import {
 } from "@tanstack/react-table";
 
 function DataTable({ columns, data }) {
-  console.log(columns)
   const table = useReactTable({
     data,
     columns,

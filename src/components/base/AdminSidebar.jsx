@@ -1,4 +1,5 @@
 import {
+  Coffee,
   FilePlus,
   Home,
   List,
@@ -48,7 +49,7 @@ const itemsADMIN = [
   {
     title: "Productos",
     url: "/admin/productos",
-    icon: Package,
+    icon: Coffee,
     subitems: [
       {
         title: "Ver Productos",
@@ -58,6 +59,23 @@ const itemsADMIN = [
       {
         title: "Agregar Producto",
         url: "/admin/productos/agregar",
+        icon: FilePlus,
+      },
+    ],
+  },
+  {
+    title: "Lotes",
+    url: "/admin/lotes",
+    icon: Package,
+    subitems: [
+      {
+        title: "Ver Lotes",
+        url: "/admin/lotes",
+        icon: List,
+      },
+      {
+        title: "Agregar Lote",
+        url: "/admin/lotes/agregar",
         icon: FilePlus,
       },
     ],
@@ -75,6 +93,23 @@ const itemsADMIN = [
       {
         title: "Agregar Asistente",
         url: "/admin/asistentes/agregar",
+        icon: FilePlus,
+      },
+    ],
+  },
+  {
+    title: "Productores",
+    url: "/admin/productores",
+    icon: UserRoundPen,
+    subitems: [
+      {
+        title: "Ver Productores",
+        url: "/admin/productores",
+        icon: List,
+      },
+      {
+        title: "Agregar Productor",
+        url: "/admin/productores/agregar",
         icon: FilePlus,
       },
     ],
@@ -103,11 +138,40 @@ const itemsSALES = [
   {
     title: "Produtos",
     url: "/admin/productos",
-    icon: Package,
+    icon: Coffee,
     subitems: [
       {
         title: "Ver Produtos",
         url: "/admin/productos",
+        icon: List,
+      },
+      {
+        title: "Lote de Productos",
+        url: "/admin/productos/lote",
+        icon: List,
+      },
+    ],
+  },
+  {
+    title: "Productores",
+    url: "/admin/productores",
+    icon: UserRoundPen,
+    subitems: [
+      {
+        title: "Ver Productores",
+        url: "/admin/productores",
+        icon: List,
+      },
+    ],
+  },
+  {
+    title: "Lotes",
+    url: "/admin/lotes",
+    icon: Package,
+    subitems: [
+      {
+        title: "Ver Lotes",
+        url: "/admin/lotes",
         icon: List,
       },
     ],
@@ -135,12 +199,14 @@ function AdminSidebar() {
 
   return (
     <Sidebar className="border-none">
-      <SidebarHeader className="bg-secondary h-16">
-        <img
-          src="/logo.webp"
-          alt="Logo Entopias Cafe"
-          className="w-full max-w-[120px] mx-auto"
-        />
+      <SidebarHeader className="flex items-center justify-center  h-16 ">
+        <Link to="/">
+          <img
+            src="/logo.webp"
+            alt="Logo Entopias Cafe"
+            className="w-full max-w-[120px] mx-auto"
+          />
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

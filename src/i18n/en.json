@@ -13,6 +13,25 @@
         "title": "Our Products",
         "description": "Explore our range of products designed to meet your needs."
       }
+    },
+
+    "errors": {
+      "title": "An unexpected error occurred",
+      "description": "Please try again later.",
+      "notFound": {
+        "title": "Not found",
+        "description": "The page you are looking for does not exist."
+      }
+    },
+
+    "payments": {
+      "title": "Payments",
+      "description": "Hello {{name}}, please enter your credit card details to complete the payment.",
+      "success": {
+        "title": "Payment successful",
+        "description": "Hello {{name}}, your payment has been successful.",
+        "content": "Your transaction has been processed successfully. You will soon receive an email confirmation with the details of your order."
+      }
     }
   }
 }

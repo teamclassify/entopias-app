@@ -2,7 +2,7 @@ import axios from "axios";
 import { URL, handleAxiosError } from ".";
 import { getToken } from "./Auth";
 
-async function getAll({ page = 1, search }) {
+async function getAll({ page = 1, search, status }) {
   try {
     const res = await axios({
       url: `${URL}/products`,
@@ -13,6 +13,7 @@ async function getAll({ page = 1, search }) {
       params: {
         page,
         search,
+        status,
       },
     });
 
@@ -43,8 +44,6 @@ async function update(id, data) {
   if (!token) throw new Error("Token not found");
 
   const formData = new FormData();
-
-  console.log(data);
 
   formData.append("name", data.name);
 

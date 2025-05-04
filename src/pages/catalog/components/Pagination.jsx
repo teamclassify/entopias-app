@@ -126,7 +126,6 @@ export default function Pagination({
             <PaginationNext
               onClick={(e) => {
                 e.preventDefault();
-                console.log("currentPage", currentPage);
                 if (currentPage < totalPages) onPageChange(currentPage + 1);
               }}
             />
