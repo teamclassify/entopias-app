@@ -26,7 +26,7 @@ function AvatarUser({ user, logout, userIsAdminOrSales }) {
         <Link href="/perfil/inicio">
           <DropdownMenuItem>Perfil</DropdownMenuItem>
         </Link>
-
+ 
         {userIsAdminOrSales && (
           <Link href="/admin">
             <DropdownMenuItem>Administración</DropdownMenuItem>

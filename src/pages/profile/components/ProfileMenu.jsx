@@ -29,6 +29,14 @@ function ProfileMenu({ page, onChange }) {
                     <ChevronRight />
                 </li>
                 <li
+                    onClick={() => setLocation("/perfil/historial")}
+                    className={`flex justify-between cursor-pointer hover:bg-gray-100 p-1 rounded ${page === "historial" ? "bg-gray-100" : ""
+                        }`}
+                >
+                    <span>Historial de pedidos</span>
+                    <ChevronRight />
+                </li>
+                <li
                     onClick={logout}
                     className={`flex justify-between cursor-pointer hover:bg-gray-100 p-1 rounded ${page === "" ? "bg-gray-100" : ""
                         }`}

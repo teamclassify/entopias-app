@@ -15,6 +15,7 @@ import EditAddress from "./edit_address";
 import EditUser from "./edit_user";
 import NewAddress from "./new_address";
 import UserAddress from "./user_address";
+import OrderHistory from "./order_history";
 
 function Menu() {
   return (
@@ -35,9 +36,8 @@ function Menu() {
 }
 
 function Profile() {
-  const [location, navigate] = useLocation();
-  const [page, setPage] = useState("inicio");
-  const [address, setAddress] = useState(null);
+    const [location, navigate] = useLocation();
+    const [page, setPage] = useState("inicio");
 
   useEffect(() => {
     const current = location.split("/")[2] || "inicio";
@@ -49,7 +49,7 @@ function Profile() {
     setPage(value);
     setAddress(address);
   };
-
+  
   return (
     <DefaultLayout>
       <div className="lg:hidden">
@@ -63,17 +63,10 @@ function Profile() {
         <div className="w-full">
           {page === "inicio" && <InfoUser onChange={handleChangePage} />}
           {page === "editar" && <EditUser onChange={handleChangePage} />}
-          {page === "direcciones" && (
-            <UserAddress onChange={handleChangePage} />
-          )}
-
-          {page === "nueva-direccion" && (
-            <NewAddress onChange={handleChangePage} />
-          )}
-
-          {page === "editar-direccion" && (
-            <EditAddress onChange={handleChangePage} address={address} />
-          )}
+          {page === "direcciones" && (<UserAddress onChange={handleChangePage} />)}
+          {page === "nueva-direccion" && (<NewAddress onChange={handleChangePage} /> )}
+          {page === "editar-direccion" && (<EditAddress onChange={handleChangePage} address={address} />)}
+          {page === "historial" && (<OrderHistory onChange={handleChangePage}/>)}
         </div>
       </div>
     </DefaultLayout>

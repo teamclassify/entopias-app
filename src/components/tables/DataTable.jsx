@@ -4,15 +4,16 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow, 
+  TableRow,
 } from "@/components/ui/table";
 import {
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { Fragment } from "react";
 
-function DataTable({ columns, data }) {
+function DataTable({ columns, data, expandedRowId, onToggleExpand, ExpandedComponent }) {
   const table = useReactTable({
     data,
     columns,
@@ -31,9 +32,9 @@ function DataTable({ columns, data }) {
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
                   </TableHead>
                 );
               })}
@@ -44,16 +45,26 @@ function DataTable({ columns, data }) {
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
+              <Fragment key={row.id}>
+                {/* Fila principal */}
+                <TableRow data-state={row.getIsSelected() && "selected"}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+
+                {/* Fila expandida */}
+                {expandedRowId === row.original.id && ExpandedComponent && (
+                  <TableRow>
+                    <TableCell colSpan={columns.length}>
+                      <ExpandedComponent row={row} />
+                    </TableCell>
+                  </TableRow>
+                )}
+                
+              </Fragment>
             ))
           ) : (
             <TableRow>
