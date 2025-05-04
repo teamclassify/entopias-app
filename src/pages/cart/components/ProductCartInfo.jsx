@@ -5,7 +5,6 @@ export default function ProductCartInfo({ product, quantity, setQuantity }) {
   const coffeInfo = getProductInfoConfig(product);
   //const defaultImage = "/cafe.webp";
 
-  console.log(product)
   return (
     <div className="flex">
       <img src={product.variety.product.photos[0].url} className="w-5/12 m-4 rounded-2xl" />
@@ -20,7 +19,7 @@ export default function ProductCartInfo({ product, quantity, setQuantity }) {
           quantity={quantity}
           setQuantity={setQuantity}
           stock={product.variety.stock}
-          weightSelected={product.variety.id}
+          varietyId={product.variety.id}
           isCartPage={true}
         />
       </div>

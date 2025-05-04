@@ -15,13 +15,14 @@ import ProductsService from "../../services/api/Products";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import CartServices from "../../services/api/Cart";
+import useCart from "../../hooks/useCart";
 
 function ProductDetail() {
   const params = useParams();
   const { id } = params;
   const [quantity, setQuantity] = useState(1);
+  const {handleUpdateData, isPending} = useCart()
 
-  const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery({
     queryKey: ["products-page", id],
@@ -29,46 +30,27 @@ function ProductDetail() {
     enabled: !!id,
   });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: () => {
-      return CartServices.add(weightSelected, quantity);
-    },
-    onSuccess: (data) => {
-      if (data.data.error) {
-        toast.error("Error al agregar el producto al carrito");
-      } else {
-        toast.success("Producto agregado al carrito");
-        queryClient.invalidateQueries({ queryKey: ["cart"] });
-      }
-    },
-    onError: (error) => {
-      const message = error?.response?.data?.message || "Ocurrió un error";
-
-      toast.error(message);
-    },
-  });
-
   const getStock = () => {
-    const variety = data?.data.varieties.find((v) => v.id === weightSelected);
+    const variety = data?.data.varieties.find((v) => v.id === varietyId);
     return variety ? variety.stock : 0;
   };
 
-  const [weightSelected, setWeightSelected] = useState(0);
+  const [varietyId, setVarietyId] = useState(0);
   const stockValue = getStock();
 
   const handleAddCart = () => {
-    return mutate(data);
+    handleUpdateData(data, varietyId, quantity);
   };
 
   const url = "/cafe.webp"; //Cuando no hay foto disponible
 
   const price =
     data?.data?.varieties
-      .find((variety) => variety.id === weightSelected)
+      .find((variety) => variety.id === varietyId)
       ?.price.toLocaleString("es-CO") || "No aplica";
 
   useEffect(() => {
-    setWeightSelected(data?.data?.varieties[0].id);
+    setVarietyId(data?.data?.varieties[0].id);
   }, [data]);
 
   return (
@@ -128,11 +110,11 @@ function ProductDetail() {
                         <div
                           key={variety.id}
                           className={`rounded-md border p-2 cursor-pointer transition-all duration-300 ${
-                            weightSelected === variety.id
+                            varietyId === variety.id
                               ? "bg-secondary text-white border-secondary"
                               : ""
                           }`}
-                          onClick={() => setWeightSelected(variety.id)}
+                          onClick={() => setVarietyId(variety.id)}
                         >
                           <p>{variety.weight} gr</p>
                         </div>
@@ -146,7 +128,7 @@ function ProductDetail() {
                       quantity={quantity}
                       setQuantity={setQuantity}
                       stock={stockValue}
-                      weightSelected={weightSelected}
+                      varietyId={varietyId}
                       isCartPage={false}
                     />
                     <Button variant="outline" onClick={handleAddCart}>

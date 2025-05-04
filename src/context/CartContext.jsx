@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-//import { createContext } from "react";
 import { toast } from "sonner";
 import CartServices from "../services/api/Cart";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { createContext } from "react";
+
 
 export const CartContext = createContext();
 
@@ -17,25 +17,26 @@ export const CartProvider = ({ children }) => {
   });
 
   /**
-   * Update the product in Cart
+   * Add the product in Cart
    */
   const queryClient = useQueryClient();
 
   const { mutate: mutateAdd } = useMutation({
-    mutationFn: (delta, weightSelected) => {
-      return CartServices.add(weightSelected, delta);
+    mutationFn: ({varietyId, quantity}) => {
+      console.log('estoy agregando,', varietyId, quantity)
+      return CartServices.add(varietyId, quantity);
     },
-    onSuccess: (data, delta) => {
+    onSuccess: (data, quantity) => {
       if (data.data.error) {
         toast.error(
           `Error al ${
-            delta > 0 ? "aumentar" : "disminuir"
+            quantity > 0 ? "aumentar" : "disminuir"
           } la cantidad del producto`
         );
       } else {
         toast.success(
           `Producto ${
-            delta > 0 ? "aumentó" : "disminuyó"
+            quantity > 0 ? "aumentó" : "disminuyó"
           } la cantidad exitosamente`
         );
         queryClient.invalidateQueries({ queryKey: ["products-cart"] });
@@ -61,14 +62,16 @@ export const CartProvider = ({ children }) => {
     },
   });
 
-  const handleUpdateData = (data) => {
-    return mutateAdd(data);
+
+  const handleUpdateData = (data, varietyId, quantity) => {
+    mutateAdd({varietyId, quantity});
   };
 
   const handleConfirmDelete = (id) => {
     mutateRemove(id);
     toast.success("Eliminando..");
   };
+
   return (
     <CartContext.Provider
       value={{ data, isLoading, isError, error, handleUpdateData, handleConfirmDelete}}

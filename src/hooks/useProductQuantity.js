@@ -7,14 +7,14 @@ export function useProductQuantity(
   quantity,
   setQuantity,
   stock,
-  weightSelected,
+  varietyId,
   isCartPage
 ) {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: (delta) => {
-      return CartServices.add(weightSelected, delta);
+      return CartServices.add(varietyId, delta);
     },
     onSuccess: (data, delta) => {
       if (data.data.error) {

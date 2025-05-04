@@ -3,15 +3,15 @@ import { Card } from "@/components/ui/card.tsx";
 import { useProductQuantity } from "../../../hooks/useProductQuantity";
 import { useEffect } from "react";
 
-export default function Quantity({ quantity, setQuantity, stock, weightSelected, isCartPage}) {
+export default function Quantity({ quantity, setQuantity, stock, varietyId, isCartPage}) {
   const { handleDecrementQuantity, handleIncrementQuantity, resetQuantity } =
-    useProductQuantity(quantity, setQuantity, stock, weightSelected, isCartPage);
+    useProductQuantity(quantity, setQuantity, stock, varietyId, isCartPage);
 
     useEffect(() => {
       if(!isCartPage){
       resetQuantity(1);
       }
-    }, [weightSelected, resetQuantity, isCartPage]);
+    }, [varietyId, resetQuantity, isCartPage]);
 
   return (
     <main>
