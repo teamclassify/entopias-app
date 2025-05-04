@@ -19,8 +19,6 @@ export function DialogDisableProduct({
     setOpen(false);
   };
 
-  console.log(product)
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-md">
@@ -32,7 +30,6 @@ export function DialogDisableProduct({
           <DialogFooter className="sm:justify-end pt-4">
             <Button
               type="button"
-              variant="secondary"
               onClick={() => setOpen(false)}
             >
               Cancelar

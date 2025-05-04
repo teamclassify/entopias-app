@@ -32,8 +32,9 @@ export const CartProvider = ({ children }) => {
           } la cantidad del producto`
         );
       } else {
+        queryClient.invalidateQueries({ queryKey: ["products-cart"] });
         if (!isCartPage) {
-          toast.success("El Producto se agregó al carrito exitosamente");
+          toast.success("El producto se agregó al carrito exitosamente");
         } else {
           toast.success(
             `Producto ${
@@ -41,12 +42,10 @@ export const CartProvider = ({ children }) => {
             } la cantidad exitosamente`
           );
         }
-        queryClient.invalidateQueries({ queryKey: ["products-cart"] });
       }
     },
     onError: (error) => {
       const message = error?.response?.data?.message || "Ocurrió un error";
-
       toast.error(message);
     },
   });
@@ -59,8 +58,10 @@ export const CartProvider = ({ children }) => {
       return CartServices.remove(varietyId);
     },
     onSuccess: () => {
-      toast.success("Se ha eliminado el producto del carrito de compras");
       queryClient.invalidateQueries({ queryKey: ["products-cart"] });
+      setTimeout(() => {
+        toast.success("Se ha eliminado el producto del carrito de compras");
+      }, 1000)
     },
   });
 
