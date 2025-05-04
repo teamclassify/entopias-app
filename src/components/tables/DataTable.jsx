@@ -7,7 +7,7 @@ import {
   TableRow, 
 } from "@/components/ui/table";
 import {
-  flexRender,
+  flexRender, 
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";

@@ -36,9 +36,8 @@ function Menu() {
 }
 
 function Profile() {
-  const [location, navigate] = useLocation();
-  const [page, setPage] = useState("inicio");
-  const [address, setAddress] = useState(null);
+    const [location, navigate] = useLocation();
+    const [page, setPage] = useState("inicio");
 
   useEffect(() => {
     const current = location.split("/")[2] || "inicio";
