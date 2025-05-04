@@ -49,12 +49,7 @@ function Profile() {
     setPage(value);
     setAddress(address);
   };
-  const handleChangePage = (value, address = null) => {
-    navigate(`/perfil/${value}`);
-    setPage(value);
-    setAddress(address);
-  };
-
+  
   return (
     <DefaultLayout>
       <div className="lg:hidden">

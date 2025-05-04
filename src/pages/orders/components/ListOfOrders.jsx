@@ -7,7 +7,7 @@ import OrdersService from "../../../services/api/Orders";
 import { useQuery } from "@tanstack/react-query";
 
 function ListOfOrders({ searchByName }) {
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
 
   const { isPending, isError, data } = useQuery({
     queryKey: ["orders", page, searchByName],

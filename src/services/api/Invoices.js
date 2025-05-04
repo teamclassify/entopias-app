@@ -31,7 +31,6 @@ async function getInvoiceByID({ id }) {
     const token = await getToken();
 
     if (!token) throw new Error("Token not found");
-    console.log("ola");
 
     try {
         const res = await axios({
