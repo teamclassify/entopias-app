@@ -14,7 +14,7 @@ function InfoUser({ onChange }) {
           className="border-2 border-[#1C0B08] p-1 w-32 cursor-pointer"
           onClick={() => onChange("editar")}
         >
-          Editar
+          {t("verbs.edit")}
         </button>
       </div>
       <div className="flex flex-col sm:flex-row w-full md:justify-between justify-center items-center gap-8">
@@ -26,7 +26,7 @@ function InfoUser({ onChange }) {
             <TableBody>
               <TableRow>
                 <TableCell>
-                  <p>Nombre</p>
+                  <p>{t("data_users.name")}</p>
                 </TableCell>
                 <TableCell>
                   <p className="text-[#737373]">{user.name}</p>
@@ -34,7 +34,7 @@ function InfoUser({ onChange }) {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  <p>Correo Electrónico</p>
+                  <p>{t("data_users.email")}</p>
                 </TableCell>
                 <TableCell>
                   <p className="text-[#737373]">{user.email}</p>
@@ -42,7 +42,7 @@ function InfoUser({ onChange }) {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  <p>Número de Teléfono</p>
+                  <p>{t("data_users.phone")}</p>
                 </TableCell>
                 <TableCell>
                   <p className="text-[#737373]">{user.phone}</p>
@@ -50,7 +50,7 @@ function InfoUser({ onChange }) {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  <p>Género</p>
+                  <p>{t("data_users.genre")}</p>
                 </TableCell>
                 <TableCell>
                   <p className="text-[#737373]">{user.gender}</p>

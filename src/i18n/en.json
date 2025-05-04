@@ -68,6 +68,21 @@
       }
     },
 
+    "data_users": {
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "phone": "Phone",
+      "address": "Address",
+      "city": "City",
+      "state": "State",
+      "postalCode": "Postal Code",
+      "country": "Country",
+      "genre": "Genre",
+      "birthDate": "Birth Date"
+    },
+
     "errors": {
       "title": "An unexpected error occurred",
       "description": "Please try again later.",
@@ -85,6 +100,40 @@
         "description": "Hello {{name}}, your payment has been successful.",
         "content": "Your transaction has been processed successfully. You will soon receive an email confirmation with the details of your order."
       }
+    },
+
+    "verbs": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save",
+      "cancel": "Cancel",
+      "add": "Add",
+      "remove": "Remove",
+      "update": "Update",
+      "continue": "Continue",
+      "back": "Back",
+      "next": "Next",
+      "finish": "Finish",
+      "confirm": "Confirm",
+      "search": "Search",
+      "filter": "Filter",
+      "clear": "Clear",
+      "apply": "Apply",
+      "select": "Select",
+      "choose": "Choose",
+      "yes": "Yes",
+      "no": "No",
+      "ok": "OK",
+      "close": "Close",
+      "loading": "Loading...",
+      "empty": "No results found.",
+      "error": "An error occurred. Please try again.",
+      "success": "Success",
+      "warning": "Warning",
+      "info": "Information",
+      "alert": "Alert",
+      "notification": "Notification",
+      "welcome": "Welcome"
     }
   }
 }
