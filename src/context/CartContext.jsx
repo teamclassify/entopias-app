@@ -53,6 +53,7 @@ export const CartProvider = ({ children }) => {
    */
   const { mutate : mutateRemove} = useMutation({
     mutationFn: (varietyId) => {
+      console.log("Este es el id que se va a eliminar", varietyId)
       return CartServices.remove(varietyId);
     },
     onSuccess: () => {
@@ -65,8 +66,8 @@ export const CartProvider = ({ children }) => {
     return mutateAdd(data);
   };
 
-  const handleConfirmDelete = (product) => {
-    mutateRemove(product.variety.id);
+  const handleConfirmDelete = (id) => {
+    mutateRemove(id);
     toast.success("Eliminando..");
   };
   return (

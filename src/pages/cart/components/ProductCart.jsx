@@ -6,30 +6,41 @@ import ProductCartInfo from "./ProductCartInfo";
 import { formatPrice } from "../../../utils/formatPrice";
 import useCart from "../../../hooks/useCart";
 import { Loading } from "../../../components/ui/loading";
+import { ShoppingCart } from "lucide-react";
 
 export default function ProductCart() {
   const [openDialog, setOpenDialog] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
   const [quantities, setQuantities] = useState({});
 
-    const { data, isLoading, isError, handleConfirmDelete } = useCart();
+  const { data, isLoading, isError, handleConfirmDelete } = useCart();
 
-    const products = data?.data.items || [];
-  
-    useEffect(() => {
-      if (products.length > 0) {
-        const initialQuantities = {};
-        products.forEach((product) => {
-          initialQuantities[product.variety.id] = product.quantity || 0;
-        });
-        setQuantities(initialQuantities);
-      }
-    }, [products]);
-  
-    if (isLoading) return <h1>Cargando el carrito..</h1>;
-    if (isError) return <h1>Ocurrió un error al cargar el carrito.</h1>;
-  
-    if (products.length === 0) return <h2>No hay productos en el carrito.</h2>;
+  const products = data?.data.items || [];
+
+  useEffect(() => {
+    if (products.length > 0) {
+      const initialQuantities = {};
+      products.forEach((product) => {
+        initialQuantities[product.variety.id] = product.quantity || 0;
+      });
+      setQuantities(initialQuantities);
+    }
+  }, [products]);
+
+  if (isLoading) return <h1>Cargando el carrito..</h1>;
+  if (isError) return <h1>Ocurrió un error al cargar el carrito.</h1>;
+
+  if (products.length === 0)
+    return (
+      <div className="flex flex-col items-center justify-center text-center py-20">
+        <ShoppingCart size={64} className="text-gray-400 mb-4" />
+        <h2 className="text-xl font-semibold mb-2">Tu carrito está vacío</h2>
+        <p className="text-gray-500 max-w-md">
+          ¡Empieza a llenar tu carrito con productos increíbles! Explora
+          nuestras colecciones y encuentra algo que te encante.
+        </p>
+      </div>
+    );
 
   const handleDeleteProduct = (product) => {
     setProductToDelete(product);
