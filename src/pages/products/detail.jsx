@@ -7,22 +7,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "wouter";
 import { Loading } from "../../components/ui/loading";
 import Quantity from "../cart/components/Quantity";
 import ProductsService from "../../services/api/Products";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import CartServices from "../../services/api/Cart";
 import useCart from "../../hooks/useCart";
 
 function ProductDetail() {
   const params = useParams();
   const { id } = params;
   const [quantity, setQuantity] = useState(1);
-  const {handleUpdateData, isPending} = useCart()
-
+  const { handleUpdateData, isPending } = useCart();
 
   const { data, isLoading } = useQuery({
     queryKey: ["products-page", id],
@@ -39,7 +36,7 @@ function ProductDetail() {
   const stockValue = getStock();
 
   const handleAddCart = () => {
-    handleUpdateData(data, varietyId, quantity);
+    handleUpdateData(data, varietyId, quantity, false);
   };
 
   const url = "/cafe.webp"; //Cuando no hay foto disponible
@@ -131,7 +128,7 @@ function ProductDetail() {
                       varietyId={varietyId}
                       isCartPage={false}
                     />
-                    <Button variant="outline" onClick={handleAddCart}>
+                    <Button variant="outline" onClick={handleAddCart} disabled={isPending}>
                       {isPending
                         ? "Añadiendo al carrito.."
                         : "Añadir al carrito"}

@@ -4,7 +4,6 @@ import CartServices from "../services/api/Cart";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { createContext } from "react";
 
-
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
@@ -21,12 +20,11 @@ export const CartProvider = ({ children }) => {
    */
   const queryClient = useQueryClient();
 
-  const { mutate: mutateAdd } = useMutation({
-    mutationFn: ({varietyId, quantity}) => {
-      console.log('estoy agregando,', varietyId, quantity)
+  const { mutate: mutateAdd, isPending } = useMutation({
+    mutationFn: ({ varietyId, quantity }) => {
       return CartServices.add(varietyId, quantity);
     },
-    onSuccess: (data, quantity) => {
+    onSuccess: (data, quantity, isCartPage) => {
       if (data.data.error) {
         toast.error(
           `Error al ${
@@ -34,11 +32,15 @@ export const CartProvider = ({ children }) => {
           } la cantidad del producto`
         );
       } else {
-        toast.success(
-          `Producto ${
-            quantity > 0 ? "aumentó" : "disminuyó"
-          } la cantidad exitosamente`
-        );
+        if (!isCartPage) {
+          toast.success("El Producto se agregó al carrito exitosamente");
+        } else {
+          toast.success(
+            `Producto ${
+              quantity > 0 ? "aumentó" : "disminuyó"
+            } la cantidad exitosamente`
+          );
+        }
         queryClient.invalidateQueries({ queryKey: ["products-cart"] });
       }
     },
@@ -52,7 +54,7 @@ export const CartProvider = ({ children }) => {
   /**
    * Delete the product in cart
    */
-  const { mutate : mutateRemove} = useMutation({
+  const { mutate: mutateRemove } = useMutation({
     mutationFn: (varietyId) => {
       return CartServices.remove(varietyId);
     },
@@ -62,9 +64,8 @@ export const CartProvider = ({ children }) => {
     },
   });
 
-
-  const handleUpdateData = (data, varietyId, quantity) => {
-    mutateAdd({varietyId, quantity});
+  const handleUpdateData = (data, varietyId, quantity, isCartPage) => {
+    mutateAdd({ varietyId, quantity, isCartPage });
   };
 
   const handleConfirmDelete = (id) => {
@@ -74,7 +75,15 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ data, isLoading, isError, error, handleUpdateData, handleConfirmDelete}}
+      value={{
+        data,
+        isLoading,
+        isError,
+        error,
+        handleUpdateData,
+        handleConfirmDelete,
+        isPending,
+      }}
     >
       {children}
     </CartContext.Provider>

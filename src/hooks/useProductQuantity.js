@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 import { toast } from "sonner";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
-import CartServices from "../services/api/Cart";
+import useCart from "./useCart";
 
 export function useProductQuantity(
   quantity,
@@ -10,42 +9,14 @@ export function useProductQuantity(
   varietyId,
   isCartPage
 ) {
-  const queryClient = useQueryClient();
-
-  const { mutate } = useMutation({
-    mutationFn: (delta) => {
-      return CartServices.add(varietyId, delta);
-    },
-    onSuccess: (data, delta) => {
-      if (data.data.error) {
-        toast.error(
-          `Error al ${
-            delta > 0 ? "aumentar" : "disminuir"
-          } la cantidad del producto`
-        );
-      } else {
-        toast.success(
-          `Producto ${
-            delta > 0 ? "aumentó" : "disminuyó"
-          } la cantidad exitosamente`
-        );
-        queryClient.invalidateQueries({ queryKey: ["cart"] });
-      }
-    },
-    onError: (error) => {
-      const message = error?.response?.data?.message || "Ocurrió un error";
-
-      toast.error(message);
-    },
-  });
+  const { handleUpdateData } = useCart();
 
   const handleDecrementQuantity = () => {
     const newQuantity = quantity - 1;
-
     if (newQuantity >= 1) {
       setQuantity(newQuantity);
       if (!isCartPage) return;
-      mutate(-1);
+      handleUpdateData(varietyId, -1)
     } else {
       toast.error("Has alcanzado el mínimo permitido");
     }
@@ -56,7 +27,7 @@ export function useProductQuantity(
       const newQuantity = quantity + 1;
       setQuantity(newQuantity);
       if (!isCartPage) return;
-      mutate(1);
+      handleUpdateData(varietyId, 1)
     } else {
       toast.error("Has alcanzado el límite disponible de este producto");
     }
