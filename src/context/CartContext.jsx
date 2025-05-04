@@ -12,7 +12,7 @@ export const CartProvider = ({ children }) => {
    * Get all the products in Cart
    */
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["products-cart"],
     queryFn: () => CartServices.getAll(),
   });
 
@@ -38,7 +38,7 @@ export const CartProvider = ({ children }) => {
             delta > 0 ? "aumentó" : "disminuyó"
           } la cantidad exitosamente`
         );
-        queryClient.invalidateQueries({ queryKey: ["cart"] });
+        queryClient.invalidateQueries({ queryKey: ["products-cart"] });
       }
     },
     onError: (error) => {
@@ -53,7 +53,6 @@ export const CartProvider = ({ children }) => {
    */
   const { mutate : mutateRemove} = useMutation({
     mutationFn: (varietyId) => {
-      console.log("Este es el id que se va a eliminar", varietyId)
       return CartServices.remove(varietyId);
     },
     onSuccess: () => {

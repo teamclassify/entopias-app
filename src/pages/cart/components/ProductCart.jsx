@@ -27,7 +27,7 @@ export default function ProductCart() {
     }
   }, [products]);
 
-  if (isLoading) return <h1>Cargando el carrito..</h1>;
+  if (isLoading) return <Loading />;
   if (isError) return <h1>Ocurrió un error al cargar el carrito.</h1>;
 
   if (products.length === 0)

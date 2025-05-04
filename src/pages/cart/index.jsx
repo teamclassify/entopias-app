@@ -9,7 +9,7 @@ function Cart() {
     <DefaultLayout>
       <div className="flex flex-row justify-between ">
         <ProductCart />
-        {/* <Purchase buy={false} /> */}
+        <Purchase buy={false} />
       </div>
     </DefaultLayout>
   );
