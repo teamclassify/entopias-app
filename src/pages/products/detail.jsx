@@ -14,6 +14,7 @@ import Quantity from "../cart/components/Quantity";
 import ProductsService from "../../services/api/Products";
 import { useEffect, useState } from "react";
 import useCart from "../../hooks/useCart";
+import { ShoppingCart } from "lucide-react";
 
 function ProductDetail() {
   const params = useParams();
@@ -128,10 +129,11 @@ function ProductDetail() {
                       varietyId={varietyId}
                       isCartPage={false}
                     />
-                    <Button variant="outline" onClick={handleAddCart} disabled={isPending}>
+                    <Button variant="outline" onClick={handleAddCart} disabled={isPending} className="p-6 border-1">
                       {isPending
                         ? "Añadiendo al carrito.."
                         : "Añadir al carrito"}
+                        <ShoppingCart />
                     </Button>
                   </div>
                 </CardContent>
