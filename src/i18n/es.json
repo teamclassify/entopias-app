@@ -105,6 +105,16 @@
       }
     },
 
+    "products": {
+      "olfactory_notes": "Olores olfativos",
+      "taste_notes": "Notas de sabor",
+      "type": "Tipo",
+      "select_weight": "Seleccionar peso",
+      "adding_cart": "Agregando al carrito...",
+      "add_cart": "Agregar al carrito",
+      "buy_now": "Comprar ahora"
+    },
+
     "verbs": {
       "edit": "Editar",
       "delete": "Eliminar",

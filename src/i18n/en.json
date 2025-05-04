@@ -102,6 +102,16 @@
       }
     },
 
+    "products": {
+      "olfactory_notes": "Olfactory Notes",
+      "taste_notes": "Taste Notes",
+      "type": "Type",
+      "select_weight": "Select weight",
+      "adding_cart": "Adding to cart...",
+      "add_cart": "Add to cart",
+      "buy_now": "Buy now"
+    },
+
     "verbs": {
       "edit": "Edit",
       "delete": "Delete",
