@@ -12,19 +12,24 @@ export default function ProductCart() {
   const [productToDelete, setProductToDelete] = useState(null);
   const [quantities, setQuantities] = useState({});
 
-  const { data, isLoading, isError, handleConfirmDelete } = useCart();
-  const products = data?.products || []; // <- corregido aquí
+    const { data, isLoading, isError, handleConfirmDelete } = useCart();
 
-  // Inicializar cantidades cuando se cargan los productos
-  useEffect(() => {
-    if (products.length > 0) {
-      const initialQuantities = {};
-      products.forEach((product) => {
-        initialQuantities[product.variety.id] = product.quantity || 0;
-      });
-      setQuantities(initialQuantities);
-    }
-  }, [products]);
+    const products = data?.data.items || [];
+  
+    useEffect(() => {
+      if (products.length > 0) {
+        const initialQuantities = {};
+        products.forEach((product) => {
+          initialQuantities[product.variety.id] = product.quantity || 0;
+        });
+        setQuantities(initialQuantities);
+      }
+    }, [products]);
+  
+    if (isLoading) return <h1>Cargando el carrito..</h1>;
+    if (isError) return <h1>Ocurrió un error al cargar el carrito.</h1>;
+  
+    if (products.length === 0) return <h2>No hay productos en el carrito.</h2>;
 
   const handleDeleteProduct = (product) => {
     setProductToDelete(product);
@@ -47,7 +52,10 @@ export default function ProductCart() {
           <p className="text-red-500">Error al cargar el carrito.</p>
         ) : (
           products.map((product) => (
-            <div key={product.variety.id} className="flex flex-row justify-between">
+            <div
+              key={product.variety.id}
+              className="flex flex-row justify-between"
+            >
               <ProductCartInfo
                 product={product}
                 quantity={quantities[product.variety.id] || 0}
