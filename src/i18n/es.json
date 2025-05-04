@@ -4,6 +4,22 @@
       "title": "Un café premium para momento únicos",
       "description": "Saborea experiencias inolvidables con cada taza de nuestro café.",
 
+      "navigation": {
+        "home": "Inicio",
+        "about_us": "Sobre Nosotros",
+        "store": "Tienda",
+        "services": "Servicios",
+        "contact": "Contáctanos",
+        "cart": "Carrito",
+        "signin": "Iniciar Sesión",
+        "signup": "Registrarse",
+        "logout": "Cerrar Sesión",
+        "profile": "Perfil",
+        "orders": "Pedidos",
+        "admin": "Administración",
+        "account": "Cuenta"
+      },
+
       "about_us": {
         "title": "Sobre Nosotros",
         "description": "En Entopias Café, vivimos la pasión por el buen café. Seleccionamos granos de alta calidad directamente de productores, asegurando autenticidad y sabor en cada taza. Nos enfocamos en resaltar las mejores características de cada cosecha a través de un proceso cuidadoso que garantiza frescura y excelencia. Más que una marca, somos una comunidad que celebra la tradición cafetera, conectando a los amantes del café con experiencias únicas y auténticas."
@@ -11,7 +27,47 @@
 
       "our_products": {
         "title": "Nuestros Productos",
-        "description": "Explora nuestra gama de productos diseñados para satisfacer tus necesidades."
+        "description": "Explora nuestra gama de productos diseñados para satisfacer tus necesidades.",
+        "button": "Ver todos los productos"
+      },
+
+      "services": {
+        "customer_service": {
+          "title": "Atención al Cliente",
+          "description": "Contamos con una alta calidad de servicio a nuestros clientes"
+        },
+        "delivery": {
+          "title": "Envíos nacionales e internacionales",
+          "description": "Enviamos nuestro café por el mundo"
+        },
+        "chatbot": {
+          "title": "Interactúa con nuestro chatbot",
+          "description": "Descubre cual es el café ideal para ti"
+        }
+      },
+
+      "us_coffee_1": "Nuestro café especial es un viaje sensorial que despierta los sentidos con sabores y aromas únicos.",
+      "us_coffee_2": "Cada sorbo es un abrazo matutino que ilumina el día con notas dulces y tostadas, creando un ritual reconfortante que llena de energía y alegría desde el primer aroma hasta el último sorbo.",
+
+      "contact": {
+        "title": "Contáctanos",
+        "description": "Estamos aquí para ayudarte. Si tienes alguna pregunta o inquietud, no dudes en ponerte en contacto con nosotros."
+      }
+    },
+
+    "profile": {
+      "title": "Perfil",
+      "account": {
+        "title": "Mi cuenta"
+      },
+      "orders": {
+        "title": "Mis pedidos"
+      },
+      "profile": {
+        "title": "Mi perfil"
+      },
+      "address": {
+        "title": "Mis direcciones"
       }
     },
 

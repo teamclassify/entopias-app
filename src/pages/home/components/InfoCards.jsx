@@ -1,22 +1,24 @@
 import { Separator } from "@/components/ui/separator";
+import { useTranslation } from "react-i18next";
 
 function InfoCards() {
+  const { t } = useTranslation();
+
   const features = [
     {
       icon: "👥",
-      title: "Atención al cliente",
-      description:
-        "Contamos con una alta calidad de servicio a nuestros clientes",
+      title: t("homePage.services.customer_service.title"),
+      description: t("homePage.services.customer_service.description"),
     },
     {
       icon: "🚚",
-      title: "Envíos nacionales e internacionales",
-      description: "Enviamos nuestro café por el mundo",
+      title: t("homePage.services.delivery.title"),
+      description: t("homePage.services.delivery.description"),
     },
     {
       icon: "💬",
-      title: "Interactúa con nuestro chatbot",
-      description: "Descubre cual es el café ideal para ti",
+      title: t("homePage.services.chatbot.title"),
+      description: t("homePage.services.chatbot.description"),
     },
   ];
 
@@ -32,9 +34,18 @@ function InfoCards() {
             <p className="text-gray-600 mt-1">{feature.description}</p>
           </div>
           {index < 2 ? (
-            <Separator orientation="vertical" className="sm:ml-7 hidden sm:inline-flex" />
-          ): <div><Separator orientation="vertical" className="sm:ml-7 hidden sm:inline-flex" /></div>
-          }
+            <Separator
+              orientation="vertical"
+              className="sm:ml-7 hidden sm:inline-flex"
+            />
+          ) : (
+            <div>
+              <Separator
+                orientation="vertical"
+                className="sm:ml-7 hidden sm:inline-flex"
+              />
+            </div>
+          )}
         </div>
       ))}
     </div>
