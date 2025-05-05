@@ -129,18 +129,23 @@ function ProductDetail() {
                       varietyId={varietyId}
                       isCartPage={false}
                     />
-                    <Button variant="outline" onClick={handleAddCart} disabled={isPending} className="p-6 border-1">
+                    <Button
+                      variant="outline"
+                      onClick={handleAddCart}
+                      disabled={isPending}
+                      className="p-6 border-1"
+                    >
                       {isPending
                         ? "Añadiendo al carrito.."
                         : "Añadir al carrito"}
-                        <ShoppingCart />
+                      <ShoppingCart />
                     </Button>
                   </div>
                 </CardContent>
 
                 <CardFooter className="flex">
-                  <Button className="bg-black text-white w-full">
-                    Comprar producto
+                  <Button className="text-white w-full" onClick={handleAddCart}>
+                    {isPending ? "Comprando..." : "Comprar ahora"}
                   </Button>
                 </CardFooter>
               </Card>
