@@ -145,7 +145,7 @@ function ProductDetail() {
 
                 <CardFooter className="flex">
                   <Button className="text-white w-full" onClick={handleAddCart}>
-                    {isPending ? "Comprando..." : "Comprar ahora"}
+                    Comprar ahora
                   </Button>
                 </CardFooter>
               </Card>
