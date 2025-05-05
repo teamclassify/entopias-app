@@ -10,11 +10,10 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "wouter";
 import { Loading } from "../../components/ui/loading";
-import CartServices from "../../services/api/Cart";
 import ProductsService from "../../services/api/Products";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { useCart } from "@/hooks/useCart.js"
+import  useCart from "@/hooks/useCart.js"
 
 function ProductDetail() {
   const { t } = useTranslation();
