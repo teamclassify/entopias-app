@@ -55,7 +55,7 @@ export default function ProductCart() {
   };
 
   return (
-    <main className="w-1/2">
+    <main className="md:w-1/2">
       <div className="flex flex-col gap-4">
         {isLoading ? (
           <Loading />

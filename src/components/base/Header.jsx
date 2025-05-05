@@ -94,7 +94,7 @@ function Header() {
 
       <div>
         <Link href="/">
-          <img src="/logo-alt.webp" alt="Logo de la tienda" className="h-12" />
+          <img src="/logo-alt.webp" alt="Logo de la tienda" className="w-46 sm:w-36" />
         </Link>
       </div>
 

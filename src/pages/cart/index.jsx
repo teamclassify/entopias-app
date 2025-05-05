@@ -5,7 +5,7 @@ import ProductCart from "./components/ProductCart";
 function Cart() {
   return (
     <DefaultLayout>
-      <div className="flex flex-row justify-between gap-3">
+      <div className="flex flex-col sm:flex-row justify-between gap-3">
         <ProductCart />
         <Purchase buy={false} />
       </div>

@@ -21,7 +21,7 @@ export default function Purchase({ buy }) {
   if (isError) return <h1>Ocurrió un error al cargar el carrito.</h1>;
 
   return (
-    <main className="w-2/5">
+    <main className="md:w-2/5">
       <div className="flex flex-col gap-1">
         <h1 className="text-2xl font-bold pt-6">Resumen de la compra</h1>
         <PurchaseInfo totalPrice={totalPrice} />
