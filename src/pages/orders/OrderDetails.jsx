@@ -35,7 +35,6 @@ function OrderDetails() {
         minimumFractionDigits: 0
     }).format(valor);
 
-
     return (
         <AdminLayout>
             <main>
