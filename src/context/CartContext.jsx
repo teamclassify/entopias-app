@@ -24,7 +24,8 @@ export const CartProvider = ({ children }) => {
     mutationFn: ({ varietyId, quantity }) => {
       return CartServices.add(varietyId, quantity);
     },
-    onSuccess: (data, quantity, isCartPage) => {
+    onSuccess: (data, variables) => {
+      const { quantity, isCartPage } = variables;
       if (data.data.error) {
         toast.error(
           `Error al ${
@@ -61,11 +62,19 @@ export const CartProvider = ({ children }) => {
       queryClient.invalidateQueries({ queryKey: ["products-cart"] });
       setTimeout(() => {
         toast.success("Se ha eliminado el producto del carrito de compras");
-      }, 1000)
+      }, 1000);
     },
   });
 
-  const handleUpdateData = (data, varietyId, quantity, isCartPage) => {
+  const handleUpdateData = (varietyId, quantity, isCartPage) => {
+    // console.log(
+    //   "recibo varietyid ",
+    //   varietyId,
+    //   " quantity ",
+    //   quantity,
+    //   " y isCartPage ",
+    //   isCartPage
+    // );
     mutateAdd({ varietyId, quantity, isCartPage });
   };
 

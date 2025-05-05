@@ -4,7 +4,7 @@ import { useProductQuantity } from "../../../hooks/useProductQuantity";
 import { useEffect } from "react";
 
 export default function Quantity({ quantity, setQuantity, stock, varietyId, isCartPage}) {
-  const { handleDecrementQuantity, handleIncrementQuantity, resetQuantity } =
+  const { handleDecrementQuantity, handleIncrementQuantity, resetQuantity, isUpdating } =
     useProductQuantity(quantity, setQuantity, stock, varietyId, isCartPage);
 
     useEffect(() => {
@@ -16,11 +16,11 @@ export default function Quantity({ quantity, setQuantity, stock, varietyId, isCa
   return (
     <main>
       <Card className="flex-row justify-center items-center gap-4 h-0.5">
-        <Button variant="ghost" onClick={handleDecrementQuantity}>
+        <Button variant="ghost" onClick={handleDecrementQuantity} disabled={isUpdating}>
           -
         </Button>
         <p>{quantity}</p>
-        <Button variant="ghost" onClick={handleIncrementQuantity}>
+        <Button variant="ghost" onClick={handleIncrementQuantity} disabled={isUpdating}>
           +
         </Button>
       </Card>

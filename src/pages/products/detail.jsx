@@ -37,7 +37,7 @@ function ProductDetail() {
   const stockValue = getStock();
 
   const handleAddCart = () => {
-    handleUpdateData(data, varietyId, quantity, false);
+    handleUpdateData(varietyId, quantity, false);
   };
 
   const url = "/cafe.webp"; //Cuando no hay foto disponible
