@@ -68,12 +68,15 @@ function App() {
           component={CreateProducerPage}
           path="/admin/productores/agregar"
         />
+        
         <Route component={ProducersListPage} path="/admin/productores" />
         <Route component={CreateBatchPage} path="/admin/lotes/agregar" />
         <Route component={ProductDetail} path="/producto/:id" />
         <Route component={Cart} path="/carrito" />
         <Route component={Address} path="/carrito/direccion"/>
         <Route component={NotFoundPage} />
+
+        
       </Switch>
     </>
   );
