@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import LocationSelector from "@/components/ui/location-input";
-
+import { Link } from "wouter";
 
 const formSchema = z.object({
   city: z.string().min(1, "La ciudad es requerida"),
@@ -22,7 +22,6 @@ const formSchema = z.object({
   postalCode: z.string().min(1, "El código postal es requerido"),
   address: z.string().min(1, "La dirección es requerida"),
 });
-
 
 function Form({ onSubmit, isLoading }) {
   const form = useForm({
@@ -37,7 +36,7 @@ function Form({ onSubmit, isLoading }) {
   });
 
   const handleSubmit = (data) => {
-    onSubmit(data); 
+    onSubmit(data);
   };
 
   return (
@@ -123,8 +122,11 @@ function Form({ onSubmit, isLoading }) {
               )}
             />
           </div>
-          <div className="flex justify-end">
-            <Button className="mt-6" type="submit">
+          <div className="flex items-center justify-end gap-3">
+            <Link to="/carrito/direccion">
+              <Button variant="outline">Cancelar</Button>
+            </Link>
+            <Button type="submit">
               {isLoading ? "Guardando dirección..." : "Guardar dirección"}
             </Button>
           </div>
