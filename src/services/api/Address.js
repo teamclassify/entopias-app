@@ -14,7 +14,6 @@ async function getAddress() {
         Authorization: `Bearer ${token}`,
       },
     });
-
     return res.data;
   } catch (error) {
     return handleAxiosError(error);
