@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import useCart from "@/hooks/useCart.js";
 import Quantity from "@/pages/cart/components/Quantity.jsx";
+import { ShoppingCart } from "lucide-react";
 
 function ProductDetail() {
   const { t } = useTranslation();
@@ -141,8 +142,9 @@ function ProductDetail() {
                       className="p-6 border-1"
                     >
                       {isPending
-                        ? "Añadiendo al carrito.."
-                        : "Añadir al carrito"}
+                        ? t("products.adding_cart")
+                         : t("products.add_cart")}
+                         <ShoppingCart />
                     </Button>
                   </div>
                 </CardContent>
@@ -152,7 +154,7 @@ function ProductDetail() {
                     className="bg-black text-white w-full"
                     onClick={handleAddCart}
                   >
-                    <Link href="/carrito">Comprar producto</Link>
+                    <Link href="/carrito">{t("products.buy_now")}</Link>
                   </Button>
                 </CardFooter>
               </Card>
