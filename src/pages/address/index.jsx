@@ -1,7 +1,7 @@
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { useQuery } from "@tanstack/react-query";
 import AddressService from "../../services/api/Address";
-import { Button } from "@/components/ui/button";    
+import { Button } from "@/components/ui/button";
 import Message from "./components/Message";
 
 export default function Address() {
@@ -31,7 +31,9 @@ export default function Address() {
         ) : (
           <>
             <Message />
-            <Button>Crear una dirección</Button>
+            <div className="flex flex-end justify-end">
+              <Button>Crear una dirección</Button>
+            </div>
           </>
         )}
       </div>
