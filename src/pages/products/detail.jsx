@@ -8,15 +8,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 import { useParams } from "wouter";
 import { Loading } from "../../components/ui/loading";
-import Quantity from "../cart/components/Quantity";
-import ProductsService from "../../services/api/Products";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import CartServices from "../../services/api/Cart";
+import ProductsService from "../../services/api/Products";
+import Quantity from "../cart/components/Quantity";
 
 function ProductDetail() {
+  const { t } = useTranslation();
   const params = useParams();
   const { id } = params;
   const [quantity, setQuantity] = useState(1);
@@ -112,16 +114,20 @@ function ProductDetail() {
 
                   <div className="text-gray-700 text-sm space-y-4">
                     <p>
-                      <span className="font-semibold">Notas olfativas:</span>{" "}
+                      <span className="font-semibold">
+                        {t("products.olfactory_notes")}:
+                      </span>{" "}
                       {data?.data?.batches[0]?.aromaNotes ?? "No aplica"}
                     </p>
                     <p>
-                      <span className="font-semibold">Tipo:</span>{" "}
+                      <span className="font-semibold">
+                        {t("products.type")}:
+                      </span>{" "}
                       {data?.data?.type ?? "No aplica"}
                     </p>
 
                     <h3 className="text-md font-semibold">
-                      Selecciona el peso
+                      {t("products.select_weight")}
                     </h3>
                     <div className="flex flex-row gap-2">
                       {data.data.varieties.map((variety) => (
@@ -151,15 +157,15 @@ function ProductDetail() {
                     />
                     <Button variant="outline" onClick={handleAddCart}>
                       {isPending
-                        ? "Añadiendo al carrito.."
-                        : "Añadir al carrito"}
+                        ? t("products.adding_cart")
+                        : t("products.add_cart")}
                     </Button>
                   </div>
                 </CardContent>
 
                 <CardFooter className="flex">
                   <Button className="bg-black text-white w-full">
-                    Comprar producto
+                    {t("products.buy_now")}
                   </Button>
                 </CardFooter>
               </Card>

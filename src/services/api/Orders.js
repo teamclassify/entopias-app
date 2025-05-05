@@ -5,7 +5,7 @@ import { getToken } from "./Auth";
 async function getAllOrders({ page = 1, search }) {
     const token = await getToken();
 
-  if (!token) throw new Error("Token not found");
+    if (!token) throw new Error("Token not found");
     try {
         const res = await axios({
             url: `${URL}/orders`,
@@ -30,7 +30,6 @@ async function getOrderByID({ id }) {
     const token = await getToken();
 
     if (!token) throw new Error("Token not found");
-    console.log("ola");
 
     try {
         const res = await axios({
@@ -63,12 +62,39 @@ async function getOrderByID({ id }) {
     } catch (error) {
         return handleAxiosError(error);
     }
+
+}
+
+async function getOrderByUserId({ page = 1, search, userId }) {
+    const token = await getToken();
+
+    if (!token) throw new Error("Token not found");
     
+    try {
+        const res = await axios({
+            url: `${URL}/orders`,
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            params: {
+                page,
+                search,
+                userId,
+            },
+        });
+
+        return res.data;
+    } catch (error) {
+        return handleAxiosError(error);
+    }
 }
 
 const OrdersService = {
     getAllOrders,
     getOrderByID,
+    getOrderByUserId,
 };
 
 export default OrdersService;

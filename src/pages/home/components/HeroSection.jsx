@@ -27,7 +27,7 @@ function HeroSection() {
           <div className="mt-4">
             <Button asChild size="lg">
               <Link href="/tienda">
-                <span className="text-white">Ver productos</span>
+                <span className="text-white">{t("homePage.our_products.button")}</span>
               </Link>
             </Button>
           </div>

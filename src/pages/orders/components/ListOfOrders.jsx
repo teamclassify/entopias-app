@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import Pagination from "../../catalog/components/Pagination";
 
 function ListOfOrders({ searchByName }) {
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
 
   const { isPending, isError, data } = useQuery({
     queryKey: ["orders", page, searchByName],

@@ -9,8 +9,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useTranslation } from "react-i18next";
 
 function AvatarUser({ user, logout, userIsAdminOrSales }) {
+  const { t } = useTranslation();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -20,20 +23,28 @@ function AvatarUser({ user, logout, userIsAdminOrSales }) {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
+        <DropdownMenuLabel>
+          {t("homePage.navigation.account")}
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
 
         <Link href="/perfil/inicio">
-          <DropdownMenuItem>Perfil</DropdownMenuItem>
+          <DropdownMenuItem>
+            {t("homePage.navigation.profile")}
+          </DropdownMenuItem>
         </Link>
- 
+
         {userIsAdminOrSales && (
           <Link href="/admin">
-            <DropdownMenuItem>Administración</DropdownMenuItem>
+            <DropdownMenuItem>
+              {t("homePage.navigation.admin")}
+            </DropdownMenuItem>
           </Link>
         )}
 
-        <DropdownMenuItem onClick={logout}>Cerrar sesion</DropdownMenuItem>
+        <DropdownMenuItem onClick={logout}>
+          {t("homePage.navigation.logout")}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
