@@ -3,9 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import AddressService from "../../services/api/Address";
 import { Button } from "@/components/ui/button";
 import Message from "./components/Message";
+import { Link } from "wouter";
 
 export default function Address() {
-  const { data, isLoading, isError, isFetching } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["addresses"],
     queryFn: () => AddressService.getAddress(),
   });
@@ -32,7 +33,9 @@ export default function Address() {
           <>
             <Message />
             <div className="flex flex-end justify-end">
-              <Button>Crear una dirección</Button>
+              <Link to="/carrito/direccion/nueva">
+                <Button>Crear una dirección</Button>
+              </Link>
             </div>
           </>
         )}
