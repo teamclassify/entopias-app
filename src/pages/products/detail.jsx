@@ -8,12 +8,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "wouter";
+import { Link, useParams } from "wouter";
 import { Loading } from "../../components/ui/loading";
 import ProductsService from "../../services/api/Products";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import  useCart from "@/hooks/useCart.js"
+import useCart from "@/hooks/useCart.js";
+import Quantity from "@/pages/cart/components/Quantity.jsx";
 
 function ProductDetail() {
   const { t } = useTranslation();
@@ -147,8 +148,11 @@ function ProductDetail() {
                 </CardContent>
 
                 <CardFooter className="flex">
-                  <Button className="bg-black text-white w-full" onClick={handleAddCart}>
-                    Comprar producto
+                  <Button
+                    className="bg-black text-white w-full"
+                    onClick={handleAddCart}
+                  >
+                    <Link href="/carrito">Comprar producto</Link>
                   </Button>
                 </CardFooter>
               </Card>
