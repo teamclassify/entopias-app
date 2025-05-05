@@ -138,7 +138,7 @@ export default function UserProvider({ children }) {
     };
   }, []);
 
-  console.log(accessToken);
+  //console.log(accessToken);
 
   // useEffect(() => {
   //   if (error) toast(error);

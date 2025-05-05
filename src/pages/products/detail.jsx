@@ -10,13 +10,14 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "wouter";
 import { Loading } from "../../components/ui/loading";
-import Quantity from "../cart/components/Quantity";
+import CartServices from "../../services/api/Cart";
 import ProductsService from "../../services/api/Products";
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import useCart from "../../hooks/useCart";
-import { ShoppingCart } from "lucide-react";
+import { useCart } from "../../hooks/useCart";
 
 function ProductDetail() {
+  const { t } = useTranslation();
   const params = useParams();
   const { id } = params;
   const [quantity, setQuantity] = useState(1);
@@ -92,16 +93,20 @@ function ProductDetail() {
 
                   <div className="text-gray-700 text-sm space-y-4">
                     <p>
-                      <span className="font-semibold">Notas olfativas:</span>{" "}
+                      <span className="font-semibold">
+                        {t("products.olfactory_notes")}:
+                      </span>{" "}
                       {data?.data?.batches[0]?.aromaNotes ?? "No aplica"}
                     </p>
                     <p>
-                      <span className="font-semibold">Tipo:</span>{" "}
+                      <span className="font-semibold">
+                        {t("products.type")}:
+                      </span>{" "}
                       {data?.data?.type ?? "No aplica"}
                     </p>
 
                     <h3 className="text-md font-semibold">
-                      Selecciona el peso
+                      {t("products.select_weight")}
                     </h3>
                     <div className="flex flex-row gap-2">
                       {data.data.varieties.map((variety) => (
@@ -138,14 +143,13 @@ function ProductDetail() {
                       {isPending
                         ? "Añadiendo al carrito.."
                         : "Añadir al carrito"}
-                      <ShoppingCart />
                     </Button>
                   </div>
                 </CardContent>
 
                 <CardFooter className="flex">
-                  <Button className="text-white w-full" onClick={handleAddCart}>
-                    Comprar ahora
+                  <Button className="bg-black text-white w-full" onClick={handleAddCart}>
+                    Comprar producto
                   </Button>
                 </CardFooter>
               </Card>

@@ -9,7 +9,7 @@ import ListOfClients from "./ListOfClients";
 function ClientManagment() {
   const [searchByName, setSearchByName] = useState("");
   const [text] = useDebounce(searchByName, 500);
-
+ 
   return (
     <AdminLayout>
       <main>

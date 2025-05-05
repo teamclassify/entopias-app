@@ -5,18 +5,21 @@ import {
   DrawerDescription,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import useUser from "@/hooks/useUser";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { MenuIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 import { BsCart4 } from "react-icons/bs";
-import useUser from "@/hooks/useUser";
+import { Link } from "wouter";
 import AvatarUser from "./AvatarUser";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { Loading } from "../ui/loading";
 import useCart from "../../hooks/useCart";
 
 function Menu({ user, logout, userIsAdminOrSales }) {
+  const { t } = useTranslation();
+
   return (
     <Drawer direction="left">
       <DrawerTrigger>
@@ -34,10 +37,10 @@ function Menu({ user, logout, userIsAdminOrSales }) {
         <nav>
           <ul className="grid gap-2">
             <li>
-              <Link href="/">Inicio</Link>
+              <Link href="/">{t("homePage.navigation.home")}</Link>
             </li>
             <li>
-              <Link href="/tienda">Tienda</Link>
+              <Link href="/tienda">{t("homePage.navigation.store")}</Link>
             </li>
 
             {user ? (
@@ -49,13 +52,17 @@ function Menu({ user, logout, userIsAdminOrSales }) {
             ) : (
               <>
                 <li>
-                  <Link href="/registrarse">Crea tu cuenta</Link>
+                  <Link href="/registrarse">
+                    {t("homePage.navigation.signup")}
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/iniciar-sesion">Ingresa</Link>
+                  <Link href="/iniciar-sesion">
+                    {t("homePage.navigation.signin")}
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/#">Carrito</Link>
+                  <Link href="/#">{t("homePage.navigation.cart")}</Link>
                 </li>
               </>
             )}
@@ -67,6 +74,7 @@ function Menu({ user, logout, userIsAdminOrSales }) {
 }
 
 function Header() {
+  const { t } = useTranslation();
   const { user, loading, logout } = useUser();
   const [userIsAdminOrSales, setUserIsAdminOrSales] = useState(false);
   const { data, isLoading, isError } = useCart();
@@ -84,10 +92,10 @@ function Header() {
       <nav className="hidden md:block w-[400px]">
         <ul className="flex gap-4 font-medium">
           <li>
-            <Link href="/">Inicio</Link>
+            <Link href="/">{t("homePage.navigation.home")}</Link>
           </li>
           <li>
-            <Link href="/tienda">Tienda</Link>
+            <Link href="/tienda">{t("homePage.navigation.store")}</Link>
           </li>
         </ul>
       </nav>
@@ -108,8 +116,10 @@ function Header() {
         ) : (
           <div>
             <div className="font-medium hidden md:flex gap-4  ">
-              <Link href="/registrarse">Crea tu cuenta</Link>
-              <Link href="/iniciar-sesion">Ingresa</Link>
+              <Link href="/registrarse">{t("homePage.navigation.signup")}</Link>
+              <Link href="/iniciar-sesion">
+                {t("homePage.navigation.signin")}
+              </Link>
             </div>
 
             <div className="md:hidden">
