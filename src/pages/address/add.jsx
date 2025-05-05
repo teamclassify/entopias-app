@@ -3,12 +3,14 @@ import Form from "./components/Form";
 import { toast } from "sonner";
 import { useMutation , useQueryClient} from "@tanstack/react-query";
 import AddressService from "../../services/api/Address";
+import { useLocation } from "wouter";
 
 
 export default function AddAddress() {
   const queryClient = useQueryClient();
+  const [, setLocation] = useLocation();
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: (data) => {
       return AddressService.createAddress(data);
     },
@@ -16,8 +18,9 @@ export default function AddAddress() {
       if (data.data.error) {
         toast.error("Error al crear la dirección");
       } else {
-        toast.success("Dirección creada correctamente");
         queryClient.invalidateQueries(["direccion", 1, ""]);
+        toast.success("Dirección creada correctamente");
+        setLocation(`/carrito/direccion`);
       }
     },
     onError: (error) => {
@@ -35,7 +38,7 @@ export default function AddAddress() {
   return (
     <DefaultLayout>
       <h1 className="text-2xl font-bold mb-4">Agregar Dirección</h1>
-      <Form onSubmit={handleSubmit} isLoading={isPending} />
+      <Form onSubmit={handleSubmit} isLoading={isLoading} />
     </DefaultLayout>
   );
 }

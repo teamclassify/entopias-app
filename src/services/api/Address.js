@@ -22,7 +22,7 @@ async function getAddress() {
 
 async function createAddress({ city, country, postalCode, address }) {
   const token = await getToken();
-
+  console.log(token)
   try {
     const res = await axios({
       url: `${URL}/addresses`,

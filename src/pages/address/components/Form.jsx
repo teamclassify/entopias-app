@@ -12,21 +12,24 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import LocationSelector from "@/components/ui/location-input";
 
-// 1. Esquema de validación con zod
+
 const formSchema = z.object({
   city: z.string().min(1, "La ciudad es requerida"),
   country: z.string().min(1, "El país es requerido"),
+  state: z.string().min(1, "El estado es requerido"),
   postalCode: z.string().min(1, "El código postal es requerido"),
   address: z.string().min(1, "La dirección es requerida"),
 });
 
-// 2. Componente del formulario
+
 function Form({ onSubmit, isLoading }) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       city: "",
+      state: "",
       country: "",
       postalCode: "",
       address: "",
@@ -34,7 +37,7 @@ function Form({ onSubmit, isLoading }) {
   });
 
   const handleSubmit = (data) => {
-    onSubmit(data); // aquí llamas a createAddress(data)
+    onSubmit(data); 
   };
 
   return (
@@ -44,29 +47,47 @@ function Form({ onSubmit, isLoading }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <FormField
               control={form.control}
-              name="city"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ciudad</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Ej: Cúcuta" {...field} />
-                  </FormControl>
-                  <FormDescription>Ciudad de residencia</FormDescription>
-                  <FormMessage />
-                </FormItem>
+              name="country"
+              render={({ field: countryField }) => (
+                <FormField
+                  control={form.control}
+                  name="state"
+                  render={({ field: stateField }) => (
+                    <FormItem>
+                      <FormLabel>País y Estado</FormLabel>
+                      <div>
+                        <LocationSelector
+                          value={{
+                            country: countryField.value,
+                            state: stateField.value,
+                          }}
+                          onCountryChange={(country) => {
+                            countryField.onChange(country?.name || "");
+                            stateField.onChange("");
+                          }}
+                          onStateChange={(state) => {
+                            stateField.onChange(state?.name || "");
+                          }}
+                        />
+                      </div>
+                      <FormDescription>El país y estado</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               )}
             />
 
             <FormField
               control={form.control}
-              name="country"
+              name="city"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>País</FormLabel>
+                  <FormLabel>Ciudad</FormLabel>
                   <FormControl>
-                    <Input placeholder="Ej: Colombia" {...field} />
+                    <Input placeholder="Ej: Bogotá" {...field} />
                   </FormControl>
-                  <FormDescription>País de residencia</FormDescription>
+                  <FormDescription>Ciudad</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -102,10 +123,11 @@ function Form({ onSubmit, isLoading }) {
               )}
             />
           </div>
-
-          <Button className="mt-6" type="submit" disabled={isLoading}>
-            {isLoading ? "Guardando dirección..." : "Guardar dirección"}
-          </Button>
+          <div className="flex justify-end">
+            <Button className="mt-6" type="submit">
+              {isLoading ? "Guardando dirección..." : "Guardar dirección"}
+            </Button>
+          </div>
         </div>
       </form>
     </FormUI>
