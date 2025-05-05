@@ -2,6 +2,7 @@ import DefaultLayout from "@/components/layouts/DefaultLayout";
 import { useQuery } from "@tanstack/react-query";
 import AddressService from "../../services/api/Address";
 import { Button } from "@/components/ui/button";    
+import Message from "./components/Message";
 
 export default function Address() {
   const { data, isLoading, isError, isFetching } = useQuery({
@@ -14,7 +15,7 @@ export default function Address() {
 
   return (
     <DefaultLayout>
-      <h1>Elige una dirección</h1>
+      <h1 className="text-2xl font-bold pt-6">Elige una dirección</h1>
       <div>
         {data.data.length > 0 ? (
           <div className="grid grid-cols-2 gap-4">
@@ -29,7 +30,7 @@ export default function Address() {
           </div>
         ) : (
           <>
-            <p>No tienes direcciones guardadas</p>
+            <Message />
             <Button>Crear una dirección</Button>
           </>
         )}
