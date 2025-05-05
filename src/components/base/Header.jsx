@@ -14,6 +14,8 @@ import { BsCart4 } from "react-icons/bs";
 import { Link } from "wouter";
 import AvatarUser from "./AvatarUser";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { Loading } from "../ui/loading";
+import useCart from "../../hooks/useCart";
 
 function Menu({ user, logout, userIsAdminOrSales }) {
   const { t } = useTranslation();
@@ -75,7 +77,9 @@ function Header() {
   const { t } = useTranslation();
   const { user, loading, logout } = useUser();
   const [userIsAdminOrSales, setUserIsAdminOrSales] = useState(false);
+  const { data, isLoading, isError } = useCart();
 
+  
   useEffect(() => {
     if (!loading)
       setUserIsAdminOrSales(
@@ -98,7 +102,7 @@ function Header() {
 
       <div>
         <Link href="/">
-          <img src="/logo-alt.webp" alt="Logo de la tienda" className="h-12" />
+          <img src="/logo-alt.webp" alt="Logo de la tienda" className="w-46 sm:w-36" />
         </Link>
       </div>
 
@@ -128,11 +132,21 @@ function Header() {
           </div>
         )}
         <Link to="/carrito">
-          <button className="flex flex-row gap-1 items-center justify-center cursor-pointer max-lg:hidden">
-            <BsCart4 className="text-3xl" />
-            <div className="bg-white h-6 w-6 rounded-full text-black flex items-center justify-center">
-              0
-            </div>
+          <button className="relative flex flex-row items-center justify-center cursor-pointer max-lg:hidden">
+            {!isError && (
+              <>
+                <BsCart4 className="text-3xl" />
+                {isLoading ? (
+                  <div className="absolute top-0 right-0 h-5 w-5 rounded-full text-xs flex items-center justify-center z-10">
+                    <Loading />
+                  </div>
+                ) : (
+                  <div className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/3 bg-red-500 h-5 w-5 rounded-full text-xs text-white flex items-center justify-center z-10">
+                    {data.data.items.length}
+                  </div>
+                )}
+              </>
+            )}
           </button>
         </Link>
         <LanguageSwitcher />

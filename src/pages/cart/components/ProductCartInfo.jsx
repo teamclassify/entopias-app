@@ -19,7 +19,7 @@ export default function ProductCartInfo({ product, quantity, setQuantity }) {
           quantity={quantity}
           setQuantity={setQuantity}
           stock={product.variety.stock}
-          weightSelected={product.variety.id}
+          varietyId={product.variety.id}
           isCartPage={true}
         />
       </div>
