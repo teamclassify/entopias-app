@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import useCart from "@/hooks/useCart.js";
 import Quantity from "@/pages/cart/components/Quantity.jsx";
+import { ShoppingCart } from "lucide-react";
 
 function ProductDetail() {
   const { t } = useTranslation();
@@ -143,6 +144,7 @@ function ProductDetail() {
                       {isPending
                         ? t("products.adding_cart")
                          : t("products.add_cart")}
+                         <ShoppingCart />
                     </Button>
                   </div>
                 </CardContent>
