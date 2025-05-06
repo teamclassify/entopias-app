@@ -29,6 +29,7 @@ import OrdersManagment from "./pages/orders";
 import ViewDetails from "./pages/invoices/ViewDetails";
 import InvoicesManagment from "./pages/invoices";
 import OrderDetails from "./pages/orders/OrderDetails";
+import AddAddress from "./pages/address/add";
 
 function App() {
   return (
@@ -73,6 +74,7 @@ function App() {
         <Route component={ProductDetail} path="/producto/:id" />
         <Route component={Cart} path="/carrito" />
         <Route component={Address} path="/carrito/direccion"/>
+        <Route component={AddAddress} path="/carrito/direccion/nueva"/>
         <Route component={NotFoundPage} />
       </Switch>
     </>

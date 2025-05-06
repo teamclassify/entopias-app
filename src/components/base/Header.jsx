@@ -132,7 +132,7 @@ function Header() {
           </div>
         )}
         <Link to="/carrito">
-          <button className="relative flex flex-row items-center justify-center cursor-pointer max-lg:hidden">
+          <button className="relative flex flex-row items-center justify-center cursor-pointer">
             {!isError && (
               <>
                 <BsCart4 className="text-3xl" />

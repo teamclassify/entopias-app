@@ -15,11 +15,14 @@ function CheckoutForm() {
     const res = await paymentsService.createPaymentIntent({
       currency: "cop",
     });
-
     return res.data.session.client_secret;
   }, []);
 
   const options = { fetchClientSecret };
+
+  const selectedAddressId = localStorage.getItem("selectedAddressId");
+  console.log("Address", selectedAddressId);
+
 
   console.log(options);
 
