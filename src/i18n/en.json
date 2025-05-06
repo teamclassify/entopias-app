@@ -4,6 +4,22 @@
       "title": "A premium coffee for unique moments",
       "description": "Experience unforgettable moments with every cup of our coffee.",
 
+      "navigation": {
+        "home": "Home",
+        "about_us": "About Us",
+        "store": "Store",
+        "services": "Services",
+        "contact": "Contact",
+        "cart": "Cart",
+        "signin": "Sign In",
+        "signup": "Sign Up",
+        "logout": "Log Out",
+        "profile": "Profile",
+        "orders": "Orders",
+        "admin": "Admin",
+        "account": "Account"
+      },
+
       "about_us": {
         "title": "About Us",
         "description": "At Entopias Café, we live the passion for good coffee. We select high-quality beans directly from producers, ensuring authenticity and flavor in every cup. We focus on highlighting the best characteristics of each harvest through a careful process that guarantees freshness and excellence. More than a brand, we are a community that celebrates the coffee tradition, connecting coffee lovers with unique and authentic experiences."
@@ -11,8 +27,123 @@
 
       "our_products": {
         "title": "Our Products",
-        "description": "Explore our range of products designed to meet your needs."
+        "description": "Explore our range of products designed to meet your needs.",
+        "button": "See all products"
+      },
+
+      "services": {
+        "customer_service": {
+          "title": "Customer Service",
+          "description": "We provide high-quality service to our customers"
+        },
+        "delivery": {
+          "title": "National and international shipping",
+          "description": "We ship our coffee around the world"
+        },
+        "chatbot": {
+          "title": "Interact with our chatbot",
+          "description": "Discover which coffee is ideal for you"
+        }
+      },
+
+      "us_coffee_1": "Our special coffee is a sensory journey that awakens the senses with unique flavors and aromas.",
+      "us_coffee_2": "Each sip is a morning hug that brightens the day with sweet and toasted notes, creating a comforting ritual that fills you with energy and joy from the first aroma to the last sip.",
+
+      "contact": {
+        "title": "Contact Us",
+        "description": "We are here to help you. If you have any questions or concerns, feel free to reach out to us."
       }
+    },
+
+    "profile": {
+      "title": "My Profile",
+      "account": {
+        "title": "My Account"
+      },
+      "orders": {
+        "title": "My Orders"
+      },
+      "address": {
+        "title": "My Address"
+      }
+    },
+
+    "data_users": {
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "phone": "Phone",
+      "address": "Address",
+      "city": "City",
+      "state": "State",
+      "postalCode": "Postal Code",
+      "country": "Country",
+      "genre": "Genre",
+      "birthDate": "Birth Date"
+    },
+
+    "errors": {
+      "title": "An unexpected error occurred",
+      "description": "Please try again later.",
+      "notFound": {
+        "title": "Not found",
+        "description": "The page you are looking for does not exist."
+      }
+    },
+
+    "payments": {
+      "title": "Payments",
+      "description": "Hello {{name}}, please enter your credit card details to complete the payment.",
+      "success": {
+        "title": "Payment successful",
+        "description": "Hello {{name}}, your payment has been successful.",
+        "content": "Your transaction has been processed successfully. You will soon receive an email confirmation with the details of your order."
+      }
+    },
+
+    "products": {
+      "olfactory_notes": "Olfactory Notes",
+      "taste_notes": "Taste Notes",
+      "type": "Type",
+      "select_weight": "Select weight",
+      "adding_cart": "Adding to cart...",
+      "add_cart": "Add to cart",
+      "buy_now": "Buy now"
+    },
+
+    "verbs": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save",
+      "cancel": "Cancel",
+      "add": "Add",
+      "remove": "Remove",
+      "update": "Update",
+      "continue": "Continue",
+      "back": "Back",
+      "next": "Next",
+      "finish": "Finish",
+      "confirm": "Confirm",
+      "search": "Search",
+      "filter": "Filter",
+      "clear": "Clear",
+      "apply": "Apply",
+      "select": "Select",
+      "choose": "Choose",
+      "yes": "Yes",
+      "no": "No",
+      "ok": "OK",
+      "close": "Close",
+      "loading": "Loading...",
+      "empty": "No results found.",
+      "error": "An error occurred. Please try again.",
+      "success": "Success",
+      "warning": "Warning",
+      "info": "Information",
+      "alert": "Alert",
+      "notification": "Notification",
+      "welcome": "Welcome"
     }
   }
 }

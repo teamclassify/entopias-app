@@ -23,6 +23,16 @@ function ListOfBatchProducts({ searchByName }) {
     return <Error message={data?.msg} />;
   }
 
+  if (!data?.data) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-4 h-full">
+        <p>
+          No hay lotes registrados en la base de datos
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="pt-3">

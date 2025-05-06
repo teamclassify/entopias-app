@@ -138,6 +138,8 @@ export default function UserProvider({ children }) {
     };
   }, []);
 
+  //console.log(accessToken);
+
   // useEffect(() => {
   //   if (error) toast(error);
   // }, [error]);
@@ -170,6 +172,7 @@ export default function UserProvider({ children }) {
     return {
       token,
       user,
+      setUser,
       handleLogin,
       loginWithGoogle,
       logout,
