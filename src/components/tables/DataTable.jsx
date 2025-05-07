@@ -9,16 +9,25 @@ import {
 import {
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
-function DataTable({ columns, data, expandedRowId, onToggleExpand, ExpandedComponent }) {
+function DataTable({ columns, data, expandedRowId, ExpandedComponent }) {
+
+  const [sorting, setSorting] = useState([]);
+
   const table = useReactTable({
-    data,
+    data,  
     columns,
+    state: { sorting },
+    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   });
+
+  
 
   return (
     <div>

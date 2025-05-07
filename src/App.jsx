@@ -69,6 +69,7 @@ function App() {
           component={CreateProducerPage}
           path="/admin/productores/agregar"
         />
+        
         <Route component={ProducersListPage} path="/admin/productores" />
         <Route component={CreateBatchPage} path="/admin/lotes/agregar" />
         <Route component={ProductDetail} path="/producto/:id" />
@@ -76,6 +77,8 @@ function App() {
         <Route component={Address} path="/carrito/direccion"/>
         <Route component={AddAddress} path="/carrito/direccion/nueva"/>
         <Route component={NotFoundPage} />
+
+        
       </Switch>
     </>
   );
