@@ -101,11 +101,8 @@ export default function Address() {
             <Link to="/carrito/direccion/nueva">
               <Button variant="outline">{t("address.create_address")}</Button>
             </Link>
-            <Button
-              asChild
-              disabled={!selectedAddress}
-              onClick={handleContinue}
-            >
+
+            <Button onClick={handleContinue} disabled={!selectedAddress}>
               <Link to="/pagos">{t("payments.continue")}</Link>
             </Button>
           </div>
