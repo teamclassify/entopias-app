@@ -3,35 +3,31 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "wouter";
 import { Loading } from "../../components/ui/loading";
+import useUser from "../../hooks/useUser";
 import AddressService from "../../services/api/Address";
 import Message from "./components/Message";
 
 export default function Address() {
   const { t } = useTranslation();
+  const { selectedAddress, setSelectedAddress } = useUser();
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["addresses"],
     queryFn: () => AddressService.getAddress(),
   });
 
-  const [selectedAddressId, setSelectedAddressId] = useState(null);
-
   if (isError) return <p>Error al cargar las direcciones</p>;
 
-  const handleSelect = (id) => {
-    setSelectedAddressId(id === selectedAddressId ? null : id);
+  const handleSelect = (address) => {
+    setSelectedAddress(address.id === selectedAddress?.id ? null : address);
   };
 
   const handleContinue = () => {
-    if (selectedAddressId) {
-      localStorage.setItem(
-        "selectedAddressId",
-        data.data.find((address) => address.id === selectedAddressId)
-      );
+    if (selectedAddress) {
+      localStorage.setItem("selectedAddress", JSON.stringify(selectedAddress));
     }
   };
 
@@ -47,7 +43,7 @@ export default function Address() {
           {data.data.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {data?.data?.map((address) => {
-                const isSelected = selectedAddressId === address.id;
+                const isSelected = selectedAddress?.id === address.id;
 
                 return (
                   <div
@@ -63,7 +59,7 @@ export default function Address() {
                     <div className="absolute top-3 right-3">
                       <Checkbox
                         checked={isSelected}
-                        onCheckedChange={() => handleSelect(address.id)}
+                        onCheckedChange={() => handleSelect(address)}
                       />
                     </div>
 
@@ -107,7 +103,7 @@ export default function Address() {
             </Link>
             <Button
               asChild
-              disabled={!selectedAddressId}
+              disabled={!selectedAddress}
               onClick={handleContinue}
             >
               <Link to="/pagos">{t("payments.continue")}</Link>
