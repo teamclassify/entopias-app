@@ -1,4 +1,4 @@
-import { Eye, Dot } from 'lucide-react';
+import { Eye, Dot, ArrowUpDown } from 'lucide-react';
 import { useLocation } from 'wouter';
 
 export const columns = [
@@ -11,12 +11,19 @@ export const columns = [
         header: "Cliente",
     },
     {
-        accessorKey: "ubicacion",
+        accessorKey: "address",
         header: "Ubicación",
     },
     {
         accessorKey: "createdAt",
-        header: "Fecha de Emisión",
+        header: ({ column }) => (
+            <div className='flex flex-row items-center gap-3'>
+                <p>Fecha de emisión</p>
+                <button onClick={() => column.toggleSorting()} className='cursor-pointer'>
+                    <ArrowUpDown className='size-5' />
+                </button>
+            </div>
+        ),
         cell: ({ row }) => {
             const fechaISO = row.getValue("createdAt");
             const fecha = new Date(fechaISO);
@@ -36,7 +43,14 @@ export const columns = [
     },
     {
         accessorKey: "total",
-        header: "Monto Total",
+        header: ({ column }) => (
+            <div className='flex flex-row items-center gap-3'>
+                <p>Monto total</p>
+                <button onClick={() => column.toggleSorting()} className='cursor-pointer'> 
+                    <ArrowUpDown className='size-5'/>
+                </button>
+            </div>
+        ),
         cell: ({ row }) => {
             const valor = row.getValue("total");
 

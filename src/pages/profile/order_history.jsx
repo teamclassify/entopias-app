@@ -7,11 +7,12 @@ import { Error } from "../../components/ui/error";
 import DataTable from "../../components/tables/DataTable";
 import { columns } from "./components/Column";
 import { columnsItems } from "./components/ColumnItems";
+import Pagination from "../catalog/components/Pagination";
 
 
 function OrderHistory({ searchByName }) {
 
-    const [page] = useState(1);
+    const [page, setPage] = useState(1);
     const { user } = useUser();
     const [expandedRowId, setExpandedRowId] = useState(null);
 
@@ -46,7 +47,14 @@ function OrderHistory({ searchByName }) {
                 onToggleExpand={handleToggleExpand}
                 ExpandedComponent={({ row }) => (<DataTable columns={columnsItems} data={row.original.items} />)}
             />
-
+            <div className="mt-4">
+                <Pagination
+                    currentPage={page}
+                    totalItems={data?.data.count || 0}
+                    itemsPerPage={10}
+                    onPageChange={(page) => { setPage(page); }}
+                />
+            </div>
         </div>
     );
 };

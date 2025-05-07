@@ -5,6 +5,7 @@ import DataTable from "../../../components/tables/DataTable";
 import { columns } from "./Column";
 import OrdersService from "../../../services/api/Orders";
 import { useQuery } from "@tanstack/react-query";
+import Pagination from "../../catalog/components/Pagination";
 
 function ListOfOrders({ searchByName }) {
   const [page] = useState(1);
@@ -27,18 +28,14 @@ function ListOfOrders({ searchByName }) {
       <div className="pt-3">
         <DataTable columns={columns} data={data.data?.orders || []} />
       </div>
-      {/** 
-          <div className="mt-4">
-            <Pagination
-              currentPage={page}
-              totalItems={data.data.count || 0}
-              itemsPerPage={10}
-              onPageChange={(page) => {
-                setPage(page);
-              }}
-            />
-          </div>
-          */}
+      <div className="mt-4">
+        <Pagination
+          currentPage={page}
+          totalItems={data?.data.count || 0}
+          itemsPerPage={10}
+          onPageChange={(page) => { setPage(page); }}
+        />
+      </div>
     </div>
   );
 }
