@@ -99,7 +99,8 @@
         "title": "Payment successful",
         "description": "Hello {{name}}, your payment has been successful.",
         "content": "Your transaction has been processed successfully. You will soon receive an email confirmation with the details of your order."
-      }
+      },
+      "continue": "Continue shopping"
     },
 
     "products": {
@@ -110,6 +111,27 @@
       "adding_cart": "Adding to cart...",
       "add_cart": "Add to cart",
       "buy_now": "Buy now"
+    },
+
+    "address": {
+      "select_address": "Select address",
+      "add_address": "Add address",
+      "edit_address": "Edit address",
+      "delete_address": "Delete address",
+      "address_list": "Address list",
+      "create_address": "Create address",
+
+      "form": {
+        "title": "Address form",
+        "name": "Name",
+        "address": "Address",
+        "city": "City",
+        "state": "State",
+        "postalCode": "Postal Code",
+        "country": "Country",
+        "phone": "Phone",
+        "save": "Save address"
+      }
     },
 
     "verbs": {
