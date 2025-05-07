@@ -12,19 +12,23 @@ const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 
 function CheckoutForm() {
   const fetchClientSecret = useCallback(async () => {
+    const selectedAddress = localStorage.getItem("selectedAddress");
+
+    if (!selectedAddress) {
+      console.error("No address selected");
+      return;
+    }
+
+    const selectedAddressId = JSON.parse(selectedAddress).id;
+
     const res = await paymentsService.createPaymentIntent({
       currency: "cop",
+      address: selectedAddressId,
     });
     return res.data.session.client_secret;
   }, []);
 
   const options = { fetchClientSecret };
-
-  const selectedAddressId = localStorage.getItem("selectedAddressId");
-  console.log("Address", selectedAddressId);
-
-
-  console.log(options);
 
   return (
     <>
