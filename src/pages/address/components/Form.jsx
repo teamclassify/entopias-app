@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -9,11 +8,12 @@ import {
   Form as FormUI,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import LocationSelector from "@/components/ui/location-input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import LocationSelector from "@/components/ui/location-input";
+import { useTranslation } from "react-i18next";
 import { Link } from "wouter";
+import { z } from "zod";
 
 const formSchema = z.object({
   city: z.string().min(1, "La ciudad es requerida"),
@@ -24,6 +24,8 @@ const formSchema = z.object({
 });
 
 function Form({ onSubmit, isLoading }) {
+  const { t } = useTranslation();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,7 +55,7 @@ function Form({ onSubmit, isLoading }) {
                   name="state"
                   render={({ field: stateField }) => (
                     <FormItem>
-                      <FormLabel>País y Estado</FormLabel>
+                      <FormLabel>{t("address.form.country")}</FormLabel>
                       <div>
                         <LocationSelector
                           value={{
@@ -69,7 +71,6 @@ function Form({ onSubmit, isLoading }) {
                           }}
                         />
                       </div>
-                      <FormDescription>El país y estado</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -82,11 +83,10 @@ function Form({ onSubmit, isLoading }) {
               name="city"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Ciudad</FormLabel>
+                  <FormLabel>{t("address.form.city")}</FormLabel>
                   <FormControl>
                     <Input placeholder="Ej: Bogotá" {...field} />
                   </FormControl>
-                  <FormDescription>Ciudad</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -97,11 +97,10 @@ function Form({ onSubmit, isLoading }) {
               name="postalCode"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Código Postal</FormLabel>
+                  <FormLabel>{t("address.form.postalCode")}</FormLabel>
                   <FormControl>
                     <Input placeholder="Ej: 540001" {...field} />
                   </FormControl>
-                  <FormDescription>Código postal de tu zona</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -112,22 +111,23 @@ function Form({ onSubmit, isLoading }) {
               name="address"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Dirección</FormLabel>
+                  <FormLabel>{t("address.form.address")}</FormLabel>
                   <FormControl>
                     <Input placeholder="Ej: Calle 10 #15-20" {...field} />
                   </FormControl>
-                  <FormDescription>Dirección exacta</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <div className="flex items-center justify-end gap-3">
+          <div className="flex items-center justify-end gap-3 mt-4">
             <Link to="/carrito/direccion">
-              <Button variant="outline">Cancelar</Button>
+              <Button variant="outline">{t("verbs.cancel")}</Button>
             </Link>
             <Button type="submit">
-              {isLoading ? "Guardando dirección..." : "Guardar dirección"}
+              {isLoading
+                ? t("address.saving_address")
+                : t("address.save_address")}
             </Button>
           </div>
         </div>

@@ -1,12 +1,14 @@
 import DefaultLayout from "@/components/layouts/DefaultLayout";
-import Form from "./components/Form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { useMutation , useQueryClient} from "@tanstack/react-query";
-import AddressService from "../../services/api/Address";
 import { useLocation } from "wouter";
-
+import AddressService from "../../services/api/Address";
+import Form from "./components/Form";
 
 export default function AddAddress() {
+  const { t } = useTranslation();
+
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation();
 
@@ -37,7 +39,7 @@ export default function AddAddress() {
 
   return (
     <DefaultLayout>
-      <h1 className="text-2xl font-bold mb-4">Agregar Dirección</h1>
+      <h1 className="text-2xl font-bold mb-4">{t("address.add_address")}</h1>
       <Form onSubmit={handleSubmit} isLoading={isLoading} />
     </DefaultLayout>
   );

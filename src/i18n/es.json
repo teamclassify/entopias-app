@@ -123,6 +123,8 @@
       "delete_address": "Eliminar dirección",
       "address_list": "Lista de direcciones",
       "create_address": "Crear dirección",
+      "save_address": "Guardar dirección",
+      "saving_address": "Guardando dirección...",
 
       "form": {
         "title": "Formulario de dirección",

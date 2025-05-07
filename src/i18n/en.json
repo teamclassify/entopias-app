@@ -120,6 +120,8 @@
       "delete_address": "Delete address",
       "address_list": "Address list",
       "create_address": "Create address",
+      "save_address": "Save address",
+      "saving_address": "Saving address...",
 
       "form": {
         "title": "Address form",
