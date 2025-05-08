@@ -1,15 +1,18 @@
-import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import { Link } from "wouter";
 
 export default function PayButton({ buy, totalPrice }) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex justify-end pt-5">
       {!buy &&
         (totalPrice === 0 ? (
-          <Button disabled={totalPrice === 0}>Proceder al pago</Button>
+          <Button disabled={totalPrice === 0}>{t("cart.checkout")}</Button>
         ) : (
           <Link to="/carrito/direccion">
-            <Button>Proceder al pago</Button>
+            <Button>{t("cart.checkout")}</Button>
           </Link>
         ))}
     </div>

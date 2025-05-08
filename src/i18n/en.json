@@ -191,6 +191,20 @@
           "units": "Units"
         }
       }
+    },
+
+    "cart": {
+      "summary_title": "Shopping Cart",
+      "summary_description": "Review your order before proceeding to payment.",
+      "empty": "Your cart is empty.",
+      "continue_shopping": "Continue shopping",
+      "checkout": "Proceed to checkout",
+      "remove_item": "Remove item",
+      "remove_item_confirmation": "Are you sure you want to remove this item from the cart?",
+      "remove_item_success": "Item removed from cart.",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "shipping": "Shipping"
     }
   }
 }

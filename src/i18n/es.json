@@ -194,6 +194,20 @@
           "units": "Unidades"
         }
       }
+    },
+
+    "cart": {
+      "summary_title": "Resumen del carrito",
+      "summary_description": "Revisa tu pedido antes de proceder al pago.",
+      "empty": "Tu carrito está vacío.",
+      "continue_shopping": "Seguir comprando",
+      "checkout": "Proceder al pago",
+      "remove_item": "Eliminar artículo",
+      "remove_item_confirmation": "¿Estás seguro de que deseas eliminar este artículo del carrito?",
+      "remove_item_success": "Artículo eliminado del carrito.",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "shipping": "Envío"
     }
   }
 }
