@@ -7,12 +7,12 @@ import OrdersService from "../../../services/api/Orders";
 import { useQuery } from "@tanstack/react-query";
 import Pagination from "../../catalog/components/Pagination";
 
-function ListOfOrders({ searchByName }) {
-  const [page] = useState(1);
+function ListOfOrders() {
+  const [page, setPage] = useState(1);
 
   const { isPending, isError, data } = useQuery({
-    queryKey: ["orders", page, searchByName],
-    queryFn: () => OrdersService.getAllOrders({ page, search: searchByName }),
+    queryKey: ["orders", page],
+    queryFn: () => OrdersService.getAllOrders({ page }),
   });
 
   if (isPending) {
@@ -33,7 +33,9 @@ function ListOfOrders({ searchByName }) {
           currentPage={page}
           totalItems={data?.data.count || 0}
           itemsPerPage={10}
-          onPageChange={(page) => { setPage(page); }}
+          onPageChange={(page) => {
+            setPage(page);
+          }}
         />
       </div>
     </div>
