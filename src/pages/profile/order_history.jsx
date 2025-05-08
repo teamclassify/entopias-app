@@ -8,8 +8,11 @@ import OrdersService from "../../services/api/Orders";
 import Pagination from "../catalog/components/Pagination";
 import { columns } from "./components/Column";
 import { columnsItems } from "./components/ColumnItems";
+import { useTranslation } from "react-i18next";
 
 function OrderHistory({ searchByName }) {
+  const { t } = useTranslation();
+
   const [page, setPage] = useState(1);
   const { user } = useUser();
   const [expandedRowId, setExpandedRowId] = useState(null);
@@ -42,7 +45,7 @@ function OrderHistory({ searchByName }) {
   return (
     <div className="flex flex-col w-full gap-6">
       <div className="flex flex-row justify-between py-4">
-        <p className="font-bold text-[20px]">Mis pedidos</p>
+        <p className="font-bold text-[20px]">{t("profile.orders.title")}</p>
       </div>
       <DataTable
         columns={getColumns}
