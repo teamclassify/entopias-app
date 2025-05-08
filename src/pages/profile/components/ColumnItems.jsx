@@ -1,16 +1,42 @@
+import { Translation } from "react-i18next";
+
 export const columnsItems = [
   {
     accessorKey: "variety.product.name",
-    header: "Producto",
+    header: (
+      <Translation>
+        {(t) => (
+          <span className="text-center">
+            {t("tables.products.columns.name")}
+          </span>
+        )}
+      </Translation>
+    ),
   },
   {
     accessorKey: "quantity",
-    header: "Unidades",
+    header: (
+      <Translation>
+        {(t) => (
+          <span className="text-center">
+            {t("tables.products.columns.units")}
+          </span>
+        )}
+      </Translation>
+    ),
   },
   {
     accessorFn: (row) => row.variety.price,
     id: "variety.price",
-    header: "Precio Unitario",
+    header: (
+      <Translation>
+        {(t) => (
+          <span className="text-center">
+            {t("tables.products.columns.price")}
+          </span>
+        )}
+      </Translation>
+    ),
     cell: ({ row }) => {
       const valor = row.getValue("variety.price");
 

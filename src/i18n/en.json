@@ -168,6 +168,29 @@
       "alert": "Alert",
       "notification": "Notification",
       "welcome": "Welcome"
+    },
+
+    "tables": {
+      "orders": {
+        "title": "Orders",
+        "columns": {
+          "id": "ID",
+          "date": "Date",
+          "status": "Status",
+          "total": "Total",
+          "address": "Address"
+        }
+      },
+      "products": {
+        "title": "Products",
+        "columns": {
+          "id": "ID",
+          "name": "Name",
+          "price": "Price",
+          "stock": "Stock",
+          "units": "Units"
+        }
+      }
     }
   }
 }

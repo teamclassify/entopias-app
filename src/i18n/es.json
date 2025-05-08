@@ -171,6 +171,29 @@
       "alert": "Alerta",
       "notification": "Notificación",
       "welcome": "Bienvenido"
+    },
+
+    "tables": {
+      "orders": {
+        "title": "Pedidos",
+        "columns": {
+          "id": "ID",
+          "date": "Fecha",
+          "status": "Estado",
+          "total": "Total",
+          "address": "Dirección"
+        }
+      },
+      "products": {
+        "title": "Productos",
+        "columns": {
+          "id": "ID",
+          "name": "Nombre",
+          "price": "Precio",
+          "stock": "Stock",
+          "units": "Unidades"
+        }
+      }
     }
   }
 }
