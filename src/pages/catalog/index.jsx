@@ -5,9 +5,11 @@ import { Error } from "@/components/ui/error";
 import ListProducts from "./components/ListProducts";
 import PaginationSummary from "./components/PaginationSummary";
 import useProduct from "../../hooks/useProducts";
+import { Input } from "@/components/ui/input";
 
 function Index() {
-  const { data, isError, page, setPage } = useProduct();
+  const { data, isError, page, setPage, setSearchByName } =
+    useProduct();
 
   if (isError || data?.error) {
     return <Error message={data?.msg || "An unexpected error occurred"} />;
@@ -21,7 +23,12 @@ function Index() {
             <AccordionFilter />
           </aside>
           <main className="w-full md:w-3/4">
-            <PaginationSummary/>
+            <Input
+              placeholder="Buscar producto"
+              onChange={(e) => setSearchByName(e.target.value)}
+              className="mb-4"
+            />
+            <PaginationSummary />
             <ListProducts/>
           </main>
         </div>

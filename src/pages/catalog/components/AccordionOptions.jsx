@@ -6,7 +6,6 @@ import {
 import { CheckboxDemo } from "./CheckboxDemo";
 
 export default function AccordionOption({ name, options, /*handleSelect*/ }) {
-  console.log(options)
 
   return (
     <AccordionItem value={1}>
