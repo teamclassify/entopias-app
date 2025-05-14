@@ -1,7 +1,10 @@
-import { Loading } from "../../../components/ui/loading";
+import { Loading } from "@/components/ui/loading";
 import CardProduct from "./CardProduct";
+import useProduct from "@/hooks/useProducts";
 
-export default function ListProducts({ data, isLoading }) {
+export default function ListProducts() {
+  const { data, isLoading } = useProduct();
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
       {isLoading ? (
