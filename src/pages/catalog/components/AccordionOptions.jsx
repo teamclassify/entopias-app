@@ -5,18 +5,18 @@ import {
 } from "@/components/ui/accordion";
 import { CheckboxDemo } from "./CheckboxDemo";
 
-export default function AccordionOption({ name, options, /*handleSelect*/ }) {
+export default function AccordionOption({ name, options}) {
+  console.log(options)
 
   return (
     <AccordionItem value={1}>
       <AccordionTrigger>{name}</AccordionTrigger>
       <AccordionContent className="flex flex-col gap-3">
-        {options.map((option) => (
+        {[...options].map((option) => (
           <CheckboxDemo
-            key={option.id}
-            name={option.type}
+            name={option}
             //onChange={handleSelect}
-            filter={option.name}
+            filter={option}
           />
         ))}
       </AccordionContent>

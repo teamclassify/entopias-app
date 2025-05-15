@@ -1,5 +1,5 @@
 import { Accordion } from "@/components/ui/accordion";
-import Filters from "./Filters";
+import  Filters  from "./Filters";
 
 export default function AccordionFilter() {
   return (
