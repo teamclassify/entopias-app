@@ -5,9 +5,7 @@ import {
 } from "@/components/ui/accordion";
 import { CheckboxDemo } from "./CheckboxDemo";
 
-export default function AccordionOption({ name, options}) {
-  console.log(options)
-
+export default function AccordionOption({ name, options }) {
   return (
     <AccordionItem value={1}>
       <AccordionTrigger>{name}</AccordionTrigger>

@@ -1,10 +1,6 @@
-import { Skeleton } from "@/components/ui/skeleton";
-//import { useQuery } from "react-query";
-//import AttributesService from "../../services/api/AttributesService";
 import AccordionOption from "./AccordionOptions";
 import useProduct from "../../../hooks/useProducts";
 import { Loading } from "@/components/ui/loading";
-// import { mockProducts } from "../../../mocks/product";
 import { useEffect, useState } from "react";
 
 export default function Filters() {
@@ -13,7 +9,6 @@ export default function Filters() {
   const [weightCoffe, setWeightCoffe] = useState([]);
   const [priceCoffe, setPriceCoffe] = useState([]);
   const [aromaCoffe, setAromaCoffe] = useState([]);
-  // const dataTwo = mockProducts;
 
   useEffect(() => {
     if (!data?.data?.products) return;
@@ -22,6 +17,7 @@ export default function Filters() {
     const weightSet = new Set();
     const priceSet = new Set();
     const aromaSet = new Set();
+    
     Object.entries(data.data.products).forEach(([, value]) => {
       typeSet.add(value.type);
       value.varieties.forEach((variety) => {
