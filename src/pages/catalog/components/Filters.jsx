@@ -7,6 +7,7 @@ export default function Filters() {
   const { data, isLoading } = useProduct();
   const [typeCoffe, setTypeCoffe] = useState([]);
   const [weightCoffe, setWeightCoffe] = useState([]);
+  /**Static for now */
   const [priceCoffe, setPriceCoffe] = useState([]);
   const [aromaCoffe, setAromaCoffe] = useState([]);
 
@@ -17,18 +18,22 @@ export default function Filters() {
     const weightSet = new Set();
     const priceSet = new Set();
     const aromaSet = new Set();
-    
+    priceSet.add("Hasta 15.000$");
+    priceSet.add("Desde 15.000$ hasta 30.000$");
+    priceSet.add("Más de 30.000$");
+
     Object.entries(data.data.products).forEach(([, value]) => {
       typeSet.add(value.type);
       value.varieties.forEach((variety) => {
         weightSet.add(variety.weight);
-        priceSet.add(variety.price);
+        //priceSet.add(variety.price);
       });
       value.batches.forEach((aroma) => {
         aromaSet.add(aroma.aromaticNotes);
       });
     });
     setTypeCoffe(typeSet);
+
     setPriceCoffe(priceSet);
     setWeightCoffe(weightSet);
     setAromaCoffe(aromaSet);

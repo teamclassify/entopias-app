@@ -11,11 +11,13 @@ export default function AccordionOption({ name, options }) {
       <AccordionTrigger>{name}</AccordionTrigger>
       <AccordionContent className="flex flex-col gap-3">
         {[...options].map((option) => (
-          <CheckboxDemo
-            name={option}
-            //onChange={handleSelect}
-            filter={option}
-          />
+          <>
+            <CheckboxDemo
+              name={name === "Peso" ? (option += " gr") : option}
+              //onChange={handleSelect}
+              filter={option}
+            />
+          </>
         ))}
       </AccordionContent>
     </AccordionItem>
