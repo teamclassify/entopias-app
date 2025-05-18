@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 function Index() {
   const { data, isError, page, setPage, setSearchByName } =
     useProduct();
+    console.log("Data de los filtros", data);
 
   if (isError || data?.error) {
     return <Error message={data?.msg || "An unexpected error occurred"} />;
@@ -34,7 +35,7 @@ function Index() {
         </div>
         <Pagination
           currentPage={page}
-          totalItems={data?.data.count || 0}
+          totalItems={data?.data?.count ? data.data.count : 0}
           itemsPerPage={10}
           onPageChange={setPage}
         />

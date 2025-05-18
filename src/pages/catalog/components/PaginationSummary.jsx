@@ -7,7 +7,7 @@ export default function PaginationSummary() {
     <div>
       <p className="font-bold pb-3">
         Mostrando {(page - 1) * 10 + 1} -{" "}
-        {Math.min(page * 10, data?.data.count || 0)} de {data?.data.count || 0}{" "}
+        {Math.min(page * 10, data?.data?.count ? data.data.count : 0)} de {data?.data?.count ? data.data.count : 0}{" "}
         resultados
       </p>
     </div>

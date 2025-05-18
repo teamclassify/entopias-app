@@ -1,43 +1,11 @@
 import AccordionOption from "./AccordionOptions";
 import useProduct from "../../../hooks/useProducts";
 import { Loading } from "@/components/ui/loading";
-import { useEffect, useState } from "react";
+import { useFilterOption } from "../../../hooks/useFilterOption";
 
 export default function Filters() {
-  const { data, isLoading } = useProduct();
-  const [typeCoffe, setTypeCoffe] = useState([]);
-  const [weightCoffe, setWeightCoffe] = useState([]);
-  /**Static for now */
-  const [priceCoffe, setPriceCoffe] = useState([]);
-  const [aromaCoffe, setAromaCoffe] = useState([]);
-
-  useEffect(() => {
-    if (!data?.data?.products) return;
-
-    const typeSet = new Set();
-    const weightSet = new Set();
-    const priceSet = new Set();
-    const aromaSet = new Set();
-    priceSet.add("Hasta 15.000$");
-    priceSet.add("Desde 15.000$ hasta 30.000$");
-    priceSet.add("Más de 30.000$");
-
-    Object.entries(data.data.products).forEach(([, value]) => {
-      typeSet.add(value.type);
-      value.varieties.forEach((variety) => {
-        weightSet.add(variety.weight);
-        //priceSet.add(variety.price);
-      });
-      value.batches.forEach((aroma) => {
-        aromaSet.add(aroma.aromaticNotes);
-      });
-    });
-    setTypeCoffe(typeSet);
-
-    setPriceCoffe(priceSet);
-    setWeightCoffe(weightSet);
-    setAromaCoffe(aromaSet);
-  }, [data?.data?.products]);
+  const { isLoading, handleSelect } = useProduct();
+  const filtersOptions = useFilterOption();
 
   return (
     <>
@@ -45,10 +13,14 @@ export default function Filters() {
         <Loading />
       ) : (
         <>
-          <AccordionOption name="Precio" options={priceCoffe} />
-          <AccordionOption name="Tipo" options={typeCoffe} />
-          <AccordionOption name="Peso" options={weightCoffe} />
-          <AccordionOption name="Aroma" options={aromaCoffe} />
+          {filtersOptions.map((filter) => (
+            <AccordionOption
+              key={filter.name}
+              nameFilter={filter.name}
+              options={filter.options}
+              handleSelect={handleSelect}
+            />
+          ))}
         </>
       )}
     </>
