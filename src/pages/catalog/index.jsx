@@ -8,9 +8,7 @@ import useProduct from "../../hooks/useProducts";
 import { Input } from "@/components/ui/input";
 
 function Index() {
-  const { data, isError, page, setPage, setSearchByName } =
-    useProduct();
-    console.log("Data de los filtros", data);
+  const { data, isError, page, setPage, setSearchByName } = useProduct();
 
   if (isError || data?.error) {
     return <Error message={data?.msg || "An unexpected error occurred"} />;
@@ -30,7 +28,7 @@ function Index() {
               className="mb-4"
             />
             <PaginationSummary />
-            <ListProducts/>
+            <ListProducts />
           </main>
         </div>
         <Pagination

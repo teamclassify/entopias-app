@@ -9,6 +9,16 @@ export const ProductProvider = ({ children }) => {
   const [searchByName, setSearchByName] = useState("");
   const [text] = useDebounce(searchByName, 500);
   const [page, setPage] = useState(1);
+  const [typeCoffe, setTypeCoffe] = useState([]);
+  const [weightCoffe, setWeightCoffe] = useState([]);
+  const [priceCoffe, setPriceCoffe] = useState([]);
+  const [aromaCoffe, setAromaCoffe] = useState([]);
+  const [filter, setFilter] = useState({
+    type: "",
+    weight: "",
+    price: "",
+    aroma: "",
+  });
 
   /**
    * Get all the products
@@ -22,11 +32,6 @@ export const ProductProvider = ({ children }) => {
         search: text,
       }),
   });
-
-  const [typeCoffe, setTypeCoffe] = useState([]);
-  const [weightCoffe, setWeightCoffe] = useState([]);
-  const [priceCoffe, setPriceCoffe] = useState([]);
-  const [aromaCoffe, setAromaCoffe] = useState([]);
 
   useEffect(() => {
     if (!data?.data?.products) return;
@@ -57,7 +62,7 @@ export const ProductProvider = ({ children }) => {
 
   const [dataFilter, setDataFilter] = useState(data);
 
-  const handleSelect = (name, filter) => {
+  const handleSelect = (category, option, checked) => {
     const newData = {
       data: {
         products: [],
@@ -65,9 +70,14 @@ export const ProductProvider = ({ children }) => {
       },
     };
 
-    if (filter === "Tipo") {
+    //TO-Do
+    //Toca jugar con el filter, si el filtro ya existe y el checked es false lo quito
+    //Si el filtro no existe y el checked es true lo agrego
+
+
+    if (category === "Tipo") {
       const newTypeCoffe = data.data.products.filter(
-        (product) => product.type === name
+        (product) => product.type === option
       );
       newData.data.count = newTypeCoffe.length ? newTypeCoffe.length : 0;
       newData.data.products.push(...newTypeCoffe);
