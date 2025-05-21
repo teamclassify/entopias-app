@@ -13,9 +13,9 @@ export default function Filters() {
         <Loading />
       ) : (
         <>
-          {filtersOptions.map((filter) => (
+          {filtersOptions.map((filter, index) => (
             <AccordionOption
-              key={filter.name}
+              key={`${filter.name}-${index}`}
               nameFilter={filter.name}
               options={filter.options}
               handleSelect={handleSelect}

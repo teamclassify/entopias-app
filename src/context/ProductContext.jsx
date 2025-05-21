@@ -25,7 +25,6 @@ export const ProductProvider = ({ children }) => {
 
   const [typeCoffe, setTypeCoffe] = useState([]);
   const [weightCoffe, setWeightCoffe] = useState([]);
-  /**Static for now */
   const [priceCoffe, setPriceCoffe] = useState([]);
   const [aromaCoffe, setAromaCoffe] = useState([]);
 
