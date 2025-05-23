@@ -62,6 +62,43 @@ export const ProductProvider = ({ children }) => {
 
   const [dataFilter, setDataFilter] = useState(data);
 
+  const applyFilter = (category, option, checked) => {
+    switch (category) {
+      case "Tipo":
+        category = "type";
+        break;
+      case "Peso":
+        category = "weight";
+        break;
+      case "Precio":
+        category = "price";
+        break;
+      case "Aroma":
+        category = "aroma";
+        break;
+      default:
+        break;
+    }
+
+    if (!filter[category]) {
+      const newFilter = {
+        ...filter,
+        [category]: option,
+      };
+      setFilter(newFilter);
+      return newFilter;
+    } else {
+      if (!checked) {
+        const newFilter = {
+          ...filter,
+          [category]: "",
+        };
+        setFilter(newFilter);
+        return newFilter;
+      }
+    }
+  };
+
   const handleSelect = (category, option, checked) => {
     const newData = {
       data: {
@@ -70,20 +107,31 @@ export const ProductProvider = ({ children }) => {
       },
     };
 
-    //TO-Do
-    //Toca jugar con el filter, si el filtro ya existe y el checked es false lo quito
-    //Si el filtro no existe y el checked es true lo agrego
+    const newFilter = applyFilter(category, option, checked);
+    // console.log("Esto es lo que llega", newFilter);
+    let newCoffeFilter = [];
 
-
-    if (category === "Tipo") {
-      const newTypeCoffe = data.data.products.filter(
-        (product) => product.type === option
+    if (newFilter.type) { //Si no hay tipo, no se filtra
+      newCoffeFilter = data.data.products.filter(
+        (product) => product.type === newFilter.type
       );
-      newData.data.count = newTypeCoffe.length ? newTypeCoffe.length : 0;
-      newData.data.products.push(...newTypeCoffe);
+      if (newFilter.weight) {
+        newCoffeFilter.forEach((product) => {
+          const newWeightCoffe = product.varieties.filter(
+            (variety) => variety.weight === newFilter.weight
+          );
+          if (newFilter.aroma) {
+            newCoffeFilter = newWeightCoffe.filter(
+              (variety) => variety.aroma === newFilter.aroma
+            );
+          }
+        });
+      }
+      newData.data.products.push(...newCoffeFilter);
+      newData.data.count++;
       setDataFilter(newData);
-    }else{
-      console.log("Esto es lo que llega cuando no hay filtro", filter)
+    } else {
+      setDataFilter(data);
     }
   };
 
