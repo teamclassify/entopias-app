@@ -97,7 +97,7 @@ function ProductDetail() {
                       <span className="font-semibold">
                         {t("products.olfactory_notes")}:
                       </span>{" "}
-                      {data?.data?.batches[0]?.aromaNotes ?? "No aplica"}
+                      {data?.data?.batches[0]?.aromaticNotes ?? "No aplica"}
                     </p>
                     <p>
                       <span className="font-semibold">

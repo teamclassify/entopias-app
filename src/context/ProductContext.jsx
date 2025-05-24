@@ -110,7 +110,12 @@ export const ProductProvider = ({ children }) => {
     const newFilter = applyFilter(category, option, checked);
     let newCoffeFilter = [];
 
-    if(!newFilter.price && !newFilter.type && !newFilter.weight && !newFilter.aroma) {
+    if (
+      !newFilter.price &&
+      !newFilter.type &&
+      !newFilter.weight &&
+      !newFilter.aroma
+    ) {
       setDataFilter(data);
       return;
     }
@@ -123,26 +128,37 @@ export const ProductProvider = ({ children }) => {
       newCoffeFilter = data.data.products;
     }
 
-    console.log(newCoffeFilter)
-
     if (newFilter.weight) {
+      const auxCoffeFilter = [];
       newCoffeFilter.forEach((product) => {
-        newCoffeFilter = product.varieties.filter(
-          (variety) => variety.weight === parseInt(newFilter.weight)
-        );
+        product.varieties.filter((variety) => {
+          variety.weight === parseInt(newFilter.weight)
+            ? auxCoffeFilter.push(product)
+            : null;
+        });
       });
+      newCoffeFilter = auxCoffeFilter;
     }
 
     if (newFilter.aroma) {
+      const auxCoffeFilter = [];
       newCoffeFilter.forEach((product) => {
-        newCoffeFilter = product.batches.filter(
-          (variety) => variety.aroma === newFilter.aroma
-        );
+        let added = false;
+        product.batches.filter((variety) => {
+          if (variety.aromaticNotes === newFilter.aroma && !added) {
+            auxCoffeFilter.push(product);
+            added = true;
+          }else {
+            return null;
+          }
+        });
       });
+      newCoffeFilter = auxCoffeFilter;
     }
     newData.data.products.push(...newCoffeFilter);
-    newData.data.count++;
+    newData.data.count = newCoffeFilter.length;
     setDataFilter(newData);
+    // console.log("Si llega hasta aca", newData);
   };
 
   return (
