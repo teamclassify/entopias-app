@@ -108,31 +108,41 @@ export const ProductProvider = ({ children }) => {
     };
 
     const newFilter = applyFilter(category, option, checked);
-    // console.log("Esto es lo que llega", newFilter);
     let newCoffeFilter = [];
 
-    if (newFilter.type) { //Si no hay tipo, no se filtra
+    if(!newFilter.price && !newFilter.type && !newFilter.weight && !newFilter.aroma) {
+      setDataFilter(data);
+      return;
+    }
+
+    if (newFilter.type) {
       newCoffeFilter = data.data.products.filter(
         (product) => product.type === newFilter.type
       );
-      if (newFilter.weight) {
-        newCoffeFilter.forEach((product) => {
-          const newWeightCoffe = product.varieties.filter(
-            (variety) => variety.weight === newFilter.weight
-          );
-          if (newFilter.aroma) {
-            newCoffeFilter = newWeightCoffe.filter(
-              (variety) => variety.aroma === newFilter.aroma
-            );
-          }
-        });
-      }
-      newData.data.products.push(...newCoffeFilter);
-      newData.data.count++;
-      setDataFilter(newData);
     } else {
-      setDataFilter(data);
+      newCoffeFilter = data.data.products;
     }
+
+    console.log(newCoffeFilter)
+
+    if (newFilter.weight) {
+      newCoffeFilter.forEach((product) => {
+        newCoffeFilter = product.varieties.filter(
+          (variety) => variety.weight === parseInt(newFilter.weight)
+        );
+      });
+    }
+
+    if (newFilter.aroma) {
+      newCoffeFilter.forEach((product) => {
+        newCoffeFilter = product.batches.filter(
+          (variety) => variety.aroma === newFilter.aroma
+        );
+      });
+    }
+    newData.data.products.push(...newCoffeFilter);
+    newData.data.count++;
+    setDataFilter(newData);
   };
 
   return (
