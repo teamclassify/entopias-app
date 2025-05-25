@@ -33,6 +33,7 @@ export const ProductProvider = ({ children }) => {
       }),
   });
 
+
   useEffect(() => {
     if (!data?.data?.products) return;
 
@@ -83,7 +84,7 @@ export const ProductProvider = ({ children }) => {
     if (!filter[category]) {
       const newFilter = {
         ...filter,
-        [category]: option,
+        [category]: option
       };
       setFilter(newFilter);
       return newFilter;
@@ -99,6 +100,7 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
+
   const handleSelect = (category, option, checked) => {
     const newData = {
       data: {
@@ -108,6 +110,7 @@ export const ProductProvider = ({ children }) => {
     };
 
     const newFilter = applyFilter(category, option, checked);
+
     let newCoffeFilter = [];
 
     if (
@@ -140,6 +143,28 @@ export const ProductProvider = ({ children }) => {
       newCoffeFilter = auxCoffeFilter;
     }
 
+    if(newFilter.price){
+      const auxCoffeFilter = [];
+      newCoffeFilter.forEach((product) => {
+        product.varieties.filter((variety) => {
+          if (newFilter.price === "Hasta 15.000$") {
+            if (variety.price <= 15000) {
+              auxCoffeFilter.push(product);
+            }
+          } else if (newFilter.price === "Desde 15.000$ hasta 30.000$") {
+            if (variety.price > 15000 && variety.price <= 30000) {
+              auxCoffeFilter.push(product);
+            }
+          } else if (newFilter.price === "Más de 30.000$") {
+            if (variety.price > 30000) {
+              auxCoffeFilter.push(product);
+            }
+          }
+        });
+      });
+      newCoffeFilter = auxCoffeFilter;
+    }
+
     if (newFilter.aroma) {
       const auxCoffeFilter = [];
       newCoffeFilter.forEach((product) => {
@@ -158,7 +183,6 @@ export const ProductProvider = ({ children }) => {
     newData.data.products.push(...newCoffeFilter);
     newData.data.count = newCoffeFilter.length;
     setDataFilter(newData);
-    // console.log("Si llega hasta aca", newData);
   };
 
   return (
