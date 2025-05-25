@@ -7,21 +7,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "wouter";
+import { useQuery } from "@tanstack/react-query";
+import { Link, useParams } from "wouter";
 import { Loading } from "../../components/ui/loading";
-import Quantity from "../cart/components/Quantity";
 import ProductsService from "../../services/api/Products";
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import CartServices from "../../services/api/Cart";
+import useCart from "@/hooks/useCart.js";
+import Quantity from "@/pages/cart/components/Quantity.jsx";
+import { ShoppingCart } from "lucide-react";
 
 function ProductDetail() {
+  const { t } = useTranslation();
   const params = useParams();
   const { id } = params;
   const [quantity, setQuantity] = useState(1);
-
-  const queryClient = useQueryClient();
+  const { handleUpdateData, isPending } = useCart();
 
   const { data, isLoading } = useQuery({
     queryKey: ["products-page", id],
@@ -29,46 +30,27 @@ function ProductDetail() {
     enabled: !!id,
   });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: () => {
-      return CartServices.add(weightSelected, quantity);
-    },
-    onSuccess: (data) => {
-      if (data.data.error) {
-        toast.error("Error al agregar el producto al carrito");
-      } else {
-        toast.success("Producto agregado al carrito");
-        queryClient.invalidateQueries({ queryKey: ["cart"] });
-      }
-    },
-    onError: (error) => {
-      const message = error?.response?.data?.message || "Ocurrió un error";
-
-      toast.error(message);
-    },
-  });
-
   const getStock = () => {
-    const variety = data?.data.varieties.find((v) => v.id === weightSelected);
+    const variety = data?.data.varieties.find((v) => v.id === varietyId);
     return variety ? variety.stock : 0;
   };
 
-  const [weightSelected, setWeightSelected] = useState(0);
+  const [varietyId, setVarietyId] = useState(0);
   const stockValue = getStock();
 
   const handleAddCart = () => {
-    return mutate(data);
+    handleUpdateData(varietyId, quantity, false);
   };
 
   const url = "/cafe.webp"; //Cuando no hay foto disponible
 
   const price =
     data?.data?.varieties
-      .find((variety) => variety.id === weightSelected)
+      .find((variety) => variety.id === varietyId)
       ?.price.toLocaleString("es-CO") || "No aplica";
 
   useEffect(() => {
-    setWeightSelected(data?.data?.varieties[0].id);
+    setVarietyId(data?.data?.varieties[0].id);
   }, [data]);
 
   return (
@@ -112,27 +94,31 @@ function ProductDetail() {
 
                   <div className="text-gray-700 text-sm space-y-4">
                     <p>
-                      <span className="font-semibold">Notas olfativas:</span>{" "}
+                      <span className="font-semibold">
+                        {t("products.olfactory_notes")}:
+                      </span>{" "}
                       {data?.data?.batches[0]?.aromaNotes ?? "No aplica"}
                     </p>
                     <p>
-                      <span className="font-semibold">Tipo:</span>{" "}
+                      <span className="font-semibold">
+                        {t("products.type")}:
+                      </span>{" "}
                       {data?.data?.type ?? "No aplica"}
                     </p>
 
                     <h3 className="text-md font-semibold">
-                      Selecciona el peso
+                      {t("products.select_weight")}
                     </h3>
                     <div className="flex flex-row gap-2">
                       {data.data.varieties.map((variety) => (
                         <div
                           key={variety.id}
                           className={`rounded-md border p-2 cursor-pointer transition-all duration-300 ${
-                            weightSelected === variety.id
+                            varietyId === variety.id
                               ? "bg-secondary text-white border-secondary"
                               : ""
                           }`}
-                          onClick={() => setWeightSelected(variety.id)}
+                          onClick={() => setVarietyId(variety.id)}
                         >
                           <p>{variety.weight} gr</p>
                         </div>
@@ -146,19 +132,29 @@ function ProductDetail() {
                       quantity={quantity}
                       setQuantity={setQuantity}
                       stock={stockValue}
-                      weightSelected={weightSelected}
+                      varietyId={varietyId}
+                      isCartPage={false}
                     />
-                    <Button variant="outline" onClick={handleAddCart}>
+                    <Button
+                      variant="outline"
+                      onClick={handleAddCart}
+                      disabled={isPending}
+                      className="p-6 border-1"
+                    >
                       {isPending
-                        ? "Añadiendo al carrito.."
-                        : "Añadir al carrito"}
+                        ? t("products.adding_cart")
+                         : t("products.add_cart")}
+                         <ShoppingCart />
                     </Button>
                   </div>
                 </CardContent>
 
                 <CardFooter className="flex">
-                  <Button className="bg-black text-white w-full">
-                    Comprar producto
+                  <Button
+                    className="bg-black text-white w-full"
+                    onClick={handleAddCart}
+                  >
+                    <Link href="/carrito">{t("products.buy_now")}</Link>
                   </Button>
                 </CardFooter>
               </Card>

@@ -14,7 +14,6 @@ async function getAddress() {
         Authorization: `Bearer ${token}`,
       },
     });
-
     return res.data;
   } catch (error) {
     return handleAxiosError(error);
@@ -23,7 +22,6 @@ async function getAddress() {
 
 async function createAddress({ city, country, postalCode, address }) {
   const token = await getToken();
-
   try {
     const res = await axios({
       url: `${URL}/addresses`,

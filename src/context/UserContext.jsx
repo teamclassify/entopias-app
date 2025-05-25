@@ -23,6 +23,7 @@ export default function UserProvider({ children }) {
   const [name, setName] = useState("");
   const [birthday, setBirthday] = useState("");
   const [loading, setLoading] = useState(true);
+  const [selectedAddress, setSelectedAddress] = useState(null);
 
   const registerWithEmail = async (email, password, name, birthdate) => {
     setName(name);
@@ -108,7 +109,6 @@ export default function UserProvider({ children }) {
   useEffect(() => {
     const unsuscribeStateChanged = auth.onAuthStateChanged(async (user) => {
       if (user) {
-
         const userInfo = {
           email: user.email,
           id: user.uid,
@@ -138,7 +138,7 @@ export default function UserProvider({ children }) {
     };
   }, []);
 
-  console.log(accessToken);
+  //console.log(accessToken);
 
   // useEffect(() => {
   //   if (error) toast(error);
@@ -180,10 +180,12 @@ export default function UserProvider({ children }) {
       registerWithEmail,
       loginWithEmail,
       isAdmin,
+      selectedAddress,
+      setSelectedAddress,
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, user, loading]);
+  }, [token, user, loading, selectedAddress]);
 
   return (
     <UserContext.Provider value={value}>

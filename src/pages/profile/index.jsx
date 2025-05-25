@@ -14,6 +14,7 @@ import ProfileMenu from "./components/ProfileMenu";
 import EditAddress from "./edit_address";
 import EditUser from "./edit_user";
 import NewAddress from "./new_address";
+import OrderHistory from "./order_history";
 import UserAddress from "./user_address";
 
 function Menu() {
@@ -37,17 +38,15 @@ function Menu() {
 function Profile() {
   const [location, navigate] = useLocation();
   const [page, setPage] = useState("inicio");
-  const [address, setAddress] = useState(null);
 
   useEffect(() => {
     const current = location.split("/")[2] || "inicio";
     setPage(current);
   }, [location]);
 
-  const handleChangePage = (value, address = null) => {
+  const handleChangePage = (value) => {
     navigate(`/perfil/${value}`);
     setPage(value);
-    setAddress(address);
   };
 
   return (
@@ -66,14 +65,13 @@ function Profile() {
           {page === "direcciones" && (
             <UserAddress onChange={handleChangePage} />
           )}
-
           {page === "nueva-direccion" && (
             <NewAddress onChange={handleChangePage} />
           )}
-
           {page === "editar-direccion" && (
-            <EditAddress onChange={handleChangePage} address={address} />
+            <EditAddress onChange={handleChangePage} />
           )}
+          {page === "historial" && <OrderHistory onChange={handleChangePage} />}
         </div>
       </div>
     </DefaultLayout>

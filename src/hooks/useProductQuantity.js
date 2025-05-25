@@ -1,41 +1,43 @@
-import { useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { toast } from "sonner";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
-import CartServices from "../services/api/Cart";
+import useCart from "./useCart";
 
 export function useProductQuantity(
   quantity,
   setQuantity,
   stock,
-  weightSelected
+  varietyId,
+  isCartPage
 ) {
-  const queryClient = useQueryClient();
+  const { handleUpdateData } = useCart();
+  const [isUpdating, setIsUpdating] = useState(false);
+  const changeAccumulator = useRef(0);
+  const debounceRef = useRef(null);
 
-  const { mutate } = useMutation({
-    mutationFn: (delta) => {
-      return CartServices.add(weightSelected, delta);
-    },
-    onSuccess: (data, delta) => {
-      if (data.data.error) {
-        toast.error(`Error al ${delta > 0 ? "aumnetar" : "disminuir"} la cantidad del producto`);
-      } else {
-        toast.success(`Producto ${delta > 0 ? "aumentó" : "disminuyó"} la cantidad exitosamente`);
-        queryClient.invalidateQueries({ queryKey: ["cart"] });
+  const debouncedUpdate = useCallback(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    debounceRef.current = setTimeout(() => {
+      if (changeAccumulator.current !== 0) {
+        setIsUpdating(true);
+        handleUpdateData(varietyId, changeAccumulator.current, isCartPage);
+        changeAccumulator.current = 0;
+
+        setTimeout(() => {
+          setIsUpdating(false);
+        }, 5000); 
       }
-    },
-    onError: (error) => {
-      const message = error?.response?.data?.message || "Ocurrió un error";
+    }, 800);
 
-      toast.error(message);
-    },
-  });
+  }, [handleUpdateData, varietyId, isCartPage]);
 
   const handleDecrementQuantity = () => {
     const newQuantity = quantity - 1;
-
     if (newQuantity >= 1) {
       setQuantity(newQuantity);
-      mutate(-1);
+      if (!isCartPage) return;
+      changeAccumulator.current -= 1;
+      debouncedUpdate();
     } else {
       toast.error("Has alcanzado el mínimo permitido");
     }
@@ -45,7 +47,9 @@ export function useProductQuantity(
     if (quantity < stock) {
       const newQuantity = quantity + 1;
       setQuantity(newQuantity);
-      mutate(1);
+      if (!isCartPage) return;
+      changeAccumulator.current += 1;
+      debouncedUpdate();
     } else {
       toast.error("Has alcanzado el límite disponible de este producto");
     }
@@ -58,10 +62,17 @@ export function useProductQuantity(
     [setQuantity]
   );
 
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [varietyId]);
+
   return {
     quantity,
     handleDecrementQuantity,
     handleIncrementQuantity,
     resetQuantity,
+    isUpdating,
   };
 }

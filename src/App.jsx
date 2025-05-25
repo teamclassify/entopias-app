@@ -3,7 +3,6 @@ import { Route, Switch } from "wouter";
 
 import AdminPage from "./pages/admin";
 import ClientManagment from "./pages/admin/client-management";
-import CreateBatchPage from "./pages/Batch/create";
 import ProductCatalog from "./pages/catalog";
 import HomePage from "./pages/home";
 import NotFoundPage from "./pages/not-found";
@@ -25,6 +24,12 @@ import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import Cart from "./pages/cart"
 import Address from "./pages/address";
+import CreateBatchPage from "./pages/Batch/create";
+import OrdersManagment from "./pages/orders";
+import ViewDetails from "./pages/invoices/ViewDetails";
+import InvoicesManagment from "./pages/invoices";
+import OrderDetails from "./pages/orders/OrderDetails";
+import AddAddress from "./pages/address/add";
 
 function App() {
   return (
@@ -56,6 +61,10 @@ function App() {
         <Route component={ClientManagment} path="/admin/clientes" />
         <Route component={ListSalesPage} path="/admin/asistentes" />
         <Route component={CreateSalesPage} path="/admin/asistentes/agregar" />
+        <Route component={InvoicesManagment} path="/admin/facturas" />
+        <Route component={ViewDetails} path="/admin/facturas/:id" />
+        <Route component={OrdersManagment} path="/admin/pedidos" />
+        <Route component={OrderDetails} path="/admin/pedidos/:id" />
         <Route
           component={CreateProducerPage}
           path="/admin/productores/agregar"
@@ -65,6 +74,7 @@ function App() {
         <Route component={ProductDetail} path="/producto/:id" />
         <Route component={Cart} path="/carrito" />
         <Route component={Address} path="/carrito/direccion"/>
+        <Route component={AddAddress} path="/carrito/direccion/nueva"/>
         <Route component={NotFoundPage} />
       </Switch>
     </>

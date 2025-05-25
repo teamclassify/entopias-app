@@ -2,7 +2,7 @@ import axios from "axios";
 import { URL, handleAxiosError } from ".";
 import { getToken } from "./Auth";
 
-async function createPaymentIntent({ products, currency = "usd" }) {
+async function createPaymentIntent({ products, currency = "usd", address }) {
   const token = await getToken();
 
   try {
@@ -16,6 +16,7 @@ async function createPaymentIntent({ products, currency = "usd" }) {
       data: {
         products,
         currency,
+        address,
       },
     });
 

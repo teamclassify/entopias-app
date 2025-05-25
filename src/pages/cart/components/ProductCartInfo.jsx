@@ -3,6 +3,7 @@ import Quantity from "./Quantity";
 
 export default function ProductCartInfo({ product, quantity, setQuantity }) {
   const coffeInfo = getProductInfoConfig(product);
+  //const defaultImage = "/cafe.webp";
 
   return (
     <div className="flex">
@@ -14,7 +15,13 @@ export default function ProductCartInfo({ product, quantity, setQuantity }) {
             {item.value}
           </p>
         ))}
-        <Quantity quantity={quantity} setQuantity={setQuantity} stock={product.variety.stock} weightSelected={product.variety.id}  isCartPage={true}/>
+        <Quantity
+          quantity={quantity}
+          setQuantity={setQuantity}
+          stock={product.variety.stock}
+          varietyId={product.variety.id}
+          isCartPage={true}
+        />
       </div>
     </div>
   );

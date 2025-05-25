@@ -6,6 +6,8 @@ import {
   Package,
   UserRound,
   UserRoundPen,
+  ReceiptText,
+  NotebookPen,
 } from "lucide-react";
 
 import {
@@ -114,6 +116,30 @@ const itemsADMIN = [
       },
     ],
   },
+  {
+    title: "Facturas",
+    url: "/admin/facturas",
+    icon: ReceiptText,
+    subitems: [
+      {
+        title: "Ver Facturas",
+        url: "/admin/facturas",
+        icon: List,
+      },
+    ],
+  },
+  {
+    title: "Pedidos",
+    url: "/admin/pedidos",
+    icon: ReceiptText,
+    subitems: [
+      {
+        title: "Ver Pedidos",
+        url: "/admin/pedidos",
+        icon: List,
+      },
+    ],
+  },
 ];
 
 const itemsSALES = [
@@ -172,6 +198,18 @@ const itemsSALES = [
       {
         title: "Ver Lotes",
         url: "/admin/lotes",
+        icon: List,
+      },
+    ],
+  },
+  {
+    title: "Pedidos",
+    url: "/admin/pedidos",
+    icon: NotebookPen,
+    subitems: [
+      {
+        title: "Ver Pedidos",
+        url: "/admin/pedidos",
         icon: List,
       },
     ],
