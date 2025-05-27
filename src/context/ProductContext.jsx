@@ -13,16 +13,14 @@ export const ProductProvider = ({ children }) => {
   const [weightCoffe, setWeightCoffe] = useState([]);
   const [priceCoffe, setPriceCoffe] = useState([]);
   const [aromaCoffe, setAromaCoffe] = useState([]);
+
   const [filter, setFilter] = useState({
-    type: "",
-    weight: "",
-    price: "",
-    aroma: "",
+    type: [],
+    weight: [],
+    price: [],
+    aroma: [],
   });
 
-  /**
-   * Get all the products
-   */
   const { data, isLoading, isError } = useQuery({
     queryKey: ["products", page, text],
     queryFn: () =>
@@ -33,7 +31,6 @@ export const ProductProvider = ({ children }) => {
       }),
   });
 
-
   useEffect(() => {
     if (!data?.data?.products) return;
 
@@ -41,65 +38,56 @@ export const ProductProvider = ({ children }) => {
     const weightSet = new Set();
     const priceSet = new Set();
     const aromaSet = new Set();
+
     priceSet.add("Hasta 15.000$");
     priceSet.add("Desde 15.000$ hasta 30.000$");
     priceSet.add("Más de 30.000$");
 
-    Object.entries(data.data.products).forEach(([, value]) => {
-      typeSet.add(value.type);
-      value.varieties.forEach((variety) => {
+    Object.values(data.data.products).forEach((product) => {
+      typeSet.add(product.type);
+      product.varieties.forEach((variety) => {
         weightSet.add(variety.weight);
-        //priceSet.add(variety.price);
       });
-      value.batches.forEach((aroma) => {
-        aromaSet.add(aroma.aromaticNotes);
+      product.batches.forEach((batch) => {
+        aromaSet.add(batch.aromaticNotes);
       });
     });
-    setTypeCoffe(typeSet);
-    setPriceCoffe(priceSet);
-    setWeightCoffe(weightSet);
-    setAromaCoffe(aromaSet);
+
+    setTypeCoffe(Array.from(typeSet));
+    setPriceCoffe(Array.from(priceSet));
+    setWeightCoffe(Array.from(weightSet));
+    setAromaCoffe(Array.from(aromaSet));
   }, [data?.data?.products]);
 
   const [dataFilter, setDataFilter] = useState(data);
 
   const applyFilter = (category, option, checked) => {
-    switch (category) {
-      case "Tipo":
-        category = "type";
-        break;
-      case "Peso":
-        category = "weight";
-        break;
-      case "Precio":
-        category = "price";
-        break;
-      case "Aroma":
-        category = "aroma";
-        break;
-      default:
-        break;
-    }
+    const key = {
+      "Tipo": "type",
+      "Peso": "weight",
+      "Precio": "price",
+      "Aroma": "aroma",
+    }[category];
 
-    if (!filter[category]) {
-      const newFilter = {
-        ...filter,
-        [category]: option
-      };
-      setFilter(newFilter);
-      return newFilter;
-    } else {
-      if (!checked) {
-        const newFilter = {
-          ...filter,
-          [category]: "",
-        };
-        setFilter(newFilter);
-        return newFilter;
+    let updatedValues = [...filter[key]];
+
+    if(category === "weight" || category === "Peso") option = parseInt(option)
+    if (checked) {
+      if (!updatedValues.includes(option)) {
+        updatedValues.push(option);
       }
+    } else {
+      updatedValues = updatedValues.filter((item) => item !== option);
     }
-  };
 
+    const newFilter = {
+      ...filter,
+      [key]: updatedValues,
+    };
+
+    setFilter(newFilter);
+    return newFilter;
+  };
 
   const handleSelect = (category, option, checked) => {
     const newData = {
@@ -111,75 +99,44 @@ export const ProductProvider = ({ children }) => {
 
     const newFilter = applyFilter(category, option, checked);
 
-    let newCoffeFilter = [];
+    let newCoffeFilter = data.data.products;
 
-    if (
-      !newFilter.price &&
-      !newFilter.type &&
-      !newFilter.weight &&
-      !newFilter.aroma
-    ) {
-      setDataFilter(data);
-      return;
-    }
-
-    if (newFilter.type) {
-      newCoffeFilter = data.data.products.filter(
-        (product) => product.type === newFilter.type
+    if (newFilter.type.length > 0) {
+      newCoffeFilter = newCoffeFilter.filter((product) =>
+        newFilter.type.includes(product.type)
       );
-    } else {
-      newCoffeFilter = data.data.products;
     }
 
-    if (newFilter.weight) {
-      const auxCoffeFilter = [];
-      newCoffeFilter.forEach((product) => {
-        product.varieties.filter((variety) => {
-          variety.weight === parseInt(newFilter.weight)
-            ? auxCoffeFilter.push(product)
-            : null;
-        });
-      });
-      newCoffeFilter = auxCoffeFilter;
+    if (newFilter.weight.length > 0) {
+      newCoffeFilter = newCoffeFilter.filter((product) =>
+        product.varieties.some((variety) => 
+          newFilter.weight.includes(variety.weight)
+        )
+      );
     }
 
-    if(newFilter.price){
-      const auxCoffeFilter = [];
-      newCoffeFilter.forEach((product) => {
-        product.varieties.filter((variety) => {
-          if (newFilter.price === "Hasta 15.000$") {
-            if (variety.price <= 15000) {
-              auxCoffeFilter.push(product);
-            }
-          } else if (newFilter.price === "Desde 15.000$ hasta 30.000$") {
-            if (variety.price > 15000 && variety.price <= 30000) {
-              auxCoffeFilter.push(product);
-            }
-          } else if (newFilter.price === "Más de 30.000$") {
-            if (variety.price > 30000) {
-              auxCoffeFilter.push(product);
-            }
-          }
-        });
-      });
-      newCoffeFilter = auxCoffeFilter;
+    if (newFilter.price.length > 0) {
+      newCoffeFilter = newCoffeFilter.filter((product) =>
+        product.varieties.some((variety) =>
+          newFilter.price.some((priceRange) => {
+            if (priceRange === "Hasta 15.000$") return variety.price <= 15000;
+            if (priceRange === "Desde 15.000$ hasta 30.000$")
+              return variety.price > 15000 && variety.price <= 30000;
+            if (priceRange === "Más de 30.000$") return variety.price > 30000;
+            return false;
+          })
+        )
+      );
     }
 
-    if (newFilter.aroma) {
-      const auxCoffeFilter = [];
-      newCoffeFilter.forEach((product) => {
-        let added = false;
-        product.batches.filter((variety) => {
-          if (variety.aromaticNotes === newFilter.aroma && !added) {
-            auxCoffeFilter.push(product);
-            added = true;
-          }else {
-            return null;
-          }
-        });
-      });
-      newCoffeFilter = auxCoffeFilter;
+    if (newFilter.aroma.length > 0) {
+      newCoffeFilter = newCoffeFilter.filter((product) =>
+        product.batches.some((batch) =>
+          newFilter.aroma.includes(batch.aromaticNotes)
+        )
+      );
     }
+
     newData.data.products.push(...newCoffeFilter);
     newData.data.count = newCoffeFilter.length;
     setDataFilter(newData);
