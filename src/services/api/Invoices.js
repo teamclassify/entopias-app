@@ -2,7 +2,7 @@ import axios from "axios";
 import { URL, handleAxiosError } from ".";
 import { getToken } from "./Auth";
 
-async function getAllInvoices({ page = 1, search }) {
+async function getAllInvoices({ page = 1, search, status }) {
     const token = await getToken();
 
     if (!token) throw new Error("Token not found");
@@ -18,6 +18,7 @@ async function getAllInvoices({ page = 1, search }) {
             params: {
                 page,
                 search,
+                status,
             },
         });
 

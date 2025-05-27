@@ -3,46 +3,82 @@ import AdminLayout from "../../components/layouts/AdminLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Truck, Receipt, User, DollarSign } from "lucide-react";
 import OrdersService from "../../services/api/Orders";
+import InvoicesService from "../../services/api/Invoices";
+import UsersService from "../../services/api/Users";
 
 function AdminPage() {
   const [orderCount, setOrderCount] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [clientsCount, setClientsCount] = useState(0);
+  const [salesCount, setSalesCount] = useState(0);
+  const [earningsCOP, setEarningsCOP] = useState(0);
+  const [loadingSales, setLoadingSales] = useState(true);
 
   useEffect(() => {
-    const loadOrderCount = async () => {
+    const loadDashboardData = async () => {
       try {
-        const res = await OrdersService.countAll();
-        console.log("Pedidos totales:", res.data.count);
-        setOrderCount(res.data.count);
-      } catch (err) {
-        console.error("No se pudo cargar el total de pedidos:", err);
+        setLoadingSales(true);
+
+        const [ordersRes, invoicesRes, usersRes] = await Promise.all([
+          OrdersService.countAll(),
+          InvoicesService.getAllInvoices({
+            page: 1,
+            search: null,
+            status: "paid",
+          }),
+          UsersService.getAll({ page: 1, role: "user" }),
+        ]);
+
+        setOrderCount(ordersRes.data.count);
+
+        const invoices = invoicesRes.data.invoices;
+        const total = invoices.reduce(
+          (sum, inv) => sum + Number(inv.amount),
+          0
+        );
+        setEarningsCOP(total);
+        setSalesCount(invoices.length);
+
+        setClientsCount(usersRes.data.count);
+      } catch (error) {
+        console.error("Error al cargar datos del dashboard:", error);
       } finally {
-        setLoading(false);
+        setLoadingSales(false);
       }
     };
 
-    loadOrderCount();
+    loadDashboardData();
   }, []);
 
   const stats = [
     {
       label: "Total de Pedidos",
-      value: loading ? "..." : orderCount,
+      value: loadingSales ? "..." : orderCount,
       icon: <Truck className="h-10 w-10 text-red-500" />,
     },
     {
       label: "Total de Ventas",
-      value: "205",
+      value: loadingSales ? "..." : salesCount,
       icon: <Receipt className="h-10 w-10 text-red-500" />,
     },
     {
       label: "Total de Clientes",
-      value: "152",
+      value: loadingSales ? "..." : clientsCount,
       icon: <User className="h-10 w-10 text-red-500" />,
     },
     {
       label: "Ganancias",
-      value: "852k",
+      value: loadingSales ? (
+        "..."
+      ) : (
+        <div className="text-base font-semibold text-gray-800">
+          {earningsCOP.toLocaleString("es-CO", {
+            style: "currency",
+            currency: "COP",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          })}
+        </div>
+      ),
       icon: <DollarSign className="h-10 w-10 text-red-500" />,
     },
   ];
@@ -57,9 +93,9 @@ function AdminPage() {
               <CardContent className="flex items-center justify-between p-4">
                 <div>
                   <p className="text-sm text-gray-600">{stat.label}</p>
-                  <p className="text-2xl font-semibold text-gray-800">
+                  <div className="text-2xl font-semibold text-gray-800">
                     {stat.value}
-                  </p>
+                  </div>
                 </div>
                 {stat.icon}
               </CardContent>
