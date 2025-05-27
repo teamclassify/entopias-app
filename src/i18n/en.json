@@ -99,7 +99,8 @@
         "title": "Payment successful",
         "description": "Hello {{name}}, your payment has been successful.",
         "content": "Your transaction has been processed successfully. You will soon receive an email confirmation with the details of your order."
-      }
+      },
+      "continue": "Continue shopping"
     },
 
     "products": {
@@ -110,6 +111,29 @@
       "adding_cart": "Adding to cart...",
       "add_cart": "Add to cart",
       "buy_now": "Buy now"
+    },
+
+    "address": {
+      "select_address": "Select address",
+      "add_address": "Add address",
+      "edit_address": "Edit address",
+      "delete_address": "Delete address",
+      "address_list": "Address list",
+      "create_address": "Create address",
+      "save_address": "Save address",
+      "saving_address": "Saving address...",
+
+      "form": {
+        "title": "Address form",
+        "name": "Name",
+        "address": "Address",
+        "city": "City",
+        "state": "State",
+        "postalCode": "Postal Code",
+        "country": "Country",
+        "phone": "Phone",
+        "save": "Save address"
+      }
     },
 
     "verbs": {
@@ -144,6 +168,43 @@
       "alert": "Alert",
       "notification": "Notification",
       "welcome": "Welcome"
+    },
+
+    "tables": {
+      "orders": {
+        "title": "Orders",
+        "columns": {
+          "id": "ID",
+          "date": "Date",
+          "status": "Status",
+          "total": "Total",
+          "address": "Address"
+        }
+      },
+      "products": {
+        "title": "Products",
+        "columns": {
+          "id": "ID",
+          "name": "Name",
+          "price": "Price",
+          "stock": "Stock",
+          "units": "Units"
+        }
+      }
+    },
+
+    "cart": {
+      "summary_title": "Shopping Cart",
+      "summary_description": "Review your order before proceeding to payment.",
+      "empty": "Your cart is empty.",
+      "continue_shopping": "Continue shopping",
+      "checkout": "Proceed to checkout",
+      "remove_item": "Remove item",
+      "remove_item_confirmation": "Are you sure you want to remove this item from the cart?",
+      "remove_item_success": "Item removed from cart.",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "shipping": "Shipping"
     }
   }
 }

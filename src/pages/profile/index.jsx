@@ -44,10 +44,9 @@ function Profile() {
     setPage(current);
   }, [location]);
 
-  const handleChangePage = (value, address = null) => {
+  const handleChangePage = (value) => {
     navigate(`/perfil/${value}`);
     setPage(value);
-    setAddress(address);
   };
 
   return (
@@ -70,7 +69,7 @@ function Profile() {
             <NewAddress onChange={handleChangePage} />
           )}
           {page === "editar-direccion" && (
-            <EditAddress onChange={handleChangePage} address={address} />
+            <EditAddress onChange={handleChangePage} />
           )}
           {page === "historial" && <OrderHistory onChange={handleChangePage} />}
         </div>

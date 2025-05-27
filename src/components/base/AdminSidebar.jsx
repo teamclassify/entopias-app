@@ -128,6 +128,18 @@ const itemsADMIN = [
       },
     ],
   },
+  {
+    title: "Pedidos",
+    url: "/admin/pedidos",
+    icon: ReceiptText,
+    subitems: [
+      {
+        title: "Ver Pedidos",
+        url: "/admin/pedidos",
+        icon: List,
+      },
+    ],
+  },
 ];
 
 const itemsSALES = [

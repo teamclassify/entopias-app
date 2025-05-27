@@ -44,20 +44,13 @@ async function getInvoiceByID({ id }) {
                 id,
             },
         });
-        console.log(res.data);
-
         const datos = res.data;
-        console.log(datos);
-
         const invoice = datos.data.invoices.find(inv => inv.id === Number(id));
-        console.log(invoice);
 
         if (!invoice) {
             console.log("sapa no sirve");
             throw new Error(`Invoice with id ${id} not found`);
         }
-
-        console.log(invoice);
 
         return invoice;
     } catch (error) {
