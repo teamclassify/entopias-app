@@ -1,11 +1,19 @@
 import { Toaster } from "@/components/ui/sonner";
 import { Route, Switch } from "wouter";
 
+import Address from "./pages/address";
+import AddAddress from "./pages/address/add";
 import AdminPage from "./pages/admin";
 import ClientManagment from "./pages/admin/client-management";
+import CreateBatchPage from "./pages/Batch/create";
+import Cart from "./pages/cart";
 import ProductCatalog from "./pages/catalog";
 import HomePage from "./pages/home";
+import InvoicesManagment from "./pages/invoices";
+import ViewDetails from "./pages/invoices/ViewDetails";
 import NotFoundPage from "./pages/not-found";
+import OrdersManagment from "./pages/orders";
+import OrderDetails from "./pages/orders/OrderDetails";
 import Payments from "./pages/payments";
 import PaymentsSuccessPage from "./pages/payments/success";
 import CreateProducerPage from "./pages/producer/create";
@@ -22,14 +30,7 @@ import CreateSalesPage from "./pages/sales/create";
 import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
-import Cart from "./pages/cart"
-import Address from "./pages/address";
-import CreateBatchPage from "./pages/Batch/create";
-import OrdersManagment from "./pages/orders";
-import ViewDetails from "./pages/invoices/ViewDetails";
-import InvoicesManagment from "./pages/invoices";
-import OrderDetails from "./pages/orders/OrderDetails";
-import AddAddress from "./pages/address/add";
+import Traceability from "./pages/traceability";
 
 function App() {
   return (
@@ -73,8 +74,9 @@ function App() {
         <Route component={CreateBatchPage} path="/admin/lotes/agregar" />
         <Route component={ProductDetail} path="/producto/:id" />
         <Route component={Cart} path="/carrito" />
-        <Route component={Address} path="/carrito/direccion"/>
-        <Route component={AddAddress} path="/carrito/direccion/nueva"/>
+        <Route component={Address} path="/carrito/direccion" />
+        <Route component={AddAddress} path="/carrito/direccion/nueva" />
+        <Route component={Traceability} path="/origen/:id" />
         <Route component={NotFoundPage} />
       </Switch>
     </>
