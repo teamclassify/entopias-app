@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AdminLayout from "../../components/layouts/AdminLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Truck, Receipt, User, DollarSign } from "lucide-react";
-import OrdersService from "../../services/api/Orders";
-import InvoicesService from "../../services/api/Invoices";
-import UsersService from "../../services/api/Users";
+import DashboardService from "../../services/api/Dashboard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function AdminPage() {
   const [orderCount, setOrderCount] = useState(null);
@@ -12,35 +11,32 @@ function AdminPage() {
   const [salesCount, setSalesCount] = useState(0);
   const [earningsCOP, setEarningsCOP] = useState(0);
   const [loadingSales, setLoadingSales] = useState(true);
+  const cacheRef = useRef(null);
 
   useEffect(() => {
     const loadDashboardData = async () => {
+      if (cacheRef.current) {
+        const cached = cacheRef.current;
+        setOrderCount(cached.ordersCount);
+        setSalesCount(cached.salesCount);
+        setEarningsCOP(cached.earningsCOP);
+        setClientsCount(cached.clientsCount);
+        return;
+      }
+
       try {
         setLoadingSales(true);
+        const res = await DashboardService.getAdminSummary();
+        const data = res.data;
 
-        const [ordersRes, invoicesRes, usersRes] = await Promise.all([
-          OrdersService.countAll(),
-          InvoicesService.getAllInvoices({
-            page: 1,
-            search: null,
-            status: "paid",
-          }),
-          UsersService.getAll({ page: 1, role: "user" }),
-        ]);
+        cacheRef.current = data;
 
-        setOrderCount(ordersRes.data.count);
-
-        const invoices = invoicesRes.data.invoices;
-        const total = invoices.reduce(
-          (sum, inv) => sum + Number(inv.amount),
-          0
-        );
-        setEarningsCOP(total);
-        setSalesCount(invoices.length);
-
-        setClientsCount(usersRes.data.count);
-      } catch (error) {
-        console.error("Error al cargar datos del dashboard:", error);
+        setOrderCount(data.ordersCount);
+        setSalesCount(data.salesCount);
+        setEarningsCOP(data.earningsCOP);
+        setClientsCount(data.clientsCount);
+      } catch (err) {
+        console.error("Error al cargar el dashboard:", err);
       } finally {
         setLoadingSales(false);
       }
@@ -52,23 +48,35 @@ function AdminPage() {
   const stats = [
     {
       label: "Total de Pedidos",
-      value: loadingSales ? "..." : orderCount,
+      value: loadingSales ? (
+        <Skeleton className="h-6 w-16 bg-neutral-300" />
+      ) : (
+        orderCount
+      ),
       icon: <Truck className="h-10 w-10 text-red-500" />,
     },
     {
       label: "Total de Ventas",
-      value: loadingSales ? "..." : salesCount,
+      value: loadingSales ? (
+        <Skeleton className="h-6 w-16 bg-neutral-300" />
+      ) : (
+        salesCount
+      ),
       icon: <Receipt className="h-10 w-10 text-red-500" />,
     },
     {
       label: "Total de Clientes",
-      value: loadingSales ? "..." : clientsCount,
+      value: loadingSales ? (
+        <Skeleton className="h-6 w-16 bg-neutral-300" />
+      ) : (
+        clientsCount
+      ),
       icon: <User className="h-10 w-10 text-red-500" />,
     },
     {
       label: "Ganancias",
       value: loadingSales ? (
-        "..."
+        <Skeleton className="h-6 w-24 bg-neutral-300" />
       ) : (
         <div className="text-base font-semibold text-gray-800">
           {earningsCOP.toLocaleString("es-CO", {
