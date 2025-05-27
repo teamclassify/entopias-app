@@ -30,14 +30,6 @@ function TableClient({ client }) {
                             <p className="text-[#737373]">{client.phone}</p>
                         </TableCell>
                     </TableRow>
-                    <TableRow>
-                        <TableCell>
-                            <p>Dirección</p>
-                        </TableCell>
-                        <TableCell>
-                            <p className="text-[#737373]">{}</p>
-                        </TableCell>
-                    </TableRow>
                 </TableBody>
             </Table>
         </div>
