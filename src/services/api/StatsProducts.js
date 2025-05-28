@@ -12,19 +12,20 @@ async function getTopSalesVarieties({
   order = "desc",
 }) {
   const token = await getToken();
-
   if (!token) throw new Error("Token not found");
+
   try {
     const res = await axios({
       url: `${URL}/stats/top-sales-varieties`,
       method: "GET",
       headers: {
+         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       params: {
         startDate,
-        endDate, //
-        limit, //
+        endDate,
+        limit, 
         order,
       },
     });
@@ -49,6 +50,7 @@ async function getTopProfitableVarieties({
       url: `${URL}/stats/top-profitable-varieties`,
       method: "GET",
       headers: {
+         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       params: {
