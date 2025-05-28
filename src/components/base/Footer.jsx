@@ -3,12 +3,10 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { BiWorld } from "react-icons/bi";
 import { FaInstagramSquare } from "react-icons/fa";
 
-
-
-function Footer() {
-  return <p>
-    <div className="h-[230px] bg-[#D9D9D9] flex justify-center items-end">
-      <div className="w-[70%] ">
+function Footer({ className = "" }) {
+  return (
+    <footer className={`bg-[#D9D9D9] ${className}`}>
+      <div className="w-[70%] mx-auto">
         <div className="flex flex-row justify-between items-end">
           <div>
             <div className="mb-2 flex flex-row items-center">
@@ -29,7 +27,7 @@ function Footer() {
                 href="https://www.facebook.com/profile.php?id=61557124352825"
                 target="_blank"
                 rel="noopener noreferrer"
-                className=" transition-opacity duration-200"
+                className="transition-opacity duration-200"
               >
                 <FaFacebookSquare className="mr-2 text-3xl text-[#F03634] hover:text-[#2A86FF] transition-colors duration-200" />
               </a>
@@ -42,9 +40,13 @@ function Footer() {
                 <FaInstagramSquare className="mr-2 text-3xl text-[#F03634] hover:text-[#F70DDC] transition-colors duration-200" />
               </a>
             </div>
-          </div> 
+          </div>
           <div className="flex">
-            <img className="h-36 w-auto" src="/logo-completo.webp" alt="logo de entopias cafe" />
+            <img
+              className="h-36 w-auto"
+              src="/logo-completo.webp"
+              alt="logo de entopias cafe"
+            />
           </div>
         </div>
         <hr className="mb-2 mt-7 border-[#B76E49] border-1" />
@@ -52,8 +54,8 @@ function Footer() {
           <p>© 2025 En Topias café</p>
         </div>
       </div>
-    </div>
-  </p>;
+    </footer>
+  );
 }
 
 export default Footer;
