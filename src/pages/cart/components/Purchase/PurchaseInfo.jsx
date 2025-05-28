@@ -21,7 +21,7 @@ export default function PurchaseInfo({
       />
       <InformationGeneralProducts
         lengthProducts={lengthProducts}
-        totalPrice={Number(totalPrice) + Number(shipmentPrice) || 0}
+        totalPrice={Number(totalPrice) + (Number(shipmentPrice) || 0)}
       />
     </div>
   );
