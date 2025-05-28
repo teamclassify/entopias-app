@@ -78,7 +78,7 @@ function App() {
         <Route component={Address} path="/carrito/direccion" />
         <Route component={AddAddress} path="/carrito/direccion/nueva" />
         <Route component={Traceability} path="/origen/:id" />
-        <Route component={Stadistic} path="/estadisticas" />
+        <Route component={Stadistic} path="/admin/estadisticas/productos" />
         <Route component={NotFoundPage} />
       </Switch>
     </>
