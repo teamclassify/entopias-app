@@ -28,16 +28,11 @@ async function getAll({ page = 1, search }) {
 }
 
 async function getById({ id }) {
-  const token = await getToken();
-
-  if (!token) throw new Error("Token not found");
-
   try {
     const res = await axios({
       url: `${URL}/batches/${id}`,
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
