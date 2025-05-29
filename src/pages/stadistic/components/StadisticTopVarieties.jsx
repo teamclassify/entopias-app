@@ -25,7 +25,7 @@ const chartConfig = {
 const COLORS = [
   "#4f46e5", // Indigo
   "#22c55e", // Green
-  "#ec4899", // Pink
+  "#BB0E22", // Pink
   "#f97316", // Orange
   "#0ea5e9", // Sky Blue
   "#eab308", // Yellow
