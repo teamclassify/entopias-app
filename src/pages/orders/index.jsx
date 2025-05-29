@@ -5,7 +5,7 @@ function OrdersManagment() {
   return (
     <AdminLayout>
       <main>
-        <h1 className="font-bold">Ver Pedidos</h1>
+        <h1 className="text-2xl font-bold pt-6">Pedidos</h1>
         {/* <section className="flex flex-row gap-3 pt-4 pb-4">
           <Input
             placeholder="Buscar"
