@@ -215,9 +215,18 @@ function AdminPage() {
           )}
         </Card>
 
-        <Card className="p-4">
-          <h3 className="font-bold text-lg mb-1">Ventas recientes</h3>
-          <DataTable columns={columnsVentasRecientes} data={recentInvoices} />
+        <Card className="p-4 flex flex-col justify-between">
+          <div>
+            <h3 className="font-bold text-lg mb-2">Ventas recientes</h3>
+            <DataTable columns={columnsVentasRecientes} data={recentInvoices} />
+          </div>
+          <div className="mt-4 flex justify-center">
+            <Link href="/admin/facturas">
+              <Button className="bg-black hover:bg-gray-900 text-white">
+                Ver más
+              </Button>
+            </Link>
+          </div>
         </Card>
       </div>
     </AdminLayout>
