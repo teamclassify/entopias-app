@@ -42,7 +42,7 @@ export default function Statistics({ data, dataKey, title }) {
   }));
 
   return (
-    <Card>
+    <Card className="h-full w-full">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
