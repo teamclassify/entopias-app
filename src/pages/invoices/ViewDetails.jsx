@@ -1,3 +1,4 @@
+import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "wouter";
 import AdminLayout from "../../components/layouts/AdminLayout";
@@ -10,6 +11,7 @@ import TableClient from "./components/TableClient";
 import TableInvoice from "./components/TableInvoice";
 
 function ViewDetails() {
+  const [, setLocation] = useLocation();
   const { id } = useParams();
   console.log("Este es el id", id);
 
@@ -32,7 +34,6 @@ function ViewDetails() {
     currency: "COP",
     minimumFractionDigits: 0,
   }).format(totalPesos);
-
 
   return (
     <AdminLayout>
@@ -59,6 +60,20 @@ function ViewDetails() {
                     {data.order.address?.country} -{" "}
                     {data.order.address?.postalCode}
                   </p>
+                  {data.order.status === "paid" && (
+                    <div className="mt-6">
+                      <button
+                        onClick={() =>
+                          setLocation(
+                            `/admin/facturas/${data.id}/enviar-correo`
+                          )
+                        }
+                        className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md"
+                      >
+                        Enviar correo al cliente
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
