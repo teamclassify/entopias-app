@@ -6,10 +6,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import getPercentage from "@/data/getPercentage.js";
-// import Stadistic from "./Stadistic";
+import StadisticTopVarieties from "./StadisticTopVarieties";
 
 export default function Graphic({ title, data, total, value }) {
-  console.log("Data received in Graphic component:", data);
   const { percentageChange, padding } = getPercentage({ data, value });
 
   return (
@@ -26,7 +25,7 @@ export default function Graphic({ title, data, total, value }) {
         </CardDescription>
       </CardHeader>
       <CardContent className={padding}>
-        {/* <Stadistic data={data} dataKey={["month", value]} /> */}
+       <StadisticTopVarieties data={data} dataKey={["month", value]} />
       </CardContent>
     </Card>
   );

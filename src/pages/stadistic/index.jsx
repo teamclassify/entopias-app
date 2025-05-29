@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Graphic from "./components/Graphic";
 import { Loading } from "@/components/ui/loading";
+import StadisticTopVarieties from "./components/StadisticTopVarieties";
 
 export default function Stadistic() {
   const [startDate, setStartDate] = useState("2025-01-01");
@@ -32,12 +33,10 @@ export default function Stadistic() {
         {isLoading ? (
           <Loading />
         ) : (
-          <Graphic
-            title={"Variedades más vendidas"}
-            data={dataTopVarieties.data}
-            total={dataTopVarieties?.data?.length || 0}
-            value={"productos"}
-          />
+          <>
+          <StadisticTopVarieties data={dataTopVarieties} dataKey={["soldCount", "product"]} />
+          <StadisticTopVarieties data={dataTopVarieties} dataKey={["soldCount", "product"]} />
+          </>
         )}
       </div>
     </DefaultLayout>
