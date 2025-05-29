@@ -69,7 +69,8 @@ const formSchema = z.object({
       id: z.number(),
       name: z.string(),
     })
-    .optional(),
+    .optional()
+    .nullable(),
 });
 
 function Form({ onSubmit, isLoading }) {

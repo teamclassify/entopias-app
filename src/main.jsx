@@ -8,6 +8,7 @@ import "./services/i18next";
 
 import UserProvider from "./context/UserContext.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
+import { ProductProvider } from "./context/ProductContext.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,9 +22,11 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <UserProvider>
-        <CartProvider>
-          <App />
-        </CartProvider>
+        <ProductProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </ProductProvider>
       </UserProvider>
     </QueryClientProvider>
   </StrictMode>

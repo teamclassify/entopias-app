@@ -26,6 +26,8 @@ function OrderDetails() {
     minimumFractionDigits: 0,
   }).format(valor);
 
+  console.log(data?.total);
+
   return (
     <AdminLayout>
       {isPending ? (
