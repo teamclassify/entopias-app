@@ -40,7 +40,12 @@ function AdminPage() {
 
         setOrderCount(data.ordersCount);
         setSalesCount(data.salesCount);
-        setEarningsCOP(data.earningsCOP);
+        const usd = data.earningsCOP / 100;
+        const tasaCambio = 4465;
+        const cop = Math.round((usd * tasaCambio) / 1000) * 1000;
+
+        setEarningsCOP(cop);
+
         setClientsCount(data.clientsCount);
       } catch (err) {
         console.error("Error al cargar el dashboard:", err);
@@ -116,7 +121,7 @@ function AdminPage() {
             style: "currency",
             currency: "COP",
             minimumFractionDigits: 0,
-          }).format(earningsCOP / 100)}
+          }).format(earningsCOP)}
         </div>
       ),
       icon: <DollarSign className="h-10 w-10 text-red-500" />,

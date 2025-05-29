@@ -3,42 +3,20 @@ import InvoicesService from "../../services/api/Invoices";
 import BarChart from "./components/BarChart";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import DefaultLayout from "../../components/layouts/AdminLayout";
-import { columnsVentasPorCliente } from "./components/columnsSalesPerClient";
+import { columnsVentasRecientes } from "../admin/components/columnsRecentSales";
 import DataTable from "../../components/tables/DataTable";
-
-function agruparVentasPorCliente(facturas) {
-  const resumen = {};
-
-  facturas.forEach((factura) => {
-    const cliente = factura.order?.user?.name || "Desconocido";
-    const monto = factura.amount || 0;
-
-    if (!resumen[cliente]) {
-      resumen[cliente] = { cliente, totalCompras: 0, totalGastado: 0 };
-    }
-
-    resumen[cliente].totalCompras += 1;
-    resumen[cliente].totalGastado += monto;
-  });
-
-  return Object.values(resumen).sort((a, b) => b.totalGastado - a.totalGastado);
-}
+import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
+import DashboardService from "../../services/api/Dashboard";
 
 export default function SalesStatsPage() {
   const [data, setData] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [facturas, setFacturas] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const result = await InvoicesService.getTopSelling({ limit: 5 });
-      setData(
-        result.map((p) => ({
-          name: p.productName,
-          cantidad: Number(p.totalSold),
-        }))
-      );
-    }
+  const [recentInvoices, setRecentInvoices] = useState([]);
 
+  useEffect(() => {
     async function fetchTopSelling() {
       const result = await InvoicesService.getTopSelling({ limit: 5 });
       setData(
@@ -56,9 +34,18 @@ export default function SalesStatsPage() {
       }
     }
 
-    fetchData();
+    async function loadRecentInvoices() {
+      try {
+        const res = await DashboardService.getRecentInvoices();
+        setRecentInvoices(res.data);
+      } catch (error) {
+        console.error("Error al obtener ventas recientes:", error);
+      }
+    }
+
     fetchTopSelling();
     fetchFacturas();
+    loadRecentInvoices();
   }, []);
 
   return (
@@ -76,17 +63,20 @@ export default function SalesStatsPage() {
             </CardContent>
           </Card>
 
-          <Card className="flex flex-col justify-between">
+          <Card className="p-4 flex flex-col justify-between">
             <div>
-              <CardHeader>
-                <CardTitle>Ventas por cliente</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <DataTable
-                  columns={columnsVentasPorCliente}
-                  data={agruparVentasPorCliente(facturas)}
-                />
-              </CardContent>
+              <h3 className="font-bold text-lg mb-2">Ventas recientes</h3>
+              <DataTable
+                columns={columnsVentasRecientes}
+                data={recentInvoices}
+              />
+            </div>
+            <div className="mt-4 flex justify-center">
+              <Link href="/admin/facturas">
+                <Button className="bg-black hover:bg-gray-900 text-white">
+                  Ver más
+                </Button>
+              </Link>
             </div>
           </Card>
         </div>
