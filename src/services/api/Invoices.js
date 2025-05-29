@@ -92,7 +92,7 @@ async function generateCsv({ from, to, limit }) {
 
   try {
     const res = await axios({
-      url: `http://localhost:8080/api/invoices/report/csv`,
+      url: `${URL}/invoices/report/csv`,
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
