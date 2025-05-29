@@ -1,5 +1,6 @@
 import { FileDown, Eye, Dot, ArrowUpDown } from 'lucide-react';
 import { useLocation } from 'wouter';
+import formatearFechaIso from '../../../services/dateFormat';
 
 export const columns = [
     {
@@ -23,11 +24,7 @@ export const columns = [
             const fechaISO = row.getValue("date");
             const fecha = new Date(fechaISO);
 
-            const dia = String(fecha.getDate()).padStart(2, '0');
-            const mes = String(fecha.getMonth() + 1).padStart(2, '0');
-            const anio = fecha.getFullYear();
-
-            const formato = `${dia}/${mes}/${anio}`;
+            const formato = formatearFechaIso(fecha);
 
             return (
                 <span className='w-fit'>{formato}</span>

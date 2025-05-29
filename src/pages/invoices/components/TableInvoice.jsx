@@ -1,14 +1,11 @@
 import { Table, TableBody, TableRow, TableCell, } from "@/components/ui/table";
+import formatearFechaIso from "../../../services/dateFormat";
 
 function TableInvoice({ invoice }) {
 
     const fecha = new Date(invoice.date);
 
-    const dia = String(fecha.getDate()).padStart(2, '0');
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
-    const anio = fecha.getFullYear();
-
-    const formato = `${dia}/${mes}/${anio}`;
+    const formato = formatearFechaIso(fecha);
 
 
     return (
