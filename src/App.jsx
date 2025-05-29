@@ -31,6 +31,7 @@ import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import Traceability from "./pages/traceability";
+import Stadistic from "./pages/stadistic";
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function App() {
         <Route component={Address} path="/carrito/direccion" />
         <Route component={AddAddress} path="/carrito/direccion/nueva" />
         <Route component={Traceability} path="/origen/:id" />
+        <Route component={Stadistic} path="/admin/estadisticas/productos" />
         <Route component={NotFoundPage} />
       </Switch>
     </>

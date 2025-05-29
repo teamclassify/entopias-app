@@ -8,6 +8,7 @@ import {
   UserRoundPen,
   ReceiptText,
   NotebookPen,
+  ChartColumnIncreasing
 } from "lucide-react";
 
 import {
@@ -136,6 +137,18 @@ const itemsADMIN = [
       {
         title: "Ver Pedidos",
         url: "/admin/pedidos",
+        icon: List,
+      },
+    ],
+  },
+   {
+    title: "Estadisticas",
+    url: "/admin/estadisticas",
+    icon: ChartColumnIncreasing,
+    subitems: [
+      {
+        title: "Ver Productos",
+        url: "/admin/estadisticas/productos",
         icon: List,
       },
     ],
