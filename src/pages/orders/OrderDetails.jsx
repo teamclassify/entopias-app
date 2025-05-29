@@ -18,13 +18,22 @@ function OrderDetails() {
     queryFn: () => OrdersService.getOrderByID({ id }),
   });
 
-  const valor = data?.total / 100;
+  const orderItems = data?.items || [];
 
-  const total = new Intl.NumberFormat("es-CO", {
+  // Sumamos los subtotales: cantidad * precio
+  const totalPesos = orderItems.reduce((acc, item) => {
+    const quantity = item.quantity;
+    const price = item.variety?.price || 0;
+    return acc + quantity * price;
+  }, 0);
+
+  const formatoCOP = new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",
     minimumFractionDigits: 0,
-  }).format(valor);
+  }).format(totalPesos);
+
+  console.log(data?.total);
 
   return (
     <AdminLayout>
@@ -60,7 +69,7 @@ function OrderDetails() {
               </div>
               <div className="flex flex-row justify-between ">
                 <p className="mb-4 font-bold">Total</p>
-                <p className="text-xl font-bold">{total}</p>
+                <p className="text-xl font-bold">{formatoCOP}</p>
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { FileDown, Eye, Dot } from 'lucide-react';
+import { FileDown, Eye, Dot, ArrowUpDown } from 'lucide-react';
 import { useLocation } from 'wouter';
 
 export const columns = [
@@ -8,7 +8,17 @@ export const columns = [
     },
     {
         accessorKey: "date",
-        header: "Fecha de Emisión",
+        header: ({ column }) => (
+            <div className="flex flex-row items-center gap-3">
+                <p>Fecha de emisión</p>
+                <button
+                    onClick={() => column.toggleSorting()}
+                    className="cursor-pointer"
+                >
+                    <ArrowUpDown className="size-5" />
+                </button>
+            </div>
+        ),
         cell: ({ row }) => {
             const fechaISO = row.getValue("date");
             const fecha = new Date(fechaISO);
@@ -18,7 +28,7 @@ export const columns = [
             const anio = fecha.getFullYear();
 
             const formato = `${dia}/${mes}/${anio}`;
-            
+
             return (
                 <span className='w-fit'>{formato}</span>
             );
@@ -30,21 +40,34 @@ export const columns = [
     },
     {
         accessorKey: "amount",
-        header: "Monto Total",
+        header: ({ column }) => (
+            <div className="flex flex-row items-center gap-3">
+                <p>Monto total</p>
+                <button
+                    onClick={() => column.toggleSorting()}
+                    className="cursor-pointer"
+                >
+                    <ArrowUpDown className="size-5" />
+                </button>
+            </div>
+        ),
         cell: ({ row }) => {
-            const valor = row.getValue("amount");
+            const orderItems = row.original.order?.items || [];
 
-            const valorReal = valor / 100;
+            // Sumamos los subtotales: cantidad * precio
+            const totalPesos = orderItems.reduce((acc, item) => {
+                const quantity = item.quantity;
+                const price = item.variety?.price || 0;
+                return acc + quantity * price;
+            }, 0);
 
-            const formatoCOP = new Intl.NumberFormat('es-CO', {
-                style: 'currency',
-                currency: 'COP',
-                minimumFractionDigits: 0 
-            }).format(valorReal);
-            
-            return (
-                <span className='w-fit'>{formatoCOP}</span>
-            );
+            const formatoCOP = new Intl.NumberFormat("es-CO", {
+                style: "currency",
+                currency: "COP",
+                minimumFractionDigits: 0,
+            }).format(totalPesos);
+
+            return <span className="w-fit">{formatoCOP}</span>;
         }
     },
     {
@@ -102,9 +125,6 @@ export const columns = [
                 <div className='flex flex-row gap-4 w-full'>
                     <button className='cursor-pointer' onClick={() => navigate(`facturas/${id}`)}>
                         <Eye />
-                    </button>
-                    <button className='cursor-pointer'>
-                        <FileDown />
                     </button>
                 </div>
             );

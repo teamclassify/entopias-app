@@ -2,7 +2,7 @@ import axios from "axios";
 import { URL, handleAxiosError } from ".";
 import { getToken } from "./Auth";
 
-async function getAllInvoices({ page = 1, search }) {
+async function getAllInvoices({ page = 1, search, status }) {
     const token = await getToken();
 
     if (!token) throw new Error("Token not found");
@@ -18,6 +18,7 @@ async function getAllInvoices({ page = 1, search }) {
             params: {
                 page,
                 search,
+                status,
             },
         });
 
@@ -48,7 +49,6 @@ async function getInvoiceByID({ id }) {
         const invoice = datos.data.invoices.find(inv => inv.id === Number(id));
 
         if (!invoice) {
-            console.log("sapa no sirve");
             throw new Error(`Invoice with id ${id} not found`);
         }
 
@@ -56,12 +56,41 @@ async function getInvoiceByID({ id }) {
     } catch (error) {
         return handleAxiosError(error);
     }
-    
+
 }
+
+async function generatePdf({ from, to, limit }) {
+  const token = await getToken();
+
+  if (!token) throw new Error("Token not found");
+
+  try {
+    const res = await axios({
+      url: `${URL}/invoices/report`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        
+      },
+      params: {
+        from,
+        to,
+        limit,
+      },
+      responseType: "blob", // 👈 esto es clave para obtener el archivo
+    });
+
+    return res.data; // Esto será un blob
+  } catch (error) {
+    return handleAxiosError(error);
+  }
+}
+
 
 const InvoicesService = {
     getAllInvoices,
     getInvoiceByID,
+    generatePdf,
 
 };
 

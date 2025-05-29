@@ -2,37 +2,16 @@ import axios from "axios";
 import { URL, handleAxiosError } from ".";
 import { getToken } from "./Auth";
 
-async function getAll({ page = 1, search }) {
+async function getAdminSummary() {
   const token = await getToken();
-
   if (!token) throw new Error("Token not found");
 
   try {
     const res = await axios({
-      url: `${URL}/batches`,
+      url: `${URL}/admin/summary`,
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      params: {
-        page,
-        search,
-      },
-    });
-
-    return res.data;
-  } catch (error) {
-    return handleAxiosError(error);
-  }
-}
-
-async function getById({ id }) {
-  try {
-    const res = await axios({
-      url: `${URL}/batches/${id}`,
-      method: "GET",
-      headers: {
         "Content-Type": "application/json",
       },
     });
@@ -43,31 +22,50 @@ async function getById({ id }) {
   }
 }
 
-async function create(data) {
+async function getRecentInvoices() {
   const token = await getToken();
-
   if (!token) throw new Error("Token not found");
 
   try {
     const res = await axios({
-      url: `${URL}/batches`,
-      method: "POST",
+      url: `${URL}/invoices/recent`,
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      data: data,
     });
+
     return res.data;
   } catch (error) {
-    handleAxiosError(error);
+    return handleAxiosError(error);
   }
 }
 
-const ProductsBatchService = {
-  getAll,
-  create,
-  getById,
+async function getRecentUsers() {
+  const token = await getToken();
+  if (!token) throw new Error("Token not found");
+
+  try {
+    const res = await axios({
+      url: `${URL}/users/recent`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    return handleAxiosError(error);
+  }
+}
+
+const DashboardService = {
+  getAdminSummary,
+  getRecentInvoices,
+  getRecentUsers,
 };
 
-export default ProductsBatchService;
+export default DashboardService;

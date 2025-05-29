@@ -13,6 +13,7 @@ export const columns = [
         header: "Precio Unitario",
         cell: ({ row }) => {
             const valor = row.getValue("variety.price");
+            console.log(valor);
 
             const total = new Intl.NumberFormat('es-CO', {
                 style: 'currency',
