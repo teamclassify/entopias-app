@@ -3,60 +3,59 @@ import { URL, handleAxiosError } from ".";
 import { getToken } from "./Auth";
 
 async function getAllInvoices({ page = 1, search, status }) {
-    const token = await getToken();
+  const token = await getToken();
 
-    if (!token) throw new Error("Token not found");
+  if (!token) throw new Error("Token not found");
 
-    try {
-        const res = await axios({
-            url: `${URL}/invoices`,
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-            },
-            params: {
-                page,
-                search,
-                status,
-            },
-        });
+  try {
+    const res = await axios({
+      url: `${URL}/invoices`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      params: {
+        page,
+        search,
+        status,
+      },
+    });
 
-        return res.data;
-    } catch (error) {
-        return handleAxiosError(error);
-    }
+    return res.data;
+  } catch (error) {
+    return handleAxiosError(error);
+  }
 }
 
 async function getInvoiceByID({ id }) {
-    const token = await getToken();
+  const token = await getToken();
 
-    if (!token) throw new Error("Token not found");
+  if (!token) throw new Error("Token not found");
 
-    try {
-        const res = await axios({
-            url: `${URL}/invoices`,
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-            },
-            params: {
-                id,
-            },
-        });
-        const datos = res.data;
-        const invoice = datos.data.invoices.find(inv => inv.id === Number(id));
+  try {
+    const res = await axios({
+      url: `${URL}/invoices`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      params: {
+        id,
+      },
+    });
+    const datos = res.data;
+    const invoice = datos.data.invoices.find((inv) => inv.id === Number(id));
 
-        if (!invoice) {
-            throw new Error(`Invoice with id ${id} not found`);
-        }
-
-        return invoice;
-    } catch (error) {
-        return handleAxiosError(error);
+    if (!invoice) {
+      throw new Error(`Invoice with id ${id} not found`);
     }
 
+    return invoice;
+  } catch (error) {
+    return handleAxiosError(error);
+  }
 }
 
 async function generatePdf({ from, to, limit }) {
@@ -70,7 +69,6 @@ async function generatePdf({ from, to, limit }) {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
-        
       },
       params: {
         from,
@@ -86,12 +84,34 @@ async function generatePdf({ from, to, limit }) {
   }
 }
 
+async function getTopSelling({ limit = 5 }) {
+  const token = await getToken();
+
+  if (!token) throw new Error("Token not found");
+
+  try {
+    const res = await axios({
+      url: `${URL}/invoices/top-selling`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        limit,
+      },
+    });
+
+    return res.data.data;
+  } catch (error) {
+    return handleAxiosError(error);
+  }
+}
 
 const InvoicesService = {
-    getAllInvoices,
-    getInvoiceByID,
-    generatePdf,
-
+  getAllInvoices,
+  getInvoiceByID,
+  generatePdf,
+  getTopSelling,
 };
 
 export default InvoicesService;
