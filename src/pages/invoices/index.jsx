@@ -36,32 +36,47 @@ function InvoicesManagment() {
     }
   };
 
+  const handleDownloadCsv = async () => {
+    try {
+      const query = {};
+      if (from) query.from = from;
+      if (to) query.to = to;
+      if (limit) query.limit = limit;
+
+      const blob = await InvoicesService.generateCsv(query);
+
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "reporte_facturas.csv");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url); // liberar memoria
+      //setShowModal(false); // cerrar modal después
+    } catch (error) {
+      console.error("Error al generar el PDF:", error);
+    }
+  };
+
 
   return (
     <AdminLayout>
       <main>
         <h1 className="font-bold">Ver Facturas</h1>
-        <div className="flex flex-row gap-2 ">
+        <div className="flex flex-row justify-end">
           <Button
             type="button"
             variant="secondary"
             onClick={() => setShowModal(true)}
             className="mb-2"
           >
-            PDF
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            //onClick={() => {}}
-            className="mb-2"
-          >
-            CSV
+            Descargar Reporte
           </Button>
         </div>
         {showModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-            <div className="bg-white p-6 rounded shadow-lg w-full max-w-md">
+            <div className="bg-white p-6 rounded shadow-lg w-full max-w-[600px]">
               <h2 className="text-xl font-bold mb-4 text-center">Filtrar Reporte</h2>
 
               <label className="block mb-2">
@@ -101,6 +116,12 @@ function InvoicesManagment() {
                   className="bg-[#B76E49] text-white px-4 py-2 rounded hover:bg-[#daa084] cursor-pointer"
                 >
                   Descargar PDF
+                </button>
+                <button
+                  onClick={handleDownloadCsv}
+                  className="bg-[#B76E49] text-white px-4 py-2 rounded hover:bg-[#daa084] cursor-pointer"
+                >
+                  Descargar CSV
                 </button>
                 <button
                   onClick={() => setShowModal(false)}

@@ -85,11 +85,39 @@ async function generatePdf({ from, to, limit }) {
   }
 }
 
+async function generateCsv({ from, to, limit }) {
+  const token = await getToken();
+
+  if (!token) throw new Error("Token not found");
+
+  try {
+    const res = await axios({
+      url: `http://localhost:8080/api/invoices/report/csv`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        
+      },
+      params: {
+        from,
+        to,
+        limit,
+      },
+      responseType: "blob", 
+    });
+
+    return res.data; 
+  } catch (error) {
+    return handleAxiosError(error);
+  }
+}
+
 
 const InvoicesService = {
     getAllInvoices,
     getInvoiceByID,
     generatePdf,
+    generateCsv,
 
 };
 
