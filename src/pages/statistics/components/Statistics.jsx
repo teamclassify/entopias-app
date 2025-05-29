@@ -4,7 +4,6 @@ import { Bar, BarChart, XAxis, YAxis, Cell } from "recharts";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -32,7 +31,7 @@ const COLORS = [
   "#a855f7", // Purple
 ];
 
-export default function Stadistic({ data, dataKey, title }) {
+export default function Statistics({ data, dataKey, title }) {
   const formatData = data.data.map((item) => ({
     [dataKey[0]]: item[dataKey[0]],
     [dataKey[1]]: item.name
@@ -53,24 +52,38 @@ export default function Stadistic({ data, dataKey, title }) {
             accessibilityLayer
             data={formatData}
             layout="vertical"
-            margin={{ left: 20 }}
+            margin={{ top: 10, right: 30, left: 20, bottom: 10 }}
           >
             <YAxis
               dataKey={dataKey[1]}
               type="category"
               tickLine={false}
-              tickMargin={10}
+              tickMargin={0}
               axisLine={false}
               tickFormatter={(value) => value}
+              className="text-sm"
             />
-            <XAxis dataKey={dataKey[0]} type="number" />
+            <XAxis
+              dataKey={dataKey[0]}
+              type="number"
+              label={{
+                value: dataKey[0] === "soldCount" ? "Cantidad vendida" : "Ingresos",
+                position: "insideBottomRight",
+                offset: -6,
+              }}
+              className="text-sm"
+
+            />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
             <Bar dataKey={dataKey[0]} layout="vertical" radius={5}>
               {formatData.map((_, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
               ))}
             </Bar>
           </BarChart>

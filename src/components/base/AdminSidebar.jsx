@@ -142,7 +142,7 @@ const itemsADMIN = [
     ],
   },
    {
-    title: "Estadisticas",
+    title: "Estatisticas",
     url: "/admin/estadisticas",
     icon: ChartColumnIncreasing,
     subitems: [
