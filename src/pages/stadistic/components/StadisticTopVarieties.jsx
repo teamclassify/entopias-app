@@ -1,5 +1,5 @@
 import { TrendingUp } from "lucide-react";
-import { Bar, BarChart, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, XAxis, YAxis, Cell } from "recharts";
 
 import {
   Card,
@@ -15,7 +15,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-// Este config puede ser dinámico si lo necesitas más adelante
 const chartConfig = {
   genericKey: {
     label: "Dato",
@@ -23,21 +22,30 @@ const chartConfig = {
   },
 };
 
-export default function Stadistic({ data, dataKey }) {
+const COLORS = [
+  "#4f46e5", // Indigo
+  "#22c55e", // Green
+  "#ec4899", // Pink
+  "#f97316", // Orange
+  "#0ea5e9", // Sky Blue
+  "#eab308", // Yellow
+  "#a855f7", // Purple
+];
+
+export default function Stadistic({ data, dataKey, title }) {
   const formatData = data.data.map((item) => ({
     [dataKey[0]]: item[dataKey[0]],
-    [dataKey[1]]: item[dataKey[1]]?.name
+    [dataKey[1]]: item.name
+      ? item.name
+      : item[dataKey[1]]?.name
       ? `${item[dataKey[1]].name} ${item.weight}gr`
       : item[dataKey[1]],
   }));
 
-  console.log("Formatted Data:", formatData);
-
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Variedades más vendidas</CardTitle>
-        <CardDescription>Datos agregados</CardDescription>
+        <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -60,12 +68,11 @@ export default function Stadistic({ data, dataKey }) {
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar
-              dataKey={dataKey[0]}
-              layout="vertical"
-              radius={5}
-              fill="hsl(var(--chart-1))"
-            />
+            <Bar dataKey={dataKey[0]} layout="vertical" radius={5}>
+              {formatData.map((_, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Bar>
           </BarChart>
         </ChartContainer>
       </CardContent>

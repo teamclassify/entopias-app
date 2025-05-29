@@ -76,11 +76,11 @@ async function getTotalSales({ startDate, endDate, granularity = "day" }) {
 
   try {
     const res = await axios({
-      url: `${URL}/stats/total-sales`,
+      url: `${URL}/stats/top-sales-product`,
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
       params: { startDate, endDate, granularity },
     });

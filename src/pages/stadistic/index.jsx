@@ -15,7 +15,6 @@ export default function Stadistic() {
   const {
     data: dataTopVarieties,
     isLoading,
-    isError,
   } = useQuery({
     queryKey: ["stadistic-products"],
     queryFn: () =>
@@ -27,15 +26,44 @@ export default function Stadistic() {
       }),
   });
 
+  const {
+    data: dataProfitVarieties,
+    isLoading: isLoadingProfitVarieties,
+  } = useQuery({
+    queryKey: ["stadistic-profitable-products"],
+    queryFn: () =>
+      StatsProductsService.getTopProfitableVarieties({
+        startDate,
+        endDate,
+        granularity,
+        limit,
+      }),
+  });
+
+   const {
+    data: dataTopSales,
+    isLoading: isLoadingTopSales,
+  } = useQuery({
+    queryKey: ["stadistic-top-sales-products"],
+    queryFn: () =>
+      StatsProductsService.getTotalSales({
+        startDate,
+        endDate,
+        granularity,
+        limit,
+      }),
+  });
+
   return (
     <DefaultLayout>
-      <div className="grid grid-cols-2 gap-5">
-        {isLoading ? (
+      <div className="grid md:grid-cols-2 gap-5">
+        {isLoading || isLoadingProfitVarieties ? (
           <Loading />
         ) : (
           <>
-          <StadisticTopVarieties data={dataTopVarieties} dataKey={["soldCount", "product"]} />
-          <StadisticTopVarieties data={dataTopVarieties} dataKey={["soldCount", "product"]} />
+          <StadisticTopVarieties data={dataTopVarieties} dataKey={["soldCount", "product"]} title={"Variedades más vendidas"}/>
+          <StadisticTopVarieties data={dataProfitVarieties} dataKey={["revenue", "product"]} title={"Variedades más rentables"} />
+          <StadisticTopVarieties data={dataTopSales} dataKey={["soldCount", "product"]} title={"Productos más vendidos"} />
           </>
         )}
       </div>
