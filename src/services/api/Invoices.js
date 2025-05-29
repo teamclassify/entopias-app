@@ -76,10 +76,10 @@ async function generatePdf({ from, to, limit }) {
         to,
         limit,
       },
-      responseType: "blob", // 👈 esto es clave para obtener el archivo
+      responseType: "blob", 
     });
 
-    return res.data; // Esto será un blob
+    return res.data; 
   } catch (error) {
     return handleAxiosError(error);
   }
