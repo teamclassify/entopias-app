@@ -151,6 +151,11 @@ const itemsADMIN = [
         url: "/admin/estadisticas/productos",
         icon: List,
       },
+      {
+        title: "Ver Clientes",
+        url: "/admin/estadisticas/clientes",
+        icon: List,
+      },
     ],
   },
 ];
