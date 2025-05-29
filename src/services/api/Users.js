@@ -36,6 +36,36 @@ async function getAll({ page = 0, role, search }) {
   }
 }
 
+async function getRecentUsers({ startDate, endDate, limit }) {
+  const token = await getToken();
+
+  if (!token) throw new Error("Token not found");
+
+  try {
+    const res = await axios({
+      url: `${URL}/users/recent`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      params: {
+        startDate,
+        endDate,
+        limit,
+      },
+    });
+
+    if (res.status !== 200) {
+      throw new Error("Error obteniendo usuarios recientes");
+    }
+
+    return res.data;
+  } catch (error) {
+    return handleAxiosError(error);
+  }
+}
+
 async function updateRole({ id, role }) {
   const token = await getToken();
 
@@ -93,11 +123,11 @@ async function updateUser({ id, data }) {
   }
 }
 
-
 const UsersService = {
   getAll,
   updateRole,
   updateUser,
+  getRecentUsers,
 };
 
 export default UsersService;
