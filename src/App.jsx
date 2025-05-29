@@ -31,8 +31,9 @@ import ListSalesPage from "./pages/sales/list";
 import SignInPage from "./pages/signin";
 import SignUpPage from "./pages/signup";
 import Traceability from "./pages/traceability";
-import UsersStatsPage from "./pages/stadistic/users";
+import UsersStatsPage from "./pages/statistics/users";
 import Statistics from "./pages/statistics";
+import SalesStatsPage from "./pages/statistics/invoices";
 
 function App() {
   return (
@@ -80,6 +81,7 @@ function App() {
         <Route component={AddAddress} path="/carrito/direccion/nueva" />
         <Route component={Traceability} path="/origen/:id" />
         <Route component={UsersStatsPage} path="/admin/estadisticas/clientes" />
+        <Route component={SalesStatsPage} path="/admin/estadisticas/ventas" />
         <Route component={Statistics} path="/admin/estadisticas/productos" />
         <Route component={NotFoundPage} />
       </Switch>
