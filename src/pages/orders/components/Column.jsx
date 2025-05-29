@@ -65,17 +65,22 @@ export const columns = [
       </div>
     ),
     cell: ({ row }) => {
-      const valor = row.getValue("total");
+      const orderItems = row.original.items || [];
 
-      const valorReal = valor / 100;
+            // Sumamos los subtotales: cantidad * precio
+            const totalPesos = orderItems.reduce((acc, item) => {
+                const quantity = item.quantity;
+                const price = item.variety?.price || 0;
+                return acc + quantity * price;
+            }, 0);
 
-      const formatoCOP = new Intl.NumberFormat("es-CO", {
-        style: "currency",
-        currency: "COP",
-        minimumFractionDigits: 0,
-      }).format(valorReal);
+            const formatoCOP = new Intl.NumberFormat("es-CO", {
+                style: "currency",
+                currency: "COP",
+                minimumFractionDigits: 0,
+            }).format(totalPesos);
 
-      return <span className="w-fit">{formatoCOP}</span>;
+            return <span className="w-fit">{formatoCOP}</span>;
     },
   },
   {
