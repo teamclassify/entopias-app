@@ -213,6 +213,15 @@
       "subtotal": "Subtotal",
       "total": "Total",
       "shipping": "Envío"
+    },
+
+    "catalog": {
+      "price": "Precio",
+      "type": "Tipo",
+      "weight": "Peso",
+      "aroma": "Aroma",
+      "search_placeholder": "Buscae producto...",
+      "page_summary": "Mostrando {{start}} - {{end}} de {{total}} resultados"
     }
   }
 }

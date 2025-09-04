@@ -91,7 +91,7 @@
         "description": "The page you are looking for does not exist."
       }
     },
-    
+
     "errorProduct": {
       "title": "No products available",
       "description": "We are sorry, but there are no products available at the moment. Please check back later."
@@ -210,6 +210,15 @@
       "subtotal": "Subtotal",
       "total": "Total",
       "shipping": "Shipping"
+    },
+
+    "catalog": {
+      "price": "Price",
+      "type": "Type",
+      "weight": "Weight",
+      "aroma": "Aroma",
+      "search_placeholder": "Search products...",
+      "page_summary": "Showing {{start}} - {{end}} of {{total}} results"
     }
   }
 }
