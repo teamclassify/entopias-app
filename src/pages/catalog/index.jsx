@@ -1,18 +1,14 @@
 import DefaultLayout from "@/components/layouts/DefaultLayout";
 import AccordionFilter from "./components/AccordionFilter";
 import Pagination from "./components/Pagination";
-import { Error } from "@/components/ui/error";
 import ListProducts from "./components/ListProducts";
 import PaginationSummary from "./components/PaginationSummary";
 import useProduct from "../../hooks/useProducts";
 import { Input } from "@/components/ui/input";
+import ErrorProduct from "@/components/base/ErrorProducts";
 
 function Index() {
   const { data, isError, page, setPage, setSearchByName } = useProduct();
-
-  if (isError || data?.error) {
-    return <Error message={data?.msg || "An unexpected error occurred"} />;
-  }
 
   return (
     <DefaultLayout>
@@ -28,7 +24,11 @@ function Index() {
               className="mb-4"
             />
             <PaginationSummary />
-            <ListProducts />
+            {isError || data?.error ? (
+              <ErrorProduct />
+            ) : (
+              <ListProducts />
+            )}
           </main>
         </div>
         <Pagination
