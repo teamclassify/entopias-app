@@ -3,12 +3,15 @@ import { useTranslation } from "react-i18next";
 import HeroSection from "./components/HeroSection";
 import ImageBackground from "./components/ImageBackground";
 import InfoCards from "./components/InfoCards";
-import ListProducts from "./components/ListProducts";
+import ListProducts from "@/pages/catalog/components/ListProducts";
 import LogoInfo from "./components/LogoInfo";
 import Message from "./components/Message";
+import ErrorProduct from "@/components/base/ErrorProducts";
+import useProduct from "../../hooks/useProducts";
 
 function HomePage() {
   const { t } = useTranslation();
+  const { data, isError} = useProduct();
 
   return (
     <DefaultLayout>
@@ -22,7 +25,11 @@ function HomePage() {
           {t("homePage.our_products.title")}
         </h2>
         <div className="w-full">
+          {isError || data?.error ? (
+            <ErrorProduct />
+          ):
           <ListProducts />
+          }
         </div>
       </div>
       <InfoCards />
