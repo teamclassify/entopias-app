@@ -6,9 +6,11 @@ import PaginationSummary from "./components/PaginationSummary";
 import useProduct from "../../hooks/useProducts";
 import { Input } from "@/components/ui/input";
 import ErrorProduct from "@/components/base/ErrorProducts";
+import { useTranslation } from "react-i18next";
 
 function Index() {
   const { data, isError, page, setPage, setSearchByName } = useProduct();
+  const { t } = useTranslation();
 
   return (
     <DefaultLayout>
@@ -19,7 +21,7 @@ function Index() {
           </aside>
           <main className="w-full md:w-3/4">
             <Input
-              placeholder="Buscar producto"
+              placeholder={t("catalog.search_placeholder")}
               onChange={(e) => setSearchByName(e.target.value)}
               className="mb-4"
             />
