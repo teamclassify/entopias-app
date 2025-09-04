@@ -92,6 +92,11 @@
       }
     },
 
+    "errorProduct": {
+      "title": "No products available",
+      "description": "We are sorry, but there are no products available at the moment. Please check back later."
+    },
+
     "payments": {
       "title": "Payments",
       "description": "Hello {{name}}, please enter your credit card details to complete the payment.",
@@ -205,6 +210,15 @@
       "subtotal": "Subtotal",
       "total": "Total",
       "shipping": "Shipping"
+    },
+
+    "catalog": {
+      "price": "Price",
+      "type": "Type",
+      "weight": "Weight",
+      "aroma": "Aroma",
+      "search_placeholder": "Search products...",
+      "page_summary": "Showing {{start}} - {{end}} of {{total}} results"
     }
   }
 }

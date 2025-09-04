@@ -95,6 +95,11 @@
       }
     },
 
+    "errorProduct": {
+      "title": "No hay productos por ahora disponible",
+      "description": "¡Vuelve pronto! Estamos trabajando para ofrecerte los mejores productos."
+    },
+
     "payments": {
       "title": "Pagos",
       "description": "Hola {{name}}, por favor, ingrese los datos de su tarjeta de crédito para completar el pago.",
@@ -208,6 +213,15 @@
       "subtotal": "Subtotal",
       "total": "Total",
       "shipping": "Envío"
+    },
+
+    "catalog": {
+      "price": "Precio",
+      "type": "Tipo",
+      "weight": "Peso",
+      "aroma": "Aroma",
+      "search_placeholder": "Buscae producto...",
+      "page_summary": "Mostrando {{start}} - {{end}} de {{total}} resultados"
     }
   }
 }
